@@ -18,10 +18,7 @@ export default function Home() {
           <a href="#reformistas" className="text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors">
             Soy reformista
           </a>
-          
-            href="#calcular"
-            className="bg-[#C4531A] text-white text-sm px-4 py-2 rounded-full hover:bg-[#A84414] transition-colors"
-          >
+          <a href="#calcular" className="bg-[#C4531A] text-white text-sm px-4 py-2 rounded-full hover:bg-[#A84414] transition-colors">
             Calcular precio
           </a>
         </div>
