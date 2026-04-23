@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Calculadora from "@/app/components/Calculadora";
 
 export const metadata: Metadata = {
   title: "ReformaReal — Sabe cuánto cuesta tu reforma antes de llamar a nadie",
@@ -40,13 +41,13 @@ export default function Home() {
           Reformistas con licencia, seguro y obras verificadas.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          
+          <a
             href="#calcular"
             className="bg-[#C4531A] text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#A84414] transition-colors"
           >
             Calcular precio gratis →
           </a>
-          
+          <a
             href="#como-funciona"
             className="border border-[#C4B8AE] text-[#6B5B4E] px-8 py-4 rounded-full text-lg hover:border-[#1C1208] hover:text-[#1C1208] transition-colors"
           >
@@ -114,68 +115,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CALCULADORA CTA */}
-      <section id="calcular" className="bg-[#C4531A] py-20">
-        <div className="max-w-2xl mx-auto px-6 text-center text-white">
-          <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">
-            ¿Cuánto cuesta tu reforma?
-          </h2>
-          <p className="text-white/80 text-lg mb-10">
-            Introduce los datos básicos y recibe un desglose real por capítulos. Gratis, sin registrarte.
-          </p>
-          <div className="bg-white rounded-2xl p-8 text-left text-[#1C1208]">
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div>
-                <label className="text-xs font-semibold text-[#6B5B4E] uppercase tracking-wide block mb-2">
-                  m² de la vivienda
-                </label>
-                <input
-                  type="number"
-                  placeholder="80"
-                  className="w-full border border-[#E8DFD8] rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-[#C4531A]"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-semibold text-[#6B5B4E] uppercase tracking-wide block mb-2">
-                  Ciudad
-                </label>
-                <input
-                  type="text"
-                  placeholder="Madrid"
-                  className="w-full border border-[#E8DFD8] rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-[#C4531A]"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div>
-                <label className="text-xs font-semibold text-[#6B5B4E] uppercase tracking-wide block mb-2">
-                  Tipo de reforma
-                </label>
-                <select className="w-full border border-[#E8DFD8] rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-[#C4531A] bg-white">
-                  <option>Integral</option>
-                  <option>Cocina</option>
-                  <option>Baño</option>
-                  <option>Parcial</option>
-                </select>
-              </div>
-              <div>
-                <label className="text-xs font-semibold text-[#6B5B4E] uppercase tracking-wide block mb-2">
-                  Calidad
-                </label>
-                <select className="w-full border border-[#E8DFD8] rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-[#C4531A] bg-white">
-                  <option>Media</option>
-                  <option>Básica</option>
-                  <option>Premium</option>
-                </select>
-              </div>
-            </div>
-            <button className="w-full bg-[#C4531A] text-white py-4 rounded-xl text-lg font-bold hover:bg-[#A84414] transition-colors">
-              Ver estimación de precio →
-            </button>
-            <p className="text-center text-xs text-[#6B5B4E] mt-3">Sin registro · Sin spam · Resultado inmediato</p>
-          </div>
-        </div>
-      </section>
+      <Calculadora />
 
       {/* PARA REFORMISTAS */}
       <section id="reformistas" className="py-24 max-w-6xl mx-auto px-6">
