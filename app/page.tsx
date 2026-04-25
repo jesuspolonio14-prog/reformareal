@@ -31,9 +31,6 @@ export default function Home() {
 
       {/* HERO */}
       <section className="max-w-4xl mx-auto px-5 pt-14 pb-16 text-center">
-        <div className="inline-block bg-[#C4531A]/10 text-[#C4531A] text-xs font-semibold px-3 py-1 rounded-full mb-5 tracking-wide uppercase">
-          Madrid · Próximamente Barcelona
-        </div>
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] mb-5 tracking-tight">
           El precio primero,<br />
           <span className="text-[#C4531A]">el reformista después</span>

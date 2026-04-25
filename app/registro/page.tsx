@@ -17,6 +17,19 @@ const planes = [
 export default function Registro() {
   const [state, action, pending] = useActionState(registrarReformista, initialState)
   const [planSeleccionado, setPlanSeleccionado] = useState('pro')
+  const [passError, setPassError] = useState('')
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    const form = e.currentTarget
+    const pass = (form.elements.namedItem('password') as HTMLInputElement).value
+    const confirm = (form.elements.namedItem('confirm_password') as HTMLInputElement).value
+    if (pass !== confirm) {
+      e.preventDefault()
+      setPassError('Las contraseñas no coinciden.')
+    } else {
+      setPassError('')
+    }
+  }
 
   // Cuando el usuario está creado, redirigir a Stripe
   useEffect(() => {
@@ -47,7 +60,7 @@ export default function Registro() {
         <h1 className="text-3xl font-black mb-2">Crea tu perfil de reformista</h1>
         <p className="text-[#6B5B4E] mb-8">Accede a clientes que ya conocen el precio de su reforma.</p>
 
-        <form action={action} className="space-y-6">
+        <form action={action} onSubmit={handleSubmit} className="space-y-6">
           {state.status === 'error' && (
             <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">
               {state.message}
@@ -104,6 +117,15 @@ export default function Registro() {
               </label>
               <input name="password" type="password" required placeholder="Mínimo 8 caracteres"
                 className="w-full border border-[#E8DFD8] rounded-xl px-4 py-3 focus:outline-none focus:border-[#C4531A]" />
+            </div>
+
+            <div>
+              <label className="text-xs font-semibold text-[#6B5B4E] uppercase tracking-wide block mb-2">
+                Repetir contraseña <span className="text-[#C4531A]">*</span>
+              </label>
+              <input name="confirm_password" type="password" required placeholder="Repite la contraseña"
+                className={`w-full border rounded-xl px-4 py-3 focus:outline-none transition-colors ${passError ? 'border-red-400 focus:border-red-500' : 'border-[#E8DFD8] focus:border-[#C4531A]'}`} />
+              {passError && <p className="text-red-600 text-xs mt-1">{passError}</p>}
             </div>
 
             <div>
