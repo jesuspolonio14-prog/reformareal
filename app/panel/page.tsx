@@ -49,14 +49,9 @@ export default async function Panel() {
             <h1 className="text-3xl font-black">Hola, {perfil?.nombre ?? 'reformista'} 👋</h1>
             <p className="text-[#6B5B4E] mt-1">{perfil?.ciudad} · {perfil?.plan ?? 'Básico'}</p>
           </div>
-          {!perfil?.verificado && (
-            <div className="bg-amber-50 border border-amber-200 text-amber-700 text-sm rounded-xl px-4 py-3 max-w-xs">
-              ⏳ Tu perfil está pendiente de verificación. Te avisaremos en 48 h.
-            </div>
-          )}
-          {perfil?.verificado && (
+            {perfil?.plan_pagado && (
             <div className="bg-green-50 border border-green-200 text-green-700 text-sm rounded-xl px-4 py-3">
-              ✅ Perfil verificado
+              ✅ Plan {perfil?.plan} activo
             </div>
           )}
         </div>
