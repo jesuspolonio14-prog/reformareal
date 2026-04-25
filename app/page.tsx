@@ -12,15 +12,15 @@ export default function Home() {
     <main className="min-h-screen bg-[#F7F3EE] text-[#1C1208]">
 
       {/* NAV */}
-      <nav className="flex justify-between items-center px-6 py-4 max-w-6xl mx-auto">
+      <nav className="flex justify-between items-center px-4 sm:px-6 py-4 max-w-6xl mx-auto">
         <a href="/" className="flex items-center gap-2">
-          <Image src="/logo-rr.svg" alt="ReformaReal" width={36} height={32} priority />
-          <span className="text-xl font-bold tracking-tight">
+          <Image src="/logo-rr.svg" alt="ReformaReal" width={32} height={28} priority />
+          <span className="text-lg sm:text-xl font-bold tracking-tight">
             reforma<span className="text-[#C4531A]">real</span>
           </span>
         </a>
-        <div className="flex gap-4 items-center">
-          <a href="/reformistas" className="text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors">
+        <div className="flex gap-2 sm:gap-4 items-center">
+          <a href="/reformistas" className="hidden sm:block text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors">
             Soy reformista
           </a>
           <a href="#calcular" className="bg-[#C4531A] text-white text-sm px-4 py-2 rounded-full hover:bg-[#A84414] transition-colors">
@@ -30,44 +30,41 @@ export default function Home() {
       </nav>
 
       {/* HERO */}
-      <section className="max-w-6xl mx-auto px-6 pt-20 pb-24 text-center">
-        <div className="inline-block bg-[#C4531A]/10 text-[#C4531A] text-xs font-semibold px-3 py-1 rounded-full mb-6 tracking-wide uppercase">
+      <section className="max-w-4xl mx-auto px-5 pt-14 pb-16 text-center">
+        <div className="inline-block bg-[#C4531A]/10 text-[#C4531A] text-xs font-semibold px-3 py-1 rounded-full mb-5 tracking-wide uppercase">
           Madrid · Próximamente Barcelona
         </div>
-        <h1 className="text-5xl md:text-7xl font-black leading-tight mb-6 tracking-tight">
-          Sabe cuánto cuesta<br />
-          tu reforma{" "}
-          <span className="text-[#C4531A]">antes de llamar</span><br />
-          a nadie
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.1] mb-5 tracking-tight">
+          El precio primero,<br />
+          <span className="text-[#C4531A]">el reformista después</span>
         </h1>
-        <p className="text-xl text-[#6B5B4E] max-w-2xl mx-auto mb-10 leading-relaxed">
-          Estimación por capítulos en 2 minutos. Tres presupuestos comparables, en el mismo formato.
-          Reformistas con licencia, seguro y obras verificadas.
+        <p className="text-base sm:text-lg text-[#6B5B4E] max-w-xl mx-auto mb-8 leading-relaxed">
+          Estimación real en 2 minutos. Tres presupuestos comparables. Reformistas verificados.
         </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+        <div className="flex flex-col sm:flex-row gap-3 justify-center px-4 sm:px-0">
           <a
             href="#calcular"
-            className="bg-[#C4531A] text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#A84414] transition-colors"
+            className="bg-[#C4531A] text-white px-7 py-4 rounded-full text-base font-semibold hover:bg-[#A84414] transition-colors"
           >
             Calcular precio gratis →
           </a>
           <a
             href="#como-funciona"
-            className="border border-[#C4B8AE] text-[#6B5B4E] px-8 py-4 rounded-full text-lg hover:border-[#1C1208] hover:text-[#1C1208] transition-colors"
+            className="border border-[#C4B8AE] text-[#6B5B4E] px-7 py-4 rounded-full text-base hover:border-[#1C1208] hover:text-[#1C1208] transition-colors"
           >
             Cómo funciona
           </a>
         </div>
 
         {/* STATS */}
-        <div className="mt-16 grid grid-cols-3 gap-6 max-w-lg mx-auto">
+        <div className="mt-12 grid grid-cols-3 gap-3 max-w-xs sm:max-w-lg mx-auto">
           {[
             { n: "2 min", label: "Estimación de precio" },
             { n: "3", label: "Presupuestos comparables" },
             { n: "100%", label: "Reformistas verificados" },
           ].map((s) => (
             <div key={s.label} className="text-center">
-              <div className="text-2xl font-black text-[#C4531A]">{s.n}</div>
+              <div className="text-xl sm:text-2xl font-black text-[#C4531A]">{s.n}</div>
               <div className="text-xs text-[#6B5B4E] mt-1 leading-tight">{s.label}</div>
             </div>
           ))}
