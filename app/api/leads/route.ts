@@ -30,21 +30,21 @@ export async function POST(request: Request) {
     return Response.json({ error: 'Teléfono requerido' }, { status: 422 })
   }
 
-  const { error } = await getSupabase().from('leads').insert({
-    nombre:      (nombre as string).trim(),
-    telefono:    (telefono as string).trim(),
-    email:       typeof email === 'string' && email.trim() ? email.trim() : null,
-    metros:      typeof metros === 'number' ? metros : null,
-    ciudad:      typeof ciudad === 'string' ? ciudad.trim() : null,
-    tipo_reforma: typeof tipo_reforma === 'string' ? tipo_reforma : null,
-    calidad:     typeof calidad === 'string' ? calidad : null,
-    total_min:   typeof total_min === 'number' ? total_min : null,
-    total_max:   typeof total_max === 'number' ? total_max : null,
-  })
-
-  if (error) {
-    console.error('Supabase insert error:', error)
-    return Response.json({ error: 'Error al guardar el lead' }, { status: 500 })
+  try {
+    const { error } = await getSupabase().from('leads').insert({
+      nombre:      (nombre as string).trim(),
+      telefono:    (telefono as string).trim(),
+      email:       typeof email === 'string' && email.trim() ? email.trim() : null,
+      metros:      typeof metros === 'number' ? metros : null,
+      ciudad:      typeof ciudad === 'string' ? ciudad.trim() : null,
+      tipo_reforma: typeof tipo_reforma === 'string' ? tipo_reforma : null,
+      calidad:     typeof calidad === 'string' ? calidad : null,
+      total_min:   typeof total_min === 'number' ? total_min : null,
+      total_max:   typeof total_max === 'number' ? total_max : null,
+    })
+    if (error) console.error('Supabase insert error:', error)
+  } catch (err) {
+    console.error('Supabase no configurado:', err)
   }
 
   await resend.emails.send({
