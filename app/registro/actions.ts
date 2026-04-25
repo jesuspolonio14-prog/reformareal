@@ -1,7 +1,7 @@
 'use server'
 
-import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase-server'
+import { getSupabase } from '@/lib/supabase'
 import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -48,15 +48,17 @@ export async function registrarReformista(
     return { status: 'error', message: authError.message }
   }
 
-  // Guardar perfil en la tabla
+  // Guardar perfil con clave admin (bypass RLS)
   if (data.user) {
-    await supabase.from('reformistas_perfiles').insert({
+    const admin = getSupabase()
+    const { error: insertError } = await admin.from('reformistas_perfiles').insert({
       id: data.user.id,
       nombre, empresa: empresa || null, telefono, ciudad,
       tipos_obra: tipos, licencia, seguro_rc: seguro,
       experiencia: experiencia || null,
       plan, plan_pagado: false,
     })
+    if (insertError) console.error('Insert perfil error:', insertError)
   }
 
   // Notificar al admin
