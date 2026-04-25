@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(mkdir -p c:/Users/jesus/micertificadoenergetico/app)",
+      "Bash(mkdir -p c:/Users/jesus/micertificadoenergetico/public)",
+      "Bash(npm install *)",
+      "Bash(cp -r c:/Users/jesus/reformareal c:/Users/jesus/Desktop/reformareal)",
+      "Bash(cp -r c:/Users/jesus/micertificadoenergetico c:/Users/jesus/Desktop/micertificadoenergetico)",
+      "Bash(rm -rf c:/Users/jesus/Desktop/reformareal/node_modules c:/Users/jesus/Desktop/reformareal/.next)",
+      "Bash(rm -rf c:/Users/jesus/Desktop/micertificadoenergetico/node_modules c:/Users/jesus/Desktop/micertificadoenergetico/.next)",
+      "Bash(cp \"c:/Users/jesus/Downloads/logo MCE.png\" \"c:/Users/jesus/micertificadoenergetico/public/logo-mce.png\")",
+      "Bash(cp \"c:/Users/jesus/Downloads/logo MCE.png\" \"c:/Users/jesus/Desktop/micertificadoenergetico/public/logo-mce.png\")",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git pull *)",
+      "Bash(git rebase *)",
+      "Bash(git -C c:/Users/jesus/reformareal pull)",
+      "Bash(rm -rf c:/Users/jesus/Desktop/reformareal c:/Users/jesus/Desktop/micertificadoenergetico)",
+      "Bash(rm -rf c:/Users/jesus/Desktop/reformareal/node_modules c:/Users/jesus/Desktop/reformareal/.next c:/Users/jesus/Desktop/micertificadoenergetico/node_modules c:/Users/jesus/Desktop/micertificadoenergetico/.next)"
+    ]
+  }
+}
