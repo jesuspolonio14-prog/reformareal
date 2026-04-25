@@ -48,9 +48,17 @@ export default function Home() {
           >
             Calcular precio gratis →
           </a>
+          {/* Móvil: Unirme como reformista */}
+          <a
+            href="/reformistas"
+            className="sm:hidden border border-[#C4B8AE] text-[#6B5B4E] px-7 py-4 rounded-full text-base hover:border-[#1C1208] hover:text-[#1C1208] transition-colors"
+          >
+            Unirme como reformista
+          </a>
+          {/* Desktop: Cómo funciona */}
           <a
             href="#como-funciona"
-            className="border border-[#C4B8AE] text-[#6B5B4E] px-7 py-4 rounded-full text-base hover:border-[#1C1208] hover:text-[#1C1208] transition-colors"
+            className="hidden sm:block border border-[#C4B8AE] text-[#6B5B4E] px-7 py-4 rounded-full text-base hover:border-[#1C1208] hover:text-[#1C1208] transition-colors"
           >
             Cómo funciona
           </a>
