@@ -20,7 +20,7 @@ export default function Home() {
           </span>
         </a>
         <div className="flex gap-4 items-center">
-          <a href="#reformistas" className="text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors">
+          <a href="/reformistas" className="text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors">
             Soy reformista
           </a>
           <a href="#calcular" className="bg-[#C4531A] text-white text-sm px-4 py-2 rounded-full hover:bg-[#A84414] transition-colors">
@@ -147,7 +147,7 @@ export default function Home() {
               ))}
             </ul>
             <div className="mt-10 flex gap-4">
-              <a href="#" className="bg-[#1C1208] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#2A1E10] transition-colors">
+              <a href="/reformistas" className="bg-[#1C1208] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#2A1E10] transition-colors">
                 Unirme como reformista →
               </a>
             </div>
