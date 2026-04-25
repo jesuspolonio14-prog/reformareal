@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Calculadora from "@/app/components/Calculadora";
 
 export const metadata: Metadata = {
@@ -12,9 +13,12 @@ export default function Home() {
 
       {/* NAV */}
       <nav className="flex justify-between items-center px-6 py-4 max-w-6xl mx-auto">
-        <span className="text-xl font-bold tracking-tight">
-          reforma<span className="text-[#C4531A]">real</span>
-        </span>
+        <a href="/" className="flex items-center gap-2">
+          <Image src="/logo-rr.svg" alt="ReformaReal" width={36} height={32} priority />
+          <span className="text-xl font-bold tracking-tight">
+            reforma<span className="text-[#C4531A]">real</span>
+          </span>
+        </a>
         <div className="flex gap-4 items-center">
           <a href="#reformistas" className="text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors">
             Soy reformista
@@ -181,9 +185,12 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="border-t border-[#E8DFD8] py-10 px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <span className="text-xl font-bold">
-            reforma<span className="text-[#C4531A]">real</span>
-          </span>
+          <a href="/" className="flex items-center gap-2">
+            <Image src="/logo-rr.svg" alt="ReformaReal" width={28} height={25} />
+            <span className="text-xl font-bold">
+              reforma<span className="text-[#C4531A]">real</span>
+            </span>
+          </a>
           <p className="text-sm text-[#6B5B4E]">© 2026 ReformaReal · Madrid</p>
           <div className="flex gap-6 text-sm text-[#6B5B4E]">
             <a href="#" className="hover:text-[#1C1208] transition-colors">Privacidad</a>
