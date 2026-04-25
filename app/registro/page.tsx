@@ -1,6 +1,6 @@
 'use client'
 
-import { useActionState, useEffect } from 'react'
+import { useActionState, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { registrarReformista, type RegistroState } from './actions'
 
@@ -9,13 +9,14 @@ const initialState: RegistroState = { status: 'idle' }
 const tiposObra = ['Reforma integral','Cocina','Baño','Electricidad','Fontanería','Pintura','Carpintería','Suelos']
 
 const planes = [
-  { key: 'basico', nombre: 'Básico',  precio: '49 €/mes',  desc: 'Ficha verificada + presupuesto PDF' },
-  { key: 'pro',    nombre: 'Pro',     precio: '99 €/mes',  desc: 'Posición destacada + leads directos', popular: true },
-  { key: 'elite',  nombre: 'Elite',   precio: '199 €/mes', desc: 'Primero en tu provincia + panel completo' },
+  { key: 'basico', nombre: 'Básico',  precio: '49 €',  periodo: '/mes', desc: 'Ficha verificada + presupuesto PDF' },
+  { key: 'pro',    nombre: 'Pro',     precio: '99 €',  periodo: '/mes', desc: 'Posición destacada + leads directos', popular: true },
+  { key: 'elite',  nombre: 'Elite',   precio: '199 €', periodo: '/mes', desc: 'Primero en tu provincia + panel completo' },
 ]
 
 export default function Registro() {
   const [state, action, pending] = useActionState(registrarReformista, initialState)
+  const [planSeleccionado, setPlanSeleccionado] = useState('pro')
 
   // Cuando el usuario está creado, redirigir a Stripe
   useEffect(() => {
@@ -144,20 +145,42 @@ export default function Registro() {
           {/* SELECTOR DE PLAN */}
           <div className="bg-white rounded-2xl p-6 border border-[#E8DFD8]">
             <h2 className="font-bold text-lg mb-4">Elige tu plan</h2>
-            <div className="space-y-3">
-              {planes.map((p) => (
-                <label key={p.key} className="flex items-center gap-4 border border-[#E8DFD8] rounded-xl p-4 cursor-pointer has-[:checked]:border-[#C4531A] has-[:checked]:bg-[#FDF0EB] transition-colors">
-                  <input type="radio" name="plan" value={p.key} defaultChecked={p.key === 'pro'} className="accent-[#C4531A] w-4 h-4 shrink-0" />
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold">{p.nombre}</span>
-                      {p.popular && <span className="text-xs bg-[#C4531A] text-white px-2 py-0.5 rounded-full">Más elegido</span>}
-                    </div>
-                    <p className="text-sm text-[#6B5B4E]">{p.desc}</p>
-                  </div>
-                  <span className="font-black text-[#C4531A] whitespace-nowrap">{p.precio}</span>
-                </label>
-              ))}
+            <input type="hidden" name="plan" value={planSeleccionado} />
+            <div className="grid grid-cols-3 gap-3">
+              {planes.map((p) => {
+                const activo = planSeleccionado === p.key
+                return (
+                  <button
+                    key={p.key}
+                    type="button"
+                    onClick={() => setPlanSeleccionado(p.key)}
+                    className={`relative flex flex-col items-center text-center rounded-2xl p-4 border-2 transition-all ${
+                      activo
+                        ? 'border-[#C4531A] bg-[#FDF0EB]'
+                        : 'border-[#E8DFD8] bg-white hover:border-[#C4B8AE]'
+                    }`}
+                  >
+                    {p.popular && (
+                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs bg-[#C4531A] text-white px-2 py-0.5 rounded-full whitespace-nowrap">
+                        Más elegido
+                      </span>
+                    )}
+                    <span className={`font-black text-lg ${activo ? 'text-[#C4531A]' : 'text-[#1C1208]'}`}>
+                      {p.nombre}
+                    </span>
+                    <span className="font-black text-2xl text-[#C4531A] mt-1">{p.precio}</span>
+                    <span className="text-xs text-[#6B5B4E]">{p.periodo}</span>
+                    <p className="text-xs text-[#6B5B4E] mt-2 leading-tight">{p.desc}</p>
+                    {activo && (
+                      <span className="mt-3 w-5 h-5 rounded-full bg-[#C4531A] flex items-center justify-center">
+                        <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                    )}
+                  </button>
+                )
+              })}
             </div>
           </div>
 
