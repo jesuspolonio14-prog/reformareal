@@ -20,7 +20,7 @@ export default async function Panel() {
     .from('leads')
     .select('*')
     .ilike('ciudad', `%${perfil?.ciudad ?? ''}%`)
-    .order('created_at', { ascending: false })
+    .order('creado_en', { ascending: false })
     .limit(10)
 
   return (
@@ -130,7 +130,7 @@ export default async function Panel() {
                   <div className="flex gap-4 text-xs text-[#6B5B4E]">
                     {lead.metros && <span>{lead.metros} m²</span>}
                     {lead.calidad && <span>Calidad {lead.calidad}</span>}
-                    <span>{new Date(lead.created_at).toLocaleDateString('es-ES')}</span>
+                    <span>{new Date(lead.creado_en).toLocaleDateString('es-ES')}</span>
                   </div>
                   <div className="mt-3 pt-3 border-t border-[#F0EAE4] flex gap-3 text-sm">
                     <span className="font-semibold">{lead.nombre}</span>
