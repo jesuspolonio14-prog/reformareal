@@ -18,7 +18,10 @@
       "Bash(git rebase *)",
       "Bash(git -C c:/Users/jesus/reformareal pull)",
       "Bash(rm -rf c:/Users/jesus/Desktop/reformareal c:/Users/jesus/Desktop/micertificadoenergetico)",
-      "Bash(rm -rf c:/Users/jesus/Desktop/reformareal/node_modules c:/Users/jesus/Desktop/reformareal/.next c:/Users/jesus/Desktop/micertificadoenergetico/node_modules c:/Users/jesus/Desktop/micertificadoenergetico/.next)"
+      "Bash(rm -rf c:/Users/jesus/Desktop/reformareal/node_modules c:/Users/jesus/Desktop/reformareal/.next c:/Users/jesus/Desktop/micertificadoenergetico/node_modules c:/Users/jesus/Desktop/micertificadoenergetico/.next)",
+      "Bash(cp \"c:/Users/jesus/Downloads/LOGO.png\" \"c:/Users/jesus/reformareal/public/logo-rr.png\")",
+      "Bash(cp \"c:/Users/jesus/Downloads/LOGO.png\" \"c:/Users/jesus/reformareal/app/icon.png\")",
+      "Bash(xargs sed *)"
     ]
   }
 }

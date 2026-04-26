@@ -45,7 +45,7 @@ export default function ReformaCocinaPage() {
 
       <nav className="flex justify-between items-center px-4 sm:px-6 py-4 max-w-6xl mx-auto border-b border-[#E8DFD8]">
         <a href="/" className="flex items-center gap-2">
-          <Image src="/logo-rr.svg" alt="ReformaReal" width={36} height={32} priority />
+          <Image src="/logo-rr.png" alt="ReformaReal" width={36} height={32} priority />
           <span className="text-xl font-bold">reforma<span className="text-[#C4531A]">real</span></span>
         </a>
         <a href="/#calcular" className="bg-[#C4531A] text-white text-sm px-4 py-2 rounded-full hover:bg-[#A84414] transition-colors">
