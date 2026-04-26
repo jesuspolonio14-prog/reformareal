@@ -1,27 +1,31 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase-server'
+import { getSupabase } from '@/lib/supabase'
 import { cerrarSesion } from './actions'
 
 export default async function Panel() {
   const supabase = await createClient()
+  const admin = getSupabase()
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  const { data: perfil } = await supabase
+  const { data: perfil } = await admin
     .from('reformistas_perfiles')
     .select('*')
     .eq('id', user.id)
     .single()
 
-  // Leads de la misma ciudad
-  const { data: leads } = await supabase
+  // Leads de la misma ciudad usando clave admin
+  const { data: leads, error: leadsError } = await admin
     .from('leads')
     .select('*')
     .ilike('ciudad', `%${perfil?.ciudad ?? ''}%`)
     .order('creado_en', { ascending: false })
     .limit(10)
+
+  if (leadsError) console.error('Leads error:', leadsError)
 
   return (
     <main className="min-h-screen bg-[#F7F3EE] text-[#1C1208]">
