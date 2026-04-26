@@ -127,10 +127,16 @@ export default async function Panel() {
                     {lead.calidad && <span>Calidad {lead.calidad}</span>}
                     <span>{new Date(lead.creado_en).toLocaleDateString('es-ES')}</span>
                   </div>
-                  <div className="mt-3 pt-3 border-t border-[#F0EAE4] flex gap-3 text-sm">
+                  <div className="mt-3 pt-3 border-t border-[#F0EAE4] flex flex-wrap gap-3 items-center text-sm">
                     <span className="font-semibold">{lead.nombre}</span>
                     <a href={`tel:${lead.telefono}`} className="text-[#C4531A] hover:underline">{lead.telefono}</a>
                     {lead.email && <a href={`mailto:${lead.email}`} className="text-[#6B5B4E] hover:underline">{lead.email}</a>}
+                    <a
+                      href={`/panel/presupuesto?lead=${lead.id}`}
+                      className="ml-auto bg-[#1C1208] text-white text-xs px-4 py-2 rounded-full hover:bg-[#C4531A] transition-colors"
+                    >
+                      Enviar presupuesto →
+                    </a>
                   </div>
                 </div>
               ))}

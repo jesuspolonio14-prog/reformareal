@@ -53,7 +53,7 @@ export async function registrarReformista(
     const admin = getSupabase()
     const { error: insertError } = await admin.from('reformistas_perfiles').insert({
       id: data.user.id,
-      nombre, empresa: empresa || null, telefono, ciudad,
+      nombre, empresa: empresa || null, telefono, email, ciudad,
       tipos_obra: tipos, licencia, seguro_rc: seguro,
       experiencia: experiencia || null,
       plan, plan_pagado: false,
