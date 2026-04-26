@@ -50,7 +50,7 @@ export default function Registro() {
     <main className="min-h-screen bg-[#F7F3EE] text-[#1C1208]">
       <nav className="flex justify-between items-center px-4 sm:px-6 py-4 max-w-6xl mx-auto">
         <a href="/" className="flex items-center gap-2">
-          <Image src="/logo-rr.png" alt="ReformaReal" width={36} height={32} priority />
+          <Image src="/logo-rr.svg" alt="ReformaReal" width={36} height={32} priority />
           <span className="text-xl font-bold">reforma<span className="text-[#C4531A]">real</span></span>
         </a>
         <a href="/login" className="text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors">

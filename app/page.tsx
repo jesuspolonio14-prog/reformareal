@@ -45,7 +45,7 @@ export default function Home() {
       {/* NAV */}
       <nav className="flex justify-between items-center px-4 sm:px-6 py-4 max-w-6xl mx-auto">
         <a href="/" className="flex items-center gap-2">
-          <Image src="/logo-rr.png" alt="ReformaReal" width={32} height={28} priority />
+          <Image src="/logo-rr.svg" alt="ReformaReal" width={32} height={28} priority />
           <span className="text-lg sm:text-xl font-bold tracking-tight">
             reforma<span className="text-[#C4531A]">real</span>
           </span>
@@ -229,7 +229,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <a href="/" className="flex items-center gap-2">
-              <Image src="/logo-rr.png" alt="ReformaReal" width={28} height={25} />
+              <Image src="/logo-rr.svg" alt="ReformaReal" width={28} height={25} />
               <span className="text-xl font-bold">
                 reforma<span className="text-[#C4531A]">real</span>
               </span>

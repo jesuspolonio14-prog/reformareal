@@ -32,7 +32,7 @@ export default async function Panel() {
       {/* NAV */}
       <nav className="flex justify-between items-center px-6 py-4 max-w-6xl mx-auto border-b border-[#E8DFD8]">
         <a href="/" className="flex items-center gap-2">
-          <Image src="/logo-rr.png" alt="ReformaReal" width={36} height={32} priority />
+          <Image src="/logo-rr.svg" alt="ReformaReal" width={36} height={32} priority />
           <span className="text-xl font-bold">reforma<span className="text-[#C4531A]">real</span></span>
         </a>
         <div className="flex items-center gap-4">

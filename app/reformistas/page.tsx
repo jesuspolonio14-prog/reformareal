@@ -21,7 +21,7 @@ export default function Reformistas() {
       {/* NAV */}
       <nav className="flex justify-between items-center px-4 sm:px-6 py-4 max-w-6xl mx-auto">
         <a href="/" className="flex items-center gap-2">
-          <Image src="/logo-rr.png" alt="ReformaReal" width={36} height={32} priority />
+          <Image src="/logo-rr.svg" alt="ReformaReal" width={36} height={32} priority />
           <span className="text-xl font-bold">reforma<span className="text-[#C4531A]">real</span></span>
         </a>
         <a href="/" className="text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors">
@@ -155,7 +155,7 @@ export default function Reformistas() {
       <footer className="border-t border-[#E8DFD8] py-8 px-5">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
           <a href="/" className="flex items-center gap-2">
-            <Image src="/logo-rr.png" alt="ReformaReal" width={28} height={25} />
+            <Image src="/logo-rr.svg" alt="ReformaReal" width={28} height={25} />
             <span className="font-bold">reforma<span className="text-[#C4531A]">real</span></span>
           </a>
           <p className="text-sm text-[#6B5B4E]">© 2026 ReformaReal · Madrid</p>
