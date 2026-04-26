@@ -73,7 +73,7 @@ const MULTIPLICADOR: Record<string, number> = {
   palma:           0.92,
 }
 
-const CAPITULOS_INTEGRAL = [
+export const CAPITULOS_INTEGRAL = [
   { nombre: 'Demolición y gestión de residuos', porcentaje: 0.05 },
   { nombre: 'Albañilería y tabiquería',          porcentaje: 0.20 },
   { nombre: 'Fontanería y saneamiento',          porcentaje: 0.12 },
@@ -84,7 +84,7 @@ const CAPITULOS_INTEGRAL = [
   { nombre: 'Honorarios y gestión de obra',      porcentaje: 0.10 },
 ]
 
-const CAPITULOS_PARCIAL = [
+export const CAPITULOS_PARCIAL = [
   { nombre: 'Demolición y trabajos previos',    porcentaje: 0.08 },
   { nombre: 'Albañilería',                       porcentaje: 0.22 },
   { nombre: 'Fontanería',                        porcentaje: 0.12 },
@@ -94,7 +94,7 @@ const CAPITULOS_PARCIAL = [
   { nombre: 'Pintura y acabados',                porcentaje: 0.10 },
 ]
 
-const CAPITULOS_COCINA = [
+export const CAPITULOS_COCINA = [
   { nombre: 'Demolición e instalación',  porcentaje: 0.10 },
   { nombre: 'Fontanería',                porcentaje: 0.18 },
   { nombre: 'Electricidad',              porcentaje: 0.14 },
@@ -103,7 +103,7 @@ const CAPITULOS_COCINA = [
   { nombre: 'Pintura y acabados',        porcentaje: 0.08 },
 ]
 
-const CAPITULOS_BANO = [
+export const CAPITULOS_BANO = [
   { nombre: 'Demolición',                porcentaje: 0.08 },
   { nombre: 'Fontanería y saneamiento',  porcentaje: 0.25 },
   { nombre: 'Electricidad',              porcentaje: 0.10 },
