@@ -27,7 +27,13 @@ interface Perfil {
   precio_m2?: number
 }
 
-interface Capitulo { nombre: string; porcentaje: number; importe: number }
+interface Capitulo {
+  nombre: string
+  porcentaje: number
+  importe: number
+  bloqueado?: boolean
+  motivoBloqueo?: string
+}
 
 type Modo = 'elegir' | 'calcular' | 'upload'
 
@@ -78,22 +84,47 @@ export default function PresupuestoCliente({ lead, perfil }: { lead: Lead; perfi
     ? calcularM2Efectivos(lead.estancias ?? [], metrosTotales)
     : metrosTotales
 
+  const sinInstalaciones = lead.instalaciones === 'No'
+  const sinDistribucion  = lead.distribucion  === 'No'
+
+  function esInstalaciones(nombre: string) {
+    const n = nombre.toLowerCase()
+    return n.includes('fontaner') || n.includes('electricidad')
+  }
+  function esAlbanileria(nombre: string) {
+    const n = nombre.toLowerCase()
+    return n.includes('alba') || n.includes('tabiq')
+  }
+
   function calcular() {
     const precio = num(precioInput)
     if (!precio) { setError('Introduce un precio válido.'); return }
     const pem = esFijo ? precio : precio * metrosEfectivos
     const defs = getCapitulos(lead.tipo_reforma ?? 'Integral')
-    setCapitulos(defs.map((c) => ({
-      nombre: c.nombre,
-      porcentaje: c.porcentaje,
-      importe: Math.round(pem * c.porcentaje),
-    })))
+
+    setCapitulos(defs.map((c) => {
+      const bloqInstalaciones = sinInstalaciones && esInstalaciones(c.nombre)
+      const bloqDistribucion  = sinDistribucion  && esAlbanileria(c.nombre)
+      const bloqueado = bloqInstalaciones || bloqDistribucion
+      return {
+        nombre: c.nombre,
+        porcentaje: c.porcentaje,
+        importe: bloqueado ? 0 : Math.round(pem * c.porcentaje),
+        bloqueado,
+        motivoBloqueo: bloqInstalaciones
+          ? 'El cliente indica que no se tocan instalaciones (fontanería/electricidad) en esta reforma.'
+          : bloqDistribucion
+          ? 'El cliente no requiere cambios de distribución, por lo que no hay albañilería de tabiquería.'
+          : undefined,
+      }
+    }))
     setCalculado(true)
     setError('')
   }
 
   function updateCapitulo(i: number, valor: string) {
     setCapitulos((prev) => {
+      if (prev[i].bloqueado) return prev
       const updated = [...prev]
       updated[i] = { ...updated[i], importe: num(valor) }
       return updated
@@ -407,18 +438,35 @@ export default function PresupuestoCliente({ lead, perfil }: { lead: Lead; perfi
 
                 <div className="space-y-2">
                   {capitulos.map((c, i) => (
-                    <div key={c.nombre} className="flex items-center gap-3">
-                      <span className="text-xs text-[#6B5B4E] w-4 shrink-0">{String(i + 1).padStart(2, '0')}</span>
-                      <span className="flex-1 text-sm">{c.nombre}</span>
-                      <div className="relative w-32">
-                        <input
-                          type="number"
-                          value={c.importe}
-                          onChange={(e) => updateCapitulo(i, e.target.value)}
-                          className="w-full border border-[#E8DFD8] rounded-lg px-3 py-1.5 pr-6 text-right text-sm focus:outline-none focus:border-[#C4531A]"
-                        />
-                        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-[#6B5B4E]">€</span>
+                    <div key={c.nombre}>
+                      <div className={`flex items-center gap-3 rounded-xl px-3 py-2 ${c.bloqueado ? 'bg-gray-50' : ''}`}>
+                        <span className="text-xs text-[#6B5B4E] w-4 shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                        <span className={`flex-1 text-sm ${c.bloqueado ? 'text-gray-400 line-through' : ''}`}>
+                          {c.nombre}
+                        </span>
+                        {c.bloqueado && (
+                          <span title={c.motivoBloqueo} className="text-gray-400 text-base shrink-0">🔒</span>
+                        )}
+                        <div className="relative w-32">
+                          <input
+                            type="number"
+                            value={c.importe}
+                            disabled={c.bloqueado}
+                            onChange={(e) => updateCapitulo(i, e.target.value)}
+                            className={`w-full border rounded-lg px-3 py-1.5 pr-6 text-right text-sm focus:outline-none transition-colors ${
+                              c.bloqueado
+                                ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed'
+                                : 'border-[#E8DFD8] focus:border-[#C4531A]'
+                            }`}
+                          />
+                          <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-[#6B5B4E]">€</span>
+                        </div>
                       </div>
+                      {c.bloqueado && c.motivoBloqueo && (
+                        <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5 mt-1 ml-7">
+                          ⚠ {c.motivoBloqueo}
+                        </p>
+                      )}
                     </div>
                   ))}
                 </div>
