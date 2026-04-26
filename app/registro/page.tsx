@@ -115,7 +115,7 @@ export default function Registro() {
               <label className="text-xs font-semibold text-[#6B5B4E] uppercase tracking-wide block mb-2">
                 Contraseña <span className="text-[#C4531A]">*</span>
               </label>
-              <input name="password" type="password" required placeholder="Mínimo 8 caracteres"
+              <input name="password" type="password" required autoComplete="new-password" placeholder="Mínimo 8 caracteres"
                 className="w-full border border-[#E8DFD8] rounded-xl px-4 py-3 focus:outline-none focus:border-[#C4531A]" />
             </div>
 
@@ -123,7 +123,7 @@ export default function Registro() {
               <label className="text-xs font-semibold text-[#6B5B4E] uppercase tracking-wide block mb-2">
                 Repetir contraseña <span className="text-[#C4531A]">*</span>
               </label>
-              <input name="confirm_password" type="password" required placeholder="Repite la contraseña"
+              <input name="confirm_password" type="password" required autoComplete="new-password" placeholder="Repite la contraseña"
                 className={`w-full border rounded-xl px-4 py-3 focus:outline-none transition-colors ${passError ? 'border-red-400 focus:border-red-500' : 'border-[#E8DFD8] focus:border-[#C4531A]'}`} />
               {passError && <p className="text-red-600 text-xs mt-1">{passError}</p>}
             </div>
