@@ -169,6 +169,7 @@ export default function Calculadora() {
     if (paso === 4) {
       if (!datos.nombre.trim()) return 'Introduce tu nombre.'
       if (!datos.telefono.trim() || datos.telefono.trim().length < 9) return 'Introduce un teléfono válido.'
+      if (!datos.email.trim()) return 'El email es obligatorio para enviarte los presupuestos.'
     }
     return ''
   }
@@ -506,12 +507,13 @@ export default function Calculadora() {
 
               <div>
                 <label className="text-xs font-semibold text-[#6B5B4E] uppercase tracking-wide block mb-2">
-                  Email <span className="text-[#6B5B4E] font-normal normal-case">(opcional)</span>
+                  Email <span className="text-[#C4531A]">*</span>
                 </label>
-                <input type="email" placeholder="maria@ejemplo.com"
+                <input type="email" required placeholder="maria@ejemplo.com"
                   value={datos.email} onChange={(e) => set('email', e.target.value)}
                   className="w-full border border-[#E8DFD8] rounded-xl px-4 py-3 focus:outline-none focus:border-[#C4531A]"
                 />
+                <p className="text-xs text-[#6B5B4E] mt-1">Te enviaremos los presupuestos de los reformistas a este email.</p>
               </div>
 
               <div>
