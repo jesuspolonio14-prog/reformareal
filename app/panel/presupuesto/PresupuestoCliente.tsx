@@ -31,8 +31,6 @@ interface Capitulo { nombre: string; porcentaje: number; importe: number }
 
 type Modo = 'elegir' | 'calcular' | 'upload'
 
-const GG = 0.13
-const BI = 0.06
 const IVA = 0.21
 
 function getCapitulos(tipoReforma: string) {
@@ -45,17 +43,8 @@ function getCapitulos(tipoReforma: string) {
   return map[tipoReforma] ?? CAPITULOS_PARCIAL
 }
 
-function calcularTotales(caps: Capitulo[]) {
-  const pem = caps.reduce((s, c) => s + c.importe, 0)
-  const gastos = pem * GG
-  const beneficio = pem * BI
-  const pec = pem + gastos + beneficio
-  const iva = pec * IVA
-  const total = pec + iva
-  return { pem, gastos, beneficio, pec, iva, total }
-}
-
 function num(v: string) { return parseFloat(v.replace(',', '.')) || 0 }
+function pct(v: string) { return Math.max(0, Math.min(100, parseFloat(v.replace(',', '.')) || 0)) }
 
 /* ── Componente principal ── */
 export default function PresupuestoCliente({ lead, perfil }: { lead: Lead; perfil: Perfil }) {
@@ -63,11 +52,22 @@ export default function PresupuestoCliente({ lead, perfil }: { lead: Lead; perfi
   const [precioInput, setPrecioInput] = useState(perfil.precio_m2?.toString() ?? '')
   const [capitulos, setCapitulos] = useState<Capitulo[]>([])
   const [calculado, setCalculado] = useState(false)
+  // GG y BI editables (porcentaje y cantidad)
+  const [ggPct, setGgPct] = useState('13')
+  const [biPct, setBiPct] = useState('6')
   const [pdfFile, setPdfFile] = useState<File | null>(null)
   const [enviando, setEnviando] = useState(false)
   const [enviado, setEnviado] = useState(false)
   const [error, setError] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
+
+  // Cálculos derivados en tiempo real
+  const pem = capitulos.reduce((s, c) => s + c.importe, 0)
+  const gg = Math.round(pem * pct(ggPct) / 100)
+  const bi = Math.round(pem * pct(biPct) / 100)
+  const pec = pem + gg + bi
+  const iva = Math.round(pec * IVA)
+  const total = pec + iva
 
   const esFijo = lead.tipo_reforma === 'Solo cocina' || lead.tipo_reforma === 'Solo baño'
   const esParcial = lead.tipo_reforma === 'Parcial'
@@ -105,8 +105,7 @@ export default function PresupuestoCliente({ lead, perfil }: { lead: Lead; perfi
     setEnviando(true)
     setError('')
 
-    const { pem, gastos, beneficio, pec, iva, total } = calcularTotales(capitulos)
-
+    // Usar valores del estado reactivo
     // Generar PDF con jsPDF
     const { default: jsPDF } = await import('jspdf')
     const doc = new jsPDF({ unit: 'mm', format: 'a4' })
@@ -184,11 +183,11 @@ export default function PresupuestoCliente({ lead, perfil }: { lead: Lead; perfi
     doc.setDrawColor(196, 83, 26)
     doc.line(margin, y, W - margin, y); y += 5
 
-    // Totales
+    // Totales (usando valores editados por el reformista)
     const totalesData = [
       { label: 'PEM — Presupuesto de Ejecución Material', valor: pem, bold: true },
-      { label: `Gastos Generales (${Math.round(GG * 100)}%)`, valor: gastos, bold: false },
-      { label: `Beneficio Industrial (${Math.round(BI * 100)}%)`, valor: beneficio, bold: false },
+      { label: `Gastos Generales (${pct(ggPct)}%)`, valor: gg, bold: false },
+      { label: `Beneficio Industrial (${pct(biPct)}%)`, valor: bi, bold: false },
       { label: 'PEC — Presupuesto de Ejecución por Contrata', valor: pec, bold: true },
       { label: `IVA (${Math.round(IVA * 100)}%)`, valor: iva, bold: false },
     ]
@@ -399,9 +398,7 @@ export default function PresupuestoCliente({ lead, perfil }: { lead: Lead; perfi
             </div>
           </div>
 
-          {calculado && capitulos.length > 0 && (() => {
-            const { pem, gastos, beneficio, pec, iva, total } = calcularTotales(capitulos)
-            return (
+          {calculado && capitulos.length > 0 && (
               <div className="bg-white rounded-2xl p-6 border border-[#E8DFD8] space-y-4">
                 <div className="flex justify-between items-center">
                   <h2 className="font-bold text-lg">Desglose por capítulos</h2>
@@ -426,28 +423,80 @@ export default function PresupuestoCliente({ lead, perfil }: { lead: Lead; perfi
                   ))}
                 </div>
 
-                {/* Totales */}
-                <div className="border-t border-[#E8DFD8] pt-4 space-y-2 text-sm">
-                  <div className="flex justify-between font-bold">
+                {/* Totales con GG y BI editables */}
+                <div className="border-t border-[#E8DFD8] pt-4 space-y-3 text-sm">
+
+                  {/* PEM */}
+                  <div className="flex justify-between font-bold text-base">
                     <span>PEM — Presupuesto de Ejecución Material</span>
                     <span>{formatEur(pem)}</span>
                   </div>
-                  <div className="flex justify-between text-[#6B5B4E]">
-                    <span>Gastos Generales (13%)</span>
-                    <span>{formatEur(gastos)}</span>
+
+                  {/* GG editable */}
+                  <div className="flex items-center gap-2 bg-[#F7F3EE] rounded-xl px-4 py-3">
+                    <span className="flex-1 text-[#6B5B4E]">Gastos Generales (GG)</span>
+                    <div className="flex items-center gap-1">
+                      <input
+                        type="number" min="0" max="100" step="0.5"
+                        value={ggPct}
+                        onChange={(e) => setGgPct(e.target.value)}
+                        className="w-16 border border-[#E8DFD8] rounded-lg px-2 py-1 text-right text-sm focus:outline-none focus:border-[#C4531A]"
+                      />
+                      <span className="text-[#6B5B4E] text-xs">%</span>
+                    </div>
+                    <div className="relative w-28">
+                      <input
+                        type="number" min="0"
+                        value={gg}
+                        onChange={(e) => {
+                          const amt = num(e.target.value)
+                          setGgPct(pem > 0 ? ((amt / pem) * 100).toFixed(2) : '0')
+                        }}
+                        className="w-full border border-[#E8DFD8] rounded-lg px-2 py-1 pr-6 text-right text-sm focus:outline-none focus:border-[#C4531A]"
+                      />
+                      <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-[#6B5B4E]">€</span>
+                    </div>
                   </div>
-                  <div className="flex justify-between text-[#6B5B4E]">
-                    <span>Beneficio Industrial (6%)</span>
-                    <span>{formatEur(beneficio)}</span>
+
+                  {/* BI editable */}
+                  <div className="flex items-center gap-2 bg-[#F7F3EE] rounded-xl px-4 py-3">
+                    <span className="flex-1 text-[#6B5B4E]">Beneficio Industrial (BI)</span>
+                    <div className="flex items-center gap-1">
+                      <input
+                        type="number" min="0" max="100" step="0.5"
+                        value={biPct}
+                        onChange={(e) => setBiPct(e.target.value)}
+                        className="w-16 border border-[#E8DFD8] rounded-lg px-2 py-1 text-right text-sm focus:outline-none focus:border-[#C4531A]"
+                      />
+                      <span className="text-[#6B5B4E] text-xs">%</span>
+                    </div>
+                    <div className="relative w-28">
+                      <input
+                        type="number" min="0"
+                        value={bi}
+                        onChange={(e) => {
+                          const amt = num(e.target.value)
+                          setBiPct(pem > 0 ? ((amt / pem) * 100).toFixed(2) : '0')
+                        }}
+                        className="w-full border border-[#E8DFD8] rounded-lg px-2 py-1 pr-6 text-right text-sm focus:outline-none focus:border-[#C4531A]"
+                      />
+                      <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-[#6B5B4E]">€</span>
+                    </div>
                   </div>
+
+                  {/* PEC */}
                   <div className="flex justify-between font-bold border-t border-[#E8DFD8] pt-2">
                     <span>PEC — Presupuesto de Ejecución por Contrata</span>
                     <span>{formatEur(pec)}</span>
                   </div>
+
+                  {/* IVA */}
                   <div className="flex justify-between text-[#6B5B4E]">
                     <span>IVA (21%)</span>
                     <span>{formatEur(iva)}</span>
                   </div>
+
+                  {/* TOTAL */}
                   <div className="flex justify-between font-black text-lg bg-[#1C1208] text-white rounded-xl px-4 py-3">
                     <span>TOTAL (PEC + IVA)</span>
                     <span className="text-[#C4531A]">{formatEur(total)}</span>
@@ -466,8 +515,7 @@ export default function PresupuestoCliente({ lead, perfil }: { lead: Lead; perfi
                   {enviando ? 'Generando PDF y enviando…' : 'Generar PDF y enviar presupuesto →'}
                 </button>
               </div>
-            )
-          })()}
+          )}
 
           <button onClick={() => setModo('elegir')} className="text-sm text-[#6B5B4E] hover:text-[#1C1208]">
             ← Cambiar opción
