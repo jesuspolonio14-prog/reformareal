@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://reformareal.com"),
   title: {
-    default: "ReformaReal · Comparador de reformas en Madrid",
+    default: "ReformaReal · Comparador de reformas en tu ciudad",
     template: "%s | ReformaReal",
   },
   description:
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     locale: "es_ES",
     url: "https://reformareal.com",
     siteName: "ReformaReal",
-    title: "ReformaReal · Comparador de reformas en Madrid",
+    title: "ReformaReal · Comparador de reformas en tu ciudad",
     description:
       "Estima el precio de tu reforma en 2 minutos. Hasta 3 presupuestos de reformistas verificados, comparables y desglosados.",
     images: [
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ReformaReal · Comparador de reformas en Madrid",
+    title: "ReformaReal · Comparador de reformas en tu ciudad",
     description: "Estima el precio de tu reforma en 2 minutos. Reformistas verificados.",
     images: ["/og-image.jpg"],
   },

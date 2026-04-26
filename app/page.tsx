@@ -3,7 +3,7 @@ import Image from "next/image";
 import Calculadora from "@/app/components/Calculadora";
 
 export const metadata: Metadata = {
-  title: "ReformaReal · Comparador de reformas en Madrid",
+  title: "ReformaReal · Comparador de reformas en tu ciudad",
   description: "Estimación de precio en 2 minutos. Presupuestos comparables. Reformistas verificados.",
 };
 
