@@ -12,6 +12,8 @@ interface Lead {
   ciudad?: string
   direccion?: string
   estancias?: string[]
+  distribucion?: string
+  instalaciones?: string
   calidad?: string
   cuando?: string
   presupuesto_orientativo?: string
