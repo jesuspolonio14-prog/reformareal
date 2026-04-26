@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { calcularEstimacion, formatEur, type ResultadoEstimacion, type TipoReforma, type Calidad } from '@/lib/estimacion'
+import { calcularEstimacion, calcularM2Efectivos, formatEur, type ResultadoEstimacion, type TipoReforma, type Calidad } from '@/lib/estimacion'
 
 /* ── Tipos ── */
 type Paso = 1 | 2 | 3 | 4
@@ -129,10 +129,14 @@ export default function Calculadora() {
     }
     const tipo = tipoMap[datos.tipo_reforma]
     const calidad = calidadMap[datos.calidad]
-    const metros = Number(datos.metros)
-    if (!tipo || !calidad || (!metros && tipo !== 'cocina' && tipo !== 'bano')) return
+    const metrosTotales = Number(datos.metros)
+    if (!tipo || !calidad || (!metrosTotales && tipo !== 'cocina' && tipo !== 'bano')) return
+    // Para reforma parcial usamos los m² efectivos según estancias
+    const metrosEfectivos = tipo === 'parcial'
+      ? calcularM2Efectivos(datos.estancias, metrosTotales)
+      : metrosTotales
     try {
-      setEstimacion(calcularEstimacion({ metros: metros || 1, ciudad: datos.ciudad || 'Madrid', tipo, calidad }))
+      setEstimacion(calcularEstimacion({ metros: metrosEfectivos || 1, ciudad: datos.ciudad || 'Madrid', tipo, calidad }))
     } catch { /* sin estimación */ }
   }
 

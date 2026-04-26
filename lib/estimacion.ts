@@ -148,6 +148,25 @@ export function calcularEstimacion(datos: DatosReforma): ResultadoEstimacion {
   }
 }
 
+// m² típicos por estancia en un piso español medio
+export const M2_POR_ESTANCIA: Record<string, number> = {
+  'Cocina':            10,
+  'Baños':             10,   // 2 baños × 5m²
+  'Dormitorios':       24,   // 2 dormitorios × 12m²
+  'Salón / Comedor':   20,
+  'Terraza / Exterior': 8,
+  'Pasillo / Entrada':  5,
+  'Fachada':           12,
+  'Toda la vivienda':   0,   // caso especial → usar total
+}
+
+export function calcularM2Efectivos(estancias: string[], totalM2: number): number {
+  if (!estancias || estancias.length === 0) return totalM2
+  if (estancias.includes('Toda la vivienda')) return totalM2
+  const suma = estancias.reduce((acc, e) => acc + (M2_POR_ESTANCIA[e] ?? 10), 0)
+  return Math.min(suma, totalM2) // nunca superar el total del piso
+}
+
 export function formatEur(n: number): string {
   return n.toLocaleString('es-ES', {
     style:                'currency',

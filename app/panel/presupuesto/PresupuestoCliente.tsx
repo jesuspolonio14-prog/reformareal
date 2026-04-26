@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { formatEur, CAPITULOS_INTEGRAL, CAPITULOS_PARCIAL, CAPITULOS_COCINA, CAPITULOS_BANO } from '@/lib/estimacion'
+import { formatEur, calcularM2Efectivos, CAPITULOS_INTEGRAL, CAPITULOS_PARCIAL, CAPITULOS_COCINA, CAPITULOS_BANO } from '@/lib/estimacion'
 
 /* ── Tipos ── */
 interface Lead {
@@ -70,12 +70,18 @@ export default function PresupuestoCliente({ lead, perfil }: { lead: Lead; perfi
   const fileRef = useRef<HTMLInputElement>(null)
 
   const esFijo = lead.tipo_reforma === 'Solo cocina' || lead.tipo_reforma === 'Solo baño'
+  const esParcial = lead.tipo_reforma === 'Parcial'
+
+  // Calcular m² efectivos para reforma parcial
+  const metrosTotales = lead.metros ?? 1
+  const metrosEfectivos = esParcial
+    ? calcularM2Efectivos(lead.estancias ?? [], metrosTotales)
+    : metrosTotales
 
   function calcular() {
     const precio = num(precioInput)
     if (!precio) { setError('Introduce un precio válido.'); return }
-    const metros = lead.metros ?? 1
-    const pem = esFijo ? precio : precio * metros
+    const pem = esFijo ? precio : precio * metrosEfectivos
     const defs = getCapitulos(lead.tipo_reforma ?? 'Integral')
     setCapitulos(defs.map((c) => ({
       nombre: c.nombre,
@@ -374,8 +380,15 @@ export default function PresupuestoCliente({ lead, perfil }: { lead: Lead; perfi
                 <p className="text-xs text-[#6B5B4E] mt-1">
                   {esFijo
                     ? 'Precio total de ejecución material (PEM). Se añadirán GG, BI e IVA automáticamente.'
-                    : `Para ${lead.metros ?? '?'} m² → PEM total: ${precioInput && lead.metros ? formatEur(num(precioInput) * lead.metros) : '—'}. Se añadirán GG (13%), BI (6%) e IVA (21%).`}
+                    : esParcial
+                      ? `Reforma parcial: se usan ${metrosEfectivos} m² efectivos de ${metrosTotales} m² totales según las estancias seleccionadas. PEM estimado: ${precioInput ? formatEur(num(precioInput) * metrosEfectivos) : '—'}`
+                      : `Para ${metrosTotales} m² → PEM total: ${precioInput ? formatEur(num(precioInput) * metrosTotales) : '—'}. Se añadirán GG (13%), BI (6%) e IVA (21%).`}
                 </p>
+                {esParcial && lead.estancias && lead.estancias.length > 0 && (
+                  <p className="text-xs text-[#C4531A] mt-1">
+                    Estancias: {lead.estancias.join(', ')}
+                  </p>
+                )}
               </div>
               <button
                 onClick={calcular}
