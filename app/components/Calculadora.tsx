@@ -60,16 +60,20 @@ function CheckOpcion({
   label, checked, onChange,
 }: { label: string; checked: boolean; onChange: () => void }) {
   return (
-    <label className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3 cursor-pointer transition-all ${
-      checked ? 'border-[#C4531A] bg-[#FDF0EB]' : 'border-[#E8DFD8] bg-white hover:border-[#C4B8AE]'
-    }`}>
+    <button
+      type="button"
+      onClick={onChange}
+      className={`flex items-center gap-3 rounded-xl border-2 px-4 py-3 text-left w-full transition-all ${
+        checked ? 'border-[#C4531A] bg-[#FDF0EB]' : 'border-[#E8DFD8] bg-white hover:border-[#C4B8AE]'
+      }`}
+    >
       <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all ${
         checked ? 'border-[#C4531A] bg-[#C4531A]' : 'border-[#C4B8AE]'
       }`}>
         {checked && <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>}
       </div>
       <span className="text-sm font-medium text-[#3D3228]">{label}</span>
-    </label>
+    </button>
   )
 }
 
