@@ -14,6 +14,8 @@ const planes = [
   { key: 'elite',  nombre: 'Elite',   precio: '199 €', periodo: '/mes', desc: 'Primero en tu provincia + panel completo' },
 ]
 
+const PROMO_ACTIVA = true
+
 export default function Registro() {
   const [state, action, pending] = useActionState(registrarReformista, initialState)
   const [planSeleccionado, setPlanSeleccionado] = useState('pro')
@@ -166,7 +168,19 @@ export default function Registro() {
 
           {/* SELECTOR DE PLAN */}
           <div className="bg-white rounded-2xl p-6 border border-[#E8DFD8]">
-            <h2 className="font-bold text-lg mb-4">Elige tu plan</h2>
+            <div className="flex items-center justify-between mb-1">
+              <h2 className="font-bold text-lg">Elige tu plan</h2>
+              {PROMO_ACTIVA && (
+                <span className="text-xs bg-green-100 text-green-700 font-bold px-3 py-1 rounded-full">
+                  🎉 1er mes GRATIS
+                </span>
+              )}
+            </div>
+            {PROMO_ACTIVA && (
+              <p className="text-xs text-[#6B5B4E] mb-4">
+                Introduce tu tarjeta ahora. No se realiza ningún cargo hasta pasado el mes de prueba.
+              </p>
+            )}
             <input type="hidden" name="plan" value={planSeleccionado} />
             <div className="grid grid-cols-3 gap-3">
               {planes.map((p) => {
@@ -190,8 +204,18 @@ export default function Registro() {
                     <span className={`font-black text-lg ${activo ? 'text-[#C4531A]' : 'text-[#1C1208]'}`}>
                       {p.nombre}
                     </span>
-                    <span className="font-black text-2xl text-[#C4531A] mt-1">{p.precio}</span>
-                    <span className="text-xs text-[#6B5B4E]">{p.periodo}</span>
+                    {PROMO_ACTIVA ? (
+                      <>
+                        <span className="text-xs text-[#6B5B4E] line-through mt-1">{p.precio}{p.periodo}</span>
+                        <span className="font-black text-2xl text-green-600">0 €</span>
+                        <span className="text-xs text-green-600">primer mes</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="font-black text-2xl text-[#C4531A] mt-1">{p.precio}</span>
+                        <span className="text-xs text-[#6B5B4E]">{p.periodo}</span>
+                      </>
+                    )}
                     <p className="text-xs text-[#6B5B4E] mt-2 leading-tight">{p.desc}</p>
                     {activo && (
                       <span className="mt-3 w-5 h-5 rounded-full bg-[#C4531A] flex items-center justify-center">

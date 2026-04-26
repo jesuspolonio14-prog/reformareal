@@ -18,10 +18,23 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: 'Firma inválida' }, { status: 400 })
   }
 
+  // Checkout completado → trial activo (no cobro aún)
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object
     const { userId, plan } = session.metadata ?? {}
+    if (userId && plan) {
+      await getSupabase()
+        .from('reformistas_perfiles')
+        .update({ plan, plan_pagado: false }) // false hasta que acabe el trial
+        .eq('id', userId)
+    }
+  }
 
+  // Suscripción activa tras el trial → cobro real
+  if (event.type === 'invoice.payment_succeeded') {
+    const invoice = event.data.object as { subscription: string }
+    const sub = await stripe.subscriptions.retrieve(invoice.subscription)
+    const { userId, plan } = sub.metadata ?? {}
     if (userId && plan) {
       await getSupabase()
         .from('reformistas_perfiles')

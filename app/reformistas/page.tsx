@@ -12,6 +12,8 @@ const planes = [
   { nombre: 'Elite',   precio: '199 €/mes', desc: 'Primero en tu provincia + panel completo' },
 ]
 
+const PROMO_ACTIVA = true
+
 export default function Reformistas() {
   return (
     <main className="min-h-screen bg-[#F7F3EE] text-[#1C1208]">
@@ -100,13 +102,23 @@ export default function Reformistas() {
 
       {/* PLANES */}
       <section className="py-16 max-w-4xl mx-auto px-5">
-        <h2 className="text-2xl font-black text-center mb-8">Planes sin permanencia</h2>
+        <h2 className="text-2xl font-black text-center mb-2">Planes sin permanencia</h2>
+        {PROMO_ACTIVA && (
+          <p className="text-center text-[#C4531A] font-bold mb-8">
+            🎉 Oferta de lanzamiento — primer mes completamente gratis
+          </p>
+        )}
         <div className="grid sm:grid-cols-3 gap-5">
           {planes.map((p) => (
             <div
               key={p.nombre}
-              className={`rounded-2xl p-6 border ${p.popular ? 'border-[#C4531A] bg-[#FDF0EB]' : 'border-[#E8DFD8] bg-white'}`}
+              className={`rounded-2xl p-6 border relative ${p.popular ? 'border-[#C4531A] bg-[#FDF0EB]' : 'border-[#E8DFD8] bg-white'}`}
             >
+              {PROMO_ACTIVA && (
+                <span className="absolute -top-3 right-3 text-xs bg-green-500 text-white px-2 py-0.5 rounded-full font-bold">
+                  1er mes GRATIS
+                </span>
+              )}
               {p.popular && (
                 <span className="text-xs bg-[#C4531A] text-white px-2 py-0.5 rounded-full font-semibold mb-3 inline-block">
                   Más elegido
@@ -114,15 +126,27 @@ export default function Reformistas() {
               )}
               <div className="flex justify-between items-center mb-2">
                 <span className="font-bold text-lg">{p.nombre}</span>
-                <span className="font-black text-[#C4531A]">{p.precio}</span>
+                <div className="text-right">
+                  {PROMO_ACTIVA && (
+                    <span className="block text-xs text-[#6B5B4E] line-through">{p.precio}</span>
+                  )}
+                  <span className={`font-black ${PROMO_ACTIVA ? 'text-green-600' : 'text-[#C4531A]'}`}>
+                    {PROMO_ACTIVA ? '0 €' : p.precio}
+                  </span>
+                </div>
               </div>
               <p className="text-sm text-[#6B5B4E]">{p.desc}</p>
             </div>
           ))}
         </div>
-        <p className="text-center mt-8">
+        {PROMO_ACTIVA && (
+          <p className="text-center text-xs text-[#6B5B4E] mt-4">
+            Solo necesitas introducir tu tarjeta. No se realiza ningún cargo hasta pasado el mes de prueba.
+          </p>
+        )}
+        <p className="text-center mt-6">
           <a href="/registro" className="inline-block bg-[#C4531A] text-white px-8 py-4 rounded-full font-bold hover:bg-[#A84414] transition-colors">
-            Empezar ahora →
+            {PROMO_ACTIVA ? 'Empezar gratis →' : 'Empezar ahora →'}
           </a>
         </p>
       </section>
