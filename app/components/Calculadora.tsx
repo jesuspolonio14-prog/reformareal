@@ -208,6 +208,8 @@ export default function Calculadora() {
           cuando:       datos.cuando,
           presupuesto_orientativo: datos.presupuesto || null,
           notas:        datos.notas || null,
+          total_min:    estimacion?.totalMin ?? null,
+          total_max:    estimacion?.totalMax ?? null,
         }),
       })
       if (res.ok) setEnviado(true)

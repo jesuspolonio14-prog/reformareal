@@ -120,17 +120,32 @@ export default async function Panel() {
                       <span className="font-bold">{lead.tipo_reforma ?? 'Reforma'}</span>
                       <span className="text-[#6B5B4E] text-sm ml-2">· {lead.ciudad}</span>
                     </div>
-                    <span className="text-[#C4531A] font-black text-sm">
-                      {lead.total_min && lead.total_max
-                        ? `${Number(lead.total_min).toLocaleString('es-ES')} – ${Number(lead.total_max).toLocaleString('es-ES')} €`
-                        : '—'}
-                    </span>
+                    {lead.total_min && lead.total_max ? (
+                      <div className="text-right">
+                        <p className="text-xs text-[#6B5B4E]">Estimación del cliente</p>
+                        <p className="text-[#C4531A] font-black">
+                          {Number(lead.total_min).toLocaleString('es-ES')} – {Number(lead.total_max).toLocaleString('es-ES')} €
+                        </p>
+                      </div>
+                    ) : (
+                      <span className="text-xs text-[#6B5B4E]">Sin estimación</span>
+                    )}
                   </div>
-                  <div className="flex gap-4 text-xs text-[#6B5B4E]">
+                  <div className="flex flex-wrap gap-3 text-xs text-[#6B5B4E]">
+                    {lead.tipo_vivienda && <span className="bg-[#F0EAE4] px-2 py-0.5 rounded-full">{lead.tipo_vivienda}</span>}
                     {lead.metros && <span>{lead.metros} m²</span>}
                     {lead.calidad && <span>Calidad {lead.calidad}</span>}
+                    {lead.cuando && <span>· {lead.cuando}</span>}
+                    {lead.presupuesto_orientativo && <span className="text-[#C4531A]">Budget: {lead.presupuesto_orientativo}</span>}
                     <span>{new Date(lead.creado_en).toLocaleDateString('es-ES')}</span>
                   </div>
+                  {lead.estancias?.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {lead.estancias.map((e: string) => (
+                        <span key={e} className="text-xs bg-[#F7F3EE] border border-[#E8DFD8] px-2 py-0.5 rounded-full">{e}</span>
+                      ))}
+                    </div>
+                  )}
                   <div className="mt-3 pt-3 border-t border-[#F0EAE4] flex flex-wrap gap-3 items-center text-sm">
                     <span className="font-semibold">{lead.nombre}</span>
                     <a href={`tel:${lead.telefono}`} className="text-[#C4531A] hover:underline">{lead.telefono}</a>
