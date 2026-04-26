@@ -217,18 +217,29 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer className="border-t border-[#E8DFD8] py-10 px-6">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <a href="/" className="flex items-center gap-2">
-            <Image src="/logo-rr.svg" alt="ReformaReal" width={28} height={25} />
-            <span className="text-xl font-bold">
-              reforma<span className="text-[#C4531A]">real</span>
-            </span>
-          </a>
-          <p className="text-sm text-[#6B5B4E]">© 2026 ReformaReal · Madrid</p>
-          <div className="flex gap-6 text-sm text-[#6B5B4E]">
-            <a href="#" className="hover:text-[#1C1208] transition-colors">Privacidad</a>
-            <a href="#" className="hover:text-[#1C1208] transition-colors">Términos</a>
-            <a href="mailto:hola@reformareal.com" className="hover:text-[#1C1208] transition-colors">Contacto</a>
+        <div className="max-w-6xl mx-auto space-y-6">
+          <div className="flex flex-wrap gap-3 text-sm">
+            <a href="/reformas-integrales-madrid" className="text-[#6B5B4E] hover:text-[#C4531A] transition-colors">Reformas integrales Madrid</a>
+            <span className="text-[#E8DFD8]">·</span>
+            <a href="/reforma-cocina-madrid" className="text-[#6B5B4E] hover:text-[#C4531A] transition-colors">Reforma cocina Madrid</a>
+            <span className="text-[#E8DFD8]">·</span>
+            <a href="/reforma-bano-madrid" className="text-[#6B5B4E] hover:text-[#C4531A] transition-colors">Reforma baño Madrid</a>
+            <span className="text-[#E8DFD8]">·</span>
+            <a href="/reformistas" className="text-[#6B5B4E] hover:text-[#C4531A] transition-colors">Soy reformista</a>
+          </div>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <a href="/" className="flex items-center gap-2">
+              <Image src="/logo-rr.svg" alt="ReformaReal" width={28} height={25} />
+              <span className="text-xl font-bold">
+                reforma<span className="text-[#C4531A]">real</span>
+              </span>
+            </a>
+            <p className="text-sm text-[#6B5B4E]">© 2026 ReformaReal · Madrid</p>
+            <div className="flex gap-6 text-sm text-[#6B5B4E]">
+              <a href="#" className="hover:text-[#1C1208] transition-colors">Privacidad</a>
+              <a href="#" className="hover:text-[#1C1208] transition-colors">Términos</a>
+              <a href="mailto:reformarealsoporte@gmail.com" className="hover:text-[#1C1208] transition-colors">Contacto</a>
+            </div>
           </div>
         </div>
       </footer>
