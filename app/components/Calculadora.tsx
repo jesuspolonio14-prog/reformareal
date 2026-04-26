@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { calcularEstimacion, formatEur, type ResultadoEstimacion, type TipoReforma, type Calidad } from '@/lib/estimacion'
 
 /* ── Tipos ── */
 type Paso = 1 | 2 | 3 | 4
@@ -113,9 +114,27 @@ function Progreso({ paso }: { paso: Paso }) {
 export default function Calculadora() {
   const [paso, setPaso] = useState<Paso>(1)
   const [datos, setDatos] = useState<Datos>(inicial)
+  const [estimacion, setEstimacion] = useState<ResultadoEstimacion | null>(null)
   const [enviando, setEnviando] = useState(false)
   const [enviado, setEnviado] = useState(false)
   const [error, setError] = useState('')
+
+  function calcularEstimacionActual() {
+    const tipoMap: Record<string, TipoReforma> = {
+      'Integral': 'integral', 'Parcial': 'parcial',
+      'Solo cocina': 'cocina', 'Solo baño': 'bano',
+    }
+    const calidadMap: Record<string, Calidad> = {
+      'Básico': 'basica', 'Estándar': 'media', 'Alto': 'premium',
+    }
+    const tipo = tipoMap[datos.tipo_reforma]
+    const calidad = calidadMap[datos.calidad]
+    const metros = Number(datos.metros)
+    if (!tipo || !calidad || (!metros && tipo !== 'cocina' && tipo !== 'bano')) return
+    try {
+      setEstimacion(calcularEstimacion({ metros: metros || 1, ciudad: datos.ciudad || 'Madrid', tipo, calidad }))
+    } catch { /* sin estimación */ }
+  }
 
   function set(campo: keyof Datos, valor: string) {
     setDatos((d) => ({ ...d, [campo]: valor }))
@@ -154,6 +173,7 @@ export default function Calculadora() {
     const err = validarPaso()
     if (err) { setError(err); return }
     setError('')
+    if (paso === 3) calcularEstimacionActual()
     setPaso((p) => (p < 4 ? (p + 1) as Paso : p))
   }
 
@@ -423,6 +443,40 @@ export default function Calculadora() {
           {paso === 4 && (
             <div className="space-y-5">
               <h3 className="text-xl font-black text-[#1C1208]">Tus datos de contacto</h3>
+
+              {/* ESTIMACIÓN ORIENTATIVA */}
+              {estimacion && (
+                <div className="bg-[#FDF0EB] border-2 border-[#C4531A] rounded-2xl p-5">
+                  <p className="text-xs font-semibold text-[#C4531A] uppercase tracking-wide mb-2">
+                    Estimación orientativa para tu reforma
+                  </p>
+                  <p className="text-3xl font-black text-[#1C1208] mb-1">
+                    {formatEur(estimacion.totalMin)} – {formatEur(estimacion.totalMax)}
+                  </p>
+                  {estimacion.precioM2Min > 0 && (
+                    <p className="text-sm text-[#6B5B4E] mb-3">
+                      {formatEur(estimacion.precioM2Min)} – {formatEur(estimacion.precioM2Max)} / m²
+                    </p>
+                  )}
+                  <div className="space-y-2">
+                    {estimacion.capitulos.map((c) => (
+                      <div key={c.nombre}>
+                        <div className="flex justify-between text-xs text-[#6B5B4E] mb-0.5">
+                          <span>{c.nombre}</span>
+                          <span>{formatEur(c.min)} – {formatEur(c.max)}</span>
+                        </div>
+                        <div className="h-1.5 bg-[#E8DFD8] rounded-full overflow-hidden">
+                          <div className="h-full bg-[#C4531A] rounded-full" style={{ width: `${c.porcentaje}%` }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-xs text-[#6B5B4E] mt-3">
+                    Estimación orientativa · Los presupuestos reales pueden variar según el estado actual y los materiales elegidos.
+                  </p>
+                </div>
+              )}
+
               <p className="text-sm text-[#6B5B4E]">Los reformistas te contactarán con su presupuesto desglosado. Sin spam.</p>
 
               <div className="grid grid-cols-2 gap-4">
