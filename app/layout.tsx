@@ -47,6 +47,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://reformareal.com",
   },
+  verification: {
+    google: "gt9certFZY1On9p992xMSAmyjyz_s8sQ6IhsMix8Jo0",
+  },
 };
 
 export default function RootLayout({
