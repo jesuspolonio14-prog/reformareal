@@ -7,9 +7,40 @@ export const metadata: Metadata = {
   description: "Estimación de precio en 2 minutos. Presupuestos comparables. Reformistas verificados.",
 };
 
+const schemaOrg = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'LocalBusiness',
+      name: 'ReformaReal',
+      description: 'Plataforma de comparación de presupuestos de reformas en Madrid. Estimación de precio en 2 minutos y hasta 3 presupuestos de reformistas verificados.',
+      url: 'https://reformareal.com',
+      telephone: '',
+      address: { '@type': 'PostalAddress', addressLocality: 'Madrid', addressCountry: 'ES' },
+      areaServed: ['Madrid', 'España'],
+      priceRange: '€€',
+      sameAs: [],
+    },
+    {
+      '@type': 'WebSite',
+      url: 'https://reformareal.com',
+      name: 'ReformaReal',
+      description: 'Presupuesto de reforma online gratis en Madrid',
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: 'https://reformareal.com/#calcular',
+      },
+    },
+  ],
+}
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#F7F3EE] text-[#1C1208]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
+      />
 
       {/* NAV */}
       <nav className="flex justify-between items-center px-4 sm:px-6 py-4 max-w-6xl mx-auto">
