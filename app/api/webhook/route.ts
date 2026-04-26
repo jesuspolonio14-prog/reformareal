@@ -32,14 +32,19 @@ export async function POST(request: NextRequest) {
 
   // Suscripción activa tras el trial → cobro real
   if (event.type === 'invoice.payment_succeeded') {
-    const invoice = event.data.object as { subscription: string }
-    const sub = await stripe.subscriptions.retrieve(invoice.subscription)
-    const { userId, plan } = sub.metadata ?? {}
-    if (userId && plan) {
-      await getSupabase()
-        .from('reformistas_perfiles')
-        .update({ plan, plan_pagado: true })
-        .eq('id', userId)
+    const invoice = event.data.object
+    const subscriptionId = typeof invoice.subscription === 'string'
+      ? invoice.subscription
+      : invoice.subscription?.id
+    if (subscriptionId) {
+      const sub = await stripe.subscriptions.retrieve(subscriptionId)
+      const { userId, plan } = sub.metadata ?? {}
+      if (userId && plan) {
+        await getSupabase()
+          .from('reformistas_perfiles')
+          .update({ plan, plan_pagado: true })
+          .eq('id', userId)
+      }
     }
   }
 
