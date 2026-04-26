@@ -32,12 +32,10 @@ export async function POST(request: NextRequest) {
 
   // Suscripción activa tras el trial → cobro real
   if (event.type === 'invoice.payment_succeeded') {
-    const invoice = event.data.object
-    // subscription puede ser string (ID) u objeto expandido
-    const subscriptionId: string | null =
-      invoice.subscription == null ? null :
-      typeof invoice.subscription === 'string' ? invoice.subscription :
-      (invoice.subscription as { id: string }).id
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const invoice = event.data.object as any
+    const subscriptionId: string | undefined =
+      typeof invoice.subscription === 'string' ? invoice.subscription : invoice.subscription?.id
     if (subscriptionId) {
       const sub = await stripe.subscriptions.retrieve(subscriptionId)
       const { userId, plan } = sub.metadata ?? {}
