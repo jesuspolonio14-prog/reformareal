@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import FaqAccordion from '@/app/components/FaqAccordion'
+import FadeIn from '@/app/components/FadeIn'
 
 export const metadata: Metadata = {
   title: 'Reformas Integrales en Madrid — Precio y Presupuesto 2026',
-  description:
-    'Precio de una reforma integral en Madrid: desde 420 €/m². Compara hasta 3 presupuestos de reformistas verificados. Estimación gratuita en 2 minutos.',
+  description: 'Precio de una reforma integral en Madrid: desde 420 €/m². Compara hasta 3 presupuestos de reformistas verificados. Estimación gratuita en 2 minutos.',
   alternates: { canonical: 'https://reformareal.com/reformas-integrales-madrid' },
   openGraph: {
     title: 'Reformas Integrales en Madrid — Precio 2026',
@@ -13,23 +14,25 @@ export const metadata: Metadata = {
   },
 }
 
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Reforma Integral Madrid',
-  description: 'Servicio de reforma integral de viviendas en Madrid. Presupuesto gratuito y comparación de reformistas verificados.',
-  provider: { '@type': 'Organization', name: 'ReformaReal', url: 'https://reformareal.com' },
-  areaServed: { '@type': 'City', name: 'Madrid' },
-  hasOfferCatalog: {
-    '@type': 'OfferCatalog',
-    name: 'Precios reforma integral Madrid',
+const schemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'Offer', name: 'Reforma integral básica Madrid', price: '420', priceCurrency: 'EUR', description: 'Precio por m² — calidad básica' },
-      { '@type': 'Offer', name: 'Reforma integral estándar Madrid', price: '630', priceCurrency: 'EUR', description: 'Precio por m² — calidad media' },
-      { '@type': 'Offer', name: 'Reforma integral premium Madrid', price: '920', priceCurrency: 'EUR', description: 'Precio por m² — calidad premium' },
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://reformareal.com' },
+      { '@type': 'ListItem', position: 2, name: 'Reformas integrales Madrid', item: 'https://reformareal.com/reformas-integrales-madrid' },
     ],
   },
-}
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: '¿Cuánto cuesta una reforma integral en Madrid?', acceptedAnswer: { '@type': 'Answer', text: 'El precio de una reforma integral en Madrid oscila entre 420 €/m² para acabados básicos y 1.380 €/m² para acabados premium. Para un piso de 80 m², el coste total suele estar entre 33.600 € y 110.400 €, dependiendo de la calidad de los materiales y el estado previo de la vivienda.' } },
+      { '@type': 'Question', name: '¿Qué incluye una reforma integral de vivienda?', acceptedAnswer: { '@type': 'Answer', text: 'Una reforma integral incluye demolición, albañilería y tabiquería, instalación eléctrica completa, fontanería y saneamiento, solados y alicatados, carpintería (puertas y armarios), pintura y acabados finales.' } },
+      { '@type': 'Question', name: '¿Cuánto tiempo tarda una reforma integral en Madrid?', acceptedAnswer: { '@type': 'Answer', text: 'El plazo habitual para una reforma integral en Madrid es de 8 a 16 semanas, dependiendo del tamaño de la vivienda y la complejidad de los trabajos.' } },
+    ],
+  },
+]
 
 const faqs = [
   { q: '¿Cuánto cuesta una reforma integral en Madrid?', a: 'El precio de una reforma integral en Madrid oscila entre 420 €/m² para acabados básicos y 1.380 €/m² para acabados premium. Para un piso de 80 m², el coste total suele estar entre 33.600 € y 110.400 €, dependiendo de la calidad de los materiales y el estado previo de la vivienda.' },
@@ -39,24 +42,37 @@ const faqs = [
   { q: '¿Necesito licencia para una reforma integral en Madrid?', a: 'En Madrid, las obras que afectan a la estructura o cambian el uso de espacios requieren licencia de obras mayor. Las reformas integrales que solo modifican el interior sin tocar la estructura necesitan comunicación previa o licencia de obras menores. Tu reformista debe gestionar los permisos necesarios.' },
 ]
 
+const zonas = [
+  { zona: 'Salamanca / Chamberí', nivel: 'Premium', rango: '800 – 1.380 €/m²' },
+  { zona: 'Retiro / Chamartín', nivel: 'Medio-alto', rango: '650 – 950 €/m²' },
+  { zona: 'Centro / Malasaña', nivel: 'Medio', rango: '580 – 880 €/m²' },
+  { zona: 'Moncloa / Arganzuela', nivel: 'Medio', rango: '550 – 820 €/m²' },
+  { zona: 'Carabanchel / Usera', nivel: 'Básico-medio', rango: '420 – 680 €/m²' },
+  { zona: 'Vallecas / Villaverde', nivel: 'Básico', rango: '420 – 620 €/m²' },
+]
+
 export default function ReformasIntegralesMadrid() {
   return (
     <main className="min-h-screen bg-[#F7F3EE] text-[#1C1208]">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      {schemas.map((s, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }} />
+      ))}
 
       {/* NAV */}
-      <nav className="flex justify-between items-center px-4 sm:px-6 py-4 max-w-6xl mx-auto border-b border-[#E8DFD8]">
-        <a href="/" className="flex items-center gap-2">
-          <Image src="/logo-rr.svg" alt="ReformaReal" width={36} height={32} priority />
-          <span className="text-xl font-bold">reforma<span className="text-[#C4531A]">real</span></span>
-        </a>
-        <a href="/#calcular" className="bg-[#C4531A] text-white text-sm px-4 py-2 rounded-full hover:bg-[#A84414] transition-colors">
-          Calcular precio
-        </a>
+      <nav className="sticky top-0 z-50 bg-[#F7F3EE]/90 backdrop-blur-md border-b border-[#E8DFD8]/70">
+        <div className="flex justify-between items-center px-4 sm:px-6 py-4 max-w-6xl mx-auto">
+          <a href="/" className="flex items-center gap-2">
+            <Image src="/logo-rr.svg" alt="ReformaReal" width={32} height={28} priority />
+            <span className="text-xl font-bold">reforma<span className="text-[#C4531A]">real</span></span>
+          </a>
+          <a href="/#calcular" className="bg-[#C4531A] text-white text-sm px-5 py-2.5 rounded-full hover:bg-[#A84414] transition-colors font-semibold">
+            Calcular precio
+          </a>
+        </div>
       </nav>
 
       {/* HERO */}
-      <section className="max-w-4xl mx-auto px-5 pt-14 pb-12 text-center">
+      <section className="max-w-5xl mx-auto px-5 pt-16 pb-14 text-center">
         <div className="inline-block bg-[#C4531A]/10 text-[#C4531A] text-xs font-semibold px-3 py-1 rounded-full mb-5 tracking-wide uppercase">
           Madrid · Reformistas verificados
         </div>
@@ -64,79 +80,103 @@ export default function ReformasIntegralesMadrid() {
           Reformas integrales<br />
           <span className="text-[#C4531A]">en Madrid</span>
         </h1>
-        <p className="text-xl text-[#6B5B4E] max-w-2xl mx-auto mb-8 leading-relaxed">
+        <p className="text-lg sm:text-xl text-[#6B5B4E] max-w-2xl mx-auto mb-8 leading-relaxed">
           Compara hasta 3 presupuestos desglosados de reformistas verificados. Estimación de precio gratuita en 2 minutos.
         </p>
-        <a href="/#calcular" className="inline-block bg-[#C4531A] text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#A84414] transition-colors">
+        <a href="/#calcular" className="inline-block bg-[#C4531A] text-white px-8 py-4 rounded-full text-base font-semibold hover:bg-[#A84414] transition-all shadow-lg shadow-[#C4531A]/25 hover:-translate-y-0.5">
           Calcular precio de mi reforma →
         </a>
       </section>
 
       {/* PRECIOS */}
-      <section className="bg-[#1C1208] text-[#F7F3EE] py-16">
+      <section className="bg-[#1C1208] text-[#F7F3EE] py-20">
         <div className="max-w-5xl mx-auto px-5">
-          <h2 className="text-3xl md:text-4xl font-black mb-3">¿Cuánto cuesta una reforma integral en Madrid?</h2>
-          <p className="text-[#B5A090] mb-10 max-w-2xl">Precios orientativos para 2026. El coste final depende del estado previo de la vivienda, los materiales elegidos y la empresa reformista.</p>
+          <FadeIn>
+            <h2 className="text-3xl md:text-4xl font-black mb-3">¿Cuánto cuesta una reforma integral en Madrid?</h2>
+            <p className="text-[#B5A090] mb-10 max-w-2xl">Precios orientativos para 2026. El coste final depende del estado previo de la vivienda, los materiales elegidos y la empresa reformista.</p>
+          </FadeIn>
           <div className="grid sm:grid-cols-3 gap-5 mb-8">
             {[
               { calidad: 'Básica', rango: '420 – 580 €/m²', ejemplo: '33.600 – 46.400 € para 80 m²', color: '#65A30D' },
               { calidad: 'Estándar', rango: '630 – 880 €/m²', ejemplo: '50.400 – 70.400 € para 80 m²', color: '#C4531A' },
               { calidad: 'Premium', rango: '920 – 1.380 €/m²', ejemplo: '73.600 – 110.400 € para 80 m²', color: '#CA8A04' },
-            ].map((p) => (
-              <div key={p.calidad} className="bg-[#2A1E10] rounded-2xl p-6">
-                <p className="text-sm text-[#B5A090] mb-1">Calidad {p.calidad}</p>
-                <p className="text-2xl font-black mb-2" style={{ color: p.color }}>{p.rango}</p>
-                <p className="text-xs text-[#B5A090]">{p.ejemplo}</p>
-              </div>
+            ].map((p, i) => (
+              <FadeIn key={p.calidad} delay={i * 80}>
+                <div className="bg-[#2A1E10] rounded-2xl p-6 h-full">
+                  <p className="text-sm text-[#B5A090] mb-1">Calidad {p.calidad}</p>
+                  <p className="text-2xl font-black mb-2" style={{ color: p.color }}>{p.rango}</p>
+                  <p className="text-xs text-[#B5A090]">{p.ejemplo}</p>
+                </div>
+              </FadeIn>
             ))}
           </div>
           <p className="text-xs text-[#B5A090]">* Precios sin IVA. Pueden variar según el estado actual de la vivienda y los acabados elegidos.</p>
         </div>
       </section>
 
-      {/* QUÉ INCLUYE */}
-      <section className="py-16 max-w-5xl mx-auto px-5">
-        <h2 className="text-3xl font-black mb-10">¿Qué incluye una reforma integral?</h2>
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { icon: '🔨', titulo: 'Demolición', desc: 'Retirada de revestimientos, tabiques y elementos a eliminar.' },
-            { icon: '🧱', titulo: 'Albañilería', desc: 'Nueva distribución, tabiques y trabajos de obra.' },
-            { icon: '⚡', titulo: 'Electricidad', desc: 'Instalación eléctrica completa según normativa vigente.' },
-            { icon: '🚿', titulo: 'Fontanería', desc: 'Renovación completa de tuberías y saneamiento.' },
-            { icon: '🪟', titulo: 'Carpintería', desc: 'Puertas, armarios y carpintería a medida.' },
-            { icon: '🪴', titulo: 'Solados', desc: 'Pavimento, alicatados y revestimientos.' },
-            { icon: '🎨', titulo: 'Pintura', desc: 'Pintura y acabados finales en toda la vivienda.' },
-            { icon: '📋', titulo: 'Gestión', desc: 'Licencias, gestión de residuos y dirección de obra.' },
-          ].map((c) => (
-            <div key={c.titulo} className="bg-white rounded-2xl p-5 border border-[#E8DFD8]">
-              <div className="text-2xl mb-2">{c.icon}</div>
-              <h3 className="font-bold mb-1">{c.titulo}</h3>
-              <p className="text-xs text-[#6B5B4E] leading-relaxed">{c.desc}</p>
-            </div>
+      {/* ZONAS */}
+      <section className="py-20 max-w-5xl mx-auto px-5">
+        <FadeIn>
+          <h2 className="text-3xl font-black mb-3">Precio reforma integral por zona de Madrid</h2>
+          <p className="text-[#6B5B4E] mb-10 max-w-2xl">El precio varía según el barrio: la mano de obra y los materiales tienen coste diferente según la zona.</p>
+        </FadeIn>
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {zonas.map((z, i) => (
+            <FadeIn key={z.zona} delay={i * 60}>
+              <div className="bg-white border border-[#E8DFD8] rounded-2xl p-5">
+                <p className="font-bold mb-1">{z.zona}</p>
+                <p className="text-xs text-[#6B5B4E] mb-2">{z.nivel}</p>
+                <p className="text-[#C4531A] font-black">{z.rango}</p>
+              </div>
+            </FadeIn>
           ))}
         </div>
       </section>
 
+      {/* QUÉ INCLUYE */}
+      <section className="py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-5">
+          <FadeIn>
+            <h2 className="text-3xl font-black mb-10">¿Qué incluye una reforma integral?</h2>
+          </FadeIn>
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { icon: '🔨', titulo: 'Demolición', desc: 'Retirada de revestimientos, tabiques y elementos a eliminar.' },
+              { icon: '🧱', titulo: 'Albañilería', desc: 'Nueva distribución, tabiques y trabajos de obra.' },
+              { icon: '⚡', titulo: 'Electricidad', desc: 'Instalación eléctrica completa según normativa vigente.' },
+              { icon: '🚿', titulo: 'Fontanería', desc: 'Renovación completa de tuberías y saneamiento.' },
+              { icon: '🪟', titulo: 'Carpintería', desc: 'Puertas, armarios y carpintería a medida.' },
+              { icon: '🪴', titulo: 'Solados', desc: 'Pavimento, alicatados y revestimientos.' },
+              { icon: '🎨', titulo: 'Pintura', desc: 'Pintura y acabados finales en toda la vivienda.' },
+              { icon: '📋', titulo: 'Gestión', desc: 'Licencias, gestión de residuos y dirección de obra.' },
+            ].map((c, i) => (
+              <FadeIn key={c.titulo} delay={i * 50}>
+                <div className="bg-[#F7F3EE] rounded-2xl p-5 border border-[#E8DFD8] h-full">
+                  <div className="text-2xl mb-2">{c.icon}</div>
+                  <h3 className="font-bold mb-1">{c.titulo}</h3>
+                  <p className="text-xs text-[#6B5B4E] leading-relaxed">{c.desc}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
-      <section className="bg-[#C4531A] py-16 text-center px-5">
+      <section className="bg-[#C4531A] py-20 text-center px-5">
         <h2 className="text-3xl font-black text-white mb-4">¿Cuánto cuesta tu reforma integral?</h2>
         <p className="text-white/80 mb-8 max-w-xl mx-auto">Obtén una estimación personalizada por capítulos en 2 minutos. Gratis y sin registrarte.</p>
-        <a href="/#calcular" className="inline-block bg-white text-[#C4531A] px-8 py-4 rounded-full font-bold hover:bg-[#F7F3EE] transition-colors">
+        <a href="/#calcular" className="inline-block bg-white text-[#C4531A] px-8 py-4 rounded-full font-bold hover:bg-[#F7F3EE] transition-colors shadow-lg">
           Calcular precio de mi reforma →
         </a>
       </section>
 
       {/* FAQ */}
-      <section className="py-16 max-w-3xl mx-auto px-5">
-        <h2 className="text-3xl font-black mb-10">Preguntas frecuentes sobre reformas integrales en Madrid</h2>
-        <div className="space-y-6">
-          {faqs.map((f) => (
-            <div key={f.q} className="border-b border-[#E8DFD8] pb-6">
-              <h3 className="font-bold text-lg mb-2">{f.q}</h3>
-              <p className="text-[#6B5B4E] leading-relaxed text-sm">{f.a}</p>
-            </div>
-          ))}
-        </div>
+      <section className="py-20 max-w-3xl mx-auto px-5">
+        <FadeIn>
+          <h2 className="text-3xl font-black mb-10">Preguntas frecuentes sobre reformas integrales en Madrid</h2>
+        </FadeIn>
+        <FaqAccordion faqs={faqs} />
       </section>
 
       {/* LINKS INTERNOS */}
@@ -152,11 +192,15 @@ export default function ReformasIntegralesMadrid() {
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-[#E8DFD8] py-8 px-5">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 text-sm text-[#6B5B4E]">
-          <a href="/" className="font-bold text-[#1C1208]">reforma<span className="text-[#C4531A]">real</span></a>
+      <footer className="bg-[#1C1208] text-[#F7F3EE] py-10 px-5">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-[#B5A090]">
+          <a href="/" className="font-bold text-white">reforma<span className="text-[#C4531A]">real</span></a>
           <p>© 2026 ReformaReal · Madrid</p>
-          <a href="mailto:reformarealsoporte@gmail.com">Contacto</a>
+          <div className="flex gap-4">
+            <a href="/privacidad" className="hover:text-white transition-colors">Privacidad</a>
+            <a href="/terminos" className="hover:text-white transition-colors">Términos</a>
+            <a href="mailto:reformarealsoporte@gmail.com" className="hover:text-white transition-colors">Contacto</a>
+          </div>
         </div>
       </footer>
     </main>
