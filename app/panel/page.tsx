@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase-server'
 import { getSupabase } from '@/lib/supabase'
-import { cerrarSesion } from './actions'
+import { cerrarSesion, abrirPortalStripe } from './actions'
 import LeadsSection from './LeadsSection'
 import PerfilSection from './PerfilSection'
 import PresupuestosSection from './PresupuestosSection'
@@ -70,19 +70,26 @@ export default async function Panel() {
             <h1 className="text-3xl font-black">Hola, {perfil?.nombre ?? 'reformista'} 👋</h1>
             <p className="text-[#6B5B4E] mt-1">{perfil?.ciudad} · {perfil?.plan ?? 'Básico'}</p>
           </div>
-            {perfil?.plan_pagado ? (
-              <div className="bg-green-50 border border-green-200 text-green-700 text-sm rounded-xl px-4 py-3">
-                ✅ Plan {perfil.plan} activo
-              </div>
-            ) : perfil?.suscripcion_activa ? (
-              <div className="bg-amber-50 border border-amber-200 text-amber-700 text-sm rounded-xl px-4 py-3">
-                🎁 Periodo de prueba · 1er mes gratis
-              </div>
-            ) : (
-              <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">
-                ⚠️ Problema con el pago · <a href="/reformistas" className="underline font-semibold">Renovar plan</a>
-              </div>
-            )}
+            <div className="flex flex-col items-end gap-2">
+              {perfil?.plan_pagado ? (
+                <div className="bg-green-50 border border-green-200 text-green-700 text-sm rounded-xl px-4 py-3">
+                  ✅ Plan {perfil.plan} activo
+                </div>
+              ) : perfil?.suscripcion_activa ? (
+                <div className="bg-amber-50 border border-amber-200 text-amber-700 text-sm rounded-xl px-4 py-3">
+                  🎁 Periodo de prueba · 1er mes gratis
+                </div>
+              ) : (
+                <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">
+                  ⚠️ Problema con el pago · <a href="/reformistas" className="underline font-semibold">Renovar plan</a>
+                </div>
+              )}
+              <form action={abrirPortalStripe}>
+                <button type="submit" className="text-xs text-[#6B5B4E] hover:text-[#C4531A] transition-colors underline">
+                  Gestionar suscripción →
+                </button>
+              </form>
+            </div>
         </div>
 
         {/* STATS */}

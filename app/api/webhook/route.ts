@@ -39,13 +39,17 @@ export async function POST(request: NextRequest) {
         const subscriptionId = typeof session.subscription === 'string'
           ? session.subscription
           : (session.subscription as { id: string } | null)?.id
+        const customerId = typeof session.customer === 'string'
+          ? session.customer
+          : (session.customer as { id: string } | null)?.id
 
         if (userId && plan) {
           await actualizarPerfil(userId, {
             plan,
-            plan_pagado: false,        // todavía no ha pagado, está en trial
-            suscripcion_activa: true,  // pero sí tiene acceso
+            plan_pagado: false,
+            suscripcion_activa: true,
             stripe_subscription_id: subscriptionId ?? null,
+            stripe_customer_id: customerId ?? null,
           })
         }
         break
