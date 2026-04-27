@@ -74,24 +74,24 @@ export default function Home() {
       </nav>
 
       {/* HERO */}
-      <section className="relative overflow-hidden max-w-4xl mx-auto px-5 pt-16 pb-20 text-center">
+      <section className="relative overflow-hidden px-5 pt-16 pb-20 text-center">
         {/* Decorative blobs */}
         <div className="absolute -top-20 -right-20 w-80 h-80 bg-[#C4531A]/8 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-[#C4531A]/6 rounded-full blur-3xl pointer-events-none" />
         {/* Dot grid */}
         <div className="absolute inset-0 dot-grid opacity-60 pointer-events-none" />
 
-        <div className="relative">
+        <div className="relative max-w-5xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-white border border-[#E8DFD8] rounded-full px-4 py-1.5 text-sm text-[#6B5B4E] mb-6 shadow-sm">
             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            Gratis · Sin registro · Madrid
+            Gratis · Madrid
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black leading-[1.05] mb-6 tracking-tight">
+          <h1 className="text-5xl sm:text-6xl md:text-8xl font-black leading-[1.02] mb-6 tracking-tight">
             El precio primero,<br />
             <span className="text-[#C4531A]">el reformista después</span>
           </h1>
-          <p className="text-base sm:text-lg text-[#6B5B4E] max-w-xl mx-auto mb-10 leading-relaxed">
+          <p className="text-base sm:text-xl text-[#6B5B4E] max-w-2xl mx-auto mb-10 leading-relaxed">
             Estimación real en 2 minutos. Tres presupuestos comparables. Reformistas verificados en tu ciudad.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -116,7 +116,7 @@ export default function Home() {
           </div>
 
           {/* STATS */}
-          <div className="mt-14 grid grid-cols-3 gap-4 max-w-sm sm:max-w-lg mx-auto">
+          <div className="mt-14 grid grid-cols-3 gap-4 max-w-lg mx-auto">
             {[
               { n: "2 min", label: "Estimación de precio" },
               { n: "3", label: "Presupuestos comparables" },
