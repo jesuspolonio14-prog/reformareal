@@ -5,6 +5,8 @@ import FadeIn from "@/app/components/FadeIn";
 import { createClient } from "@/lib/supabase-server";
 import { getSupabase } from "@/lib/supabase";
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: "ReformaReal · Comparador de reformas en tu ciudad",
   description: "Estimación de precio en 2 minutos. Presupuestos comparables. Reformistas verificados.",
