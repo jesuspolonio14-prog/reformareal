@@ -47,10 +47,10 @@ export default async function Panel() {
   return (
     <main className="min-h-screen bg-[#F7F3EE] text-[#1C1208]">
       {/* NAV */}
-      <nav className="flex justify-between items-center px-6 py-4 max-w-6xl mx-auto border-b border-[#E8DFD8]">
+      <nav className="flex justify-between items-center px-4 sm:px-6 py-3 max-w-6xl mx-auto border-b border-[#E8DFD8]">
         <a href="/" className="flex items-center gap-2">
-          <Image src="/logo-rr.svg" alt="ReformaReal" width={36} height={32} priority />
-          <span className="text-xl font-bold">reforma<span className="text-[#C4531A]">real</span></span>
+          <Image src="/logo-rr.svg" alt="ReformaReal" width={32} height={28} priority />
+          <span className="text-lg font-bold">reforma<span className="text-[#C4531A]">real</span></span>
         </a>
         <div className="flex items-center gap-4">
           <span className="text-sm text-[#6B5B4E]">{user.email}</span>
@@ -62,25 +62,25 @@ export default async function Panel() {
         </div>
       </nav>
 
-      <div className="max-w-6xl mx-auto px-6 py-10 space-y-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-5 sm:space-y-8">
 
         {/* BIENVENIDA */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h1 className="text-3xl font-black">Hola, {perfil?.nombre ?? 'reformista'} 👋</h1>
-            <p className="text-[#6B5B4E] mt-1">{perfil?.ciudad} · {perfil?.plan ?? 'Básico'}</p>
+            <h1 className="text-2xl sm:text-3xl font-black">Hola, {perfil?.nombre ?? 'reformista'} 👋</h1>
+            <p className="text-[#6B5B4E] text-sm mt-0.5">{perfil?.ciudad} · {perfil?.plan ?? 'Básico'}</p>
           </div>
-            <div className="flex flex-col items-end gap-2">
+            <div className="flex flex-col items-start sm:items-end gap-2">
               {perfil?.plan_pagado ? (
-                <div className="bg-green-50 border border-green-200 text-green-700 text-sm rounded-xl px-4 py-3">
+                <div className="bg-green-50 border border-green-200 text-green-700 text-xs sm:text-sm rounded-xl px-3 py-2">
                   ✅ Plan {perfil.plan} activo
                 </div>
               ) : perfil?.suscripcion_activa ? (
-                <div className="bg-amber-50 border border-amber-200 text-amber-700 text-sm rounded-xl px-4 py-3">
+                <div className="bg-amber-50 border border-amber-200 text-amber-700 text-xs sm:text-sm rounded-xl px-3 py-2">
                   🎁 Periodo de prueba · 1er mes gratis
                 </div>
               ) : (
-                <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">
+                <div className="bg-red-50 border border-red-200 text-red-700 text-xs sm:text-sm rounded-xl px-3 py-2">
                   ⚠️ Problema con el pago · <a href="/reformistas" className="underline font-semibold">Renovar plan</a>
                 </div>
               )}

@@ -70,12 +70,12 @@ export default function LeadsSection({
   const leadsPerdidos = leads.filter((l) => estadoActual(l.id) === 'perdido')
 
   return (
-    <div className="bg-white rounded-2xl p-6 border border-[#E8DFD8]">
-      <div className="flex justify-between items-center mb-5">
-        <h2 className="font-black text-xl">Trabajos en tu zona — {ciudad}</h2>
-        <div className="flex gap-3 text-xs text-[#6B5B4E]">
+    <div className="bg-white rounded-2xl p-4 sm:p-6 border border-[#E8DFD8]">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="font-black text-lg sm:text-xl">Trabajos — {ciudad}</h2>
+        <div className="flex gap-2 text-xs text-[#6B5B4E]">
           <span>{leadsActivos.length} activos</span>
-          {leadsPerdidos.length > 0 && <span>{leadsPerdidos.length} perdidos</span>}
+          {leadsPerdidos.length > 0 && <span>· {leadsPerdidos.length} perdidos</span>}
         </div>
       </div>
 
@@ -98,22 +98,21 @@ export default function LeadsSection({
                 }`}
               >
                 {/* Cabecera */}
-                <div className="flex justify-between items-start mb-2">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-bold">{lead.tipo_reforma ?? 'Reforma'}</span>
-                    <span className="text-[#6B5B4E] text-sm">· {lead.ciudad}</span>
-                    <span className={`text-xs px-2.5 py-0.5 rounded-full border font-medium ${info.color}`}>
-                      {info.label}
-                    </span>
-                  </div>
-                  {lead.total_min && lead.total_max ? (
-                    <div className="text-right shrink-0">
-                      <p className="text-xs text-[#6B5B4E]">Estimación cliente</p>
-                      <p className="text-[#C4531A] font-black text-sm">
+                <div className="mb-2">
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-bold capitalize">{lead.tipo_reforma ?? 'Reforma'}</span>
+                      <span className="text-[#6B5B4E] text-xs">· {lead.ciudad}</span>
+                      <span className={`text-xs px-2 py-0.5 rounded-full border font-medium ${info.color}`}>
+                        {info.label}
+                      </span>
+                    </div>
+                    {lead.total_min && lead.total_max && (
+                      <p className="text-[#C4531A] font-black text-sm shrink-0">
                         {Number(lead.total_min).toLocaleString('es-ES')} – {Number(lead.total_max).toLocaleString('es-ES')} €
                       </p>
-                    </div>
-                  ) : null}
+                    )}
+                  </div>
                 </div>
 
                 {/* Datos */}
@@ -135,13 +134,15 @@ export default function LeadsSection({
                 )}
 
                 {/* Contacto + acciones */}
-                <div className="mt-3 pt-3 border-t border-[#F0EAE4] flex flex-wrap gap-3 items-center text-sm">
-                  <span className="font-semibold">{lead.nombre}</span>
-                  <a href={`tel:${lead.telefono}`} className="text-[#C4531A] hover:underline">{lead.telefono}</a>
-                  {lead.email && <a href={`mailto:${lead.email}`} className="text-[#6B5B4E] hover:underline">{lead.email}</a>}
+                <div className="mt-3 pt-3 border-t border-[#F0EAE4] space-y-2">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+                    <span className="font-semibold">{lead.nombre}</span>
+                    <a href={`tel:${lead.telefono}`} className="text-[#C4531A] font-medium">{lead.telefono}</a>
+                    {lead.email && <a href={`mailto:${lead.email}`} className="text-[#6B5B4E] text-xs truncate max-w-[180px]">{lead.email}</a>}
+                  </div>
                   <a
                     href={`/panel/presupuesto?lead=${lead.id}`}
-                    className="ml-auto bg-[#1C1208] text-white text-xs px-4 py-2 rounded-full hover:bg-[#C4531A] transition-colors"
+                    className="block w-full text-center bg-[#1C1208] text-white text-sm px-4 py-2.5 rounded-full hover:bg-[#C4531A] transition-colors font-medium"
                   >
                     Enviar presupuesto →
                   </a>
