@@ -299,8 +299,8 @@ export default function Home() {
                   { label: "Unirme como reformista", href: "/reformistas" },
                   { label: "Acceder al panel", href: "/login" },
                   { label: "Contacto", href: "mailto:reformarealsoporte@gmail.com" },
-                  { label: "Privacidad", href: "#" },
-                  { label: "Términos", href: "#" },
+                  { label: "Privacidad", href: "/privacidad" },
+                  { label: "Términos", href: "/terminos" },
                 ].map((l) => (
                   <li key={l.label}>
                     <a href={l.href} className="text-sm text-[#B5A090] hover:text-white transition-colors">{l.label}</a>
