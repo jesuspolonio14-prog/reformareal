@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Calculadora from "@/app/components/Calculadora";
 import FadeIn from "@/app/components/FadeIn";
+import { createClient } from "@/lib/supabase-server";
+import { getSupabase } from "@/lib/supabase";
 
 export const metadata: Metadata = {
   title: "ReformaReal · Comparador de reformas en tu ciudad",
@@ -45,7 +47,24 @@ const pasosIcons = [
   <svg key="3" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" /></svg>,
 ]
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  let nombrePerfil: string | null = null
+  if (user) {
+    const { data } = await getSupabase()
+      .from('reformistas_perfiles')
+      .select('nombre')
+      .eq('id', user.id)
+      .single()
+    nombrePerfil = data?.nombre ?? null
+  }
+
+  const inicial = nombrePerfil
+    ? nombrePerfil[0].toUpperCase()
+    : user?.email?.[0].toUpperCase() ?? '?'
+
   return (
     <main className="min-h-screen bg-[#F7F3EE] text-[#1C1208]">
       <script
@@ -63,9 +82,18 @@ export default function Home() {
             </span>
           </a>
           <div className="flex gap-2 sm:gap-4 items-center">
-            <a href="/reformistas" className="hidden sm:block text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors font-medium">
-              Soy reformista
-            </a>
+            {user ? (
+              <a href="/panel" className="hidden sm:flex items-center gap-2 text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors font-medium group">
+                <span className="w-8 h-8 bg-[#C4531A] rounded-full flex items-center justify-center text-white text-sm font-black group-hover:bg-[#A84414] transition-colors">
+                  {inicial}
+                </span>
+                <span>{nombrePerfil ?? 'Mi panel'}</span>
+              </a>
+            ) : (
+              <a href="/reformistas" className="hidden sm:block text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors font-medium">
+                Soy reformista
+              </a>
+            )}
             <a href="#calcular" className="bg-[#C4531A] text-white text-sm px-5 py-2.5 rounded-full hover:bg-[#A84414] transition-colors font-semibold shadow-sm shadow-[#C4531A]/20">
               Calcular precio
             </a>
