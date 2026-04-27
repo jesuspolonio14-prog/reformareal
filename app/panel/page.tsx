@@ -117,7 +117,10 @@ export default async function Panel() {
         />
 
         {/* PRESUPUESTOS */}
-        <PresupuestosSection presupuestos={presupuestos ?? []} />
+        <PresupuestosSection presupuestos={(presupuestos ?? []).map((p) => ({
+          ...p,
+          leads: Array.isArray(p.leads) ? p.leads[0] : p.leads,
+        }))} />
 
       </div>
     </main>
