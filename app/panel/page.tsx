@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase-server'
 import { getSupabase } from '@/lib/supabase'
-import { cerrarSesion, abrirPortalStripe } from './actions'
+import { cerrarSesion } from './actions'
 import LeadsSection from './LeadsSection'
 import PerfilSection from './PerfilSection'
 import PresupuestosSection from './PresupuestosSection'
@@ -81,11 +81,9 @@ export default async function Panel() {
                   ⚠️ Problema con el pago · <a href="/reformistas" className="underline font-semibold">Renovar plan</a>
                 </div>
               )}
-              <form action={abrirPortalStripe}>
-                <button type="submit" className="text-xs text-[#6B5B4E] hover:text-[#C4531A] transition-colors underline">
-                  Gestionar suscripción →
-                </button>
-              </form>
+              <a href="mailto:reformarealsoporte@gmail.com?subject=Gestión suscripción" className="text-xs text-[#6B5B4E] hover:text-[#C4531A] transition-colors underline">
+                Gestionar suscripción →
+              </a>
             </div>
         </div>
 
