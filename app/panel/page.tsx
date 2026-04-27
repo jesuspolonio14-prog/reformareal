@@ -3,6 +3,8 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase-server'
 import { getSupabase } from '@/lib/supabase'
 import { cerrarSesion } from './actions'
+import LeadsSection from './LeadsSection'
+import PerfilSection from './PerfilSection'
 
 export default async function Panel() {
   const supabase = await createClient()
@@ -17,13 +19,18 @@ export default async function Panel() {
     .eq('id', user.id)
     .single()
 
-  // Leads de la misma ciudad usando clave admin
-  const { data: leads, error: leadsError } = await admin
-    .from('leads')
-    .select('*')
-    .ilike('ciudad', `%${perfil?.ciudad ?? ''}%`)
-    .order('creado_en', { ascending: false })
-    .limit(10)
+  const [{ data: leads, error: leadsError }, { data: seguimientos }] = await Promise.all([
+    admin
+      .from('leads')
+      .select('*')
+      .ilike('ciudad', `%${perfil?.ciudad ?? ''}%`)
+      .order('creado_en', { ascending: false })
+      .limit(20),
+    admin
+      .from('lead_seguimientos')
+      .select('lead_id, estado')
+      .eq('reformista_id', user.id),
+  ])
 
   if (leadsError) console.error('Leads error:', leadsError)
 
@@ -75,93 +82,14 @@ export default async function Panel() {
         </div>
 
         {/* PERFIL */}
-        <div className="bg-white rounded-2xl p-6 border border-[#E8DFD8]">
-          <h2 className="font-black text-xl mb-4">Tu perfil</h2>
-          <div className="grid md:grid-cols-2 gap-3 text-sm">
-            {[
-              { k: 'Nombre', v: perfil?.nombre },
-              { k: 'Empresa', v: perfil?.empresa ?? '—' },
-              { k: 'Teléfono', v: perfil?.telefono },
-              { k: 'Ciudad', v: perfil?.ciudad },
-              { k: 'Licencia', v: perfil?.licencia ? 'Sí' : 'No' },
-              { k: 'Seguro RC', v: perfil?.seguro_rc ? 'Sí' : 'No' },
-            ].map((r) => (
-              <div key={r.k} className="flex justify-between border-b border-[#F0EAE4] pb-2">
-                <span className="text-[#6B5B4E]">{r.k}</span>
-                <span className="font-semibold">{r.v}</span>
-              </div>
-            ))}
-          </div>
-          {perfil?.tipos_obra?.length > 0 && (
-            <div className="mt-4">
-              <p className="text-xs font-semibold text-[#6B5B4E] uppercase tracking-wide mb-2">Tipos de obra</p>
-              <div className="flex flex-wrap gap-2">
-                {perfil.tipos_obra.map((t: string) => (
-                  <span key={t} className="bg-[#F7F3EE] border border-[#E8DFD8] text-xs px-3 py-1 rounded-full">{t}</span>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+        <PerfilSection perfil={perfil ?? {}} />
 
         {/* LEADS */}
-        <div className="bg-white rounded-2xl p-6 border border-[#E8DFD8]">
-          <h2 className="font-black text-xl mb-4">Trabajos en tu zona — {perfil?.ciudad}</h2>
-          {!leads || leads.length === 0 ? (
-            <p className="text-[#6B5B4E] text-sm py-6 text-center">
-              Aún no hay solicitudes en tu zona. Te notificaremos en cuanto llegue alguna.
-            </p>
-          ) : (
-            <div className="space-y-4">
-              {leads.map((lead) => (
-                <div key={lead.id} className="border border-[#E8DFD8] rounded-xl p-4">
-                  <div className="flex justify-between items-start mb-2">
-                    <div>
-                      <span className="font-bold">{lead.tipo_reforma ?? 'Reforma'}</span>
-                      <span className="text-[#6B5B4E] text-sm ml-2">· {lead.ciudad}</span>
-                    </div>
-                    {lead.total_min && lead.total_max ? (
-                      <div className="text-right">
-                        <p className="text-xs text-[#6B5B4E]">Estimación del cliente</p>
-                        <p className="text-[#C4531A] font-black">
-                          {Number(lead.total_min).toLocaleString('es-ES')} – {Number(lead.total_max).toLocaleString('es-ES')} €
-                        </p>
-                      </div>
-                    ) : (
-                      <span className="text-xs text-[#6B5B4E]">Sin estimación</span>
-                    )}
-                  </div>
-                  <div className="flex flex-wrap gap-3 text-xs text-[#6B5B4E]">
-                    {lead.tipo_vivienda && <span className="bg-[#F0EAE4] px-2 py-0.5 rounded-full">{lead.tipo_vivienda}</span>}
-                    {lead.metros && <span>{lead.metros} m²</span>}
-                    {lead.calidad && <span>Calidad {lead.calidad}</span>}
-                    {lead.cuando && <span>· {lead.cuando}</span>}
-                    {lead.presupuesto_orientativo && <span className="text-[#C4531A]">Budget: {lead.presupuesto_orientativo}</span>}
-                    <span>{new Date(lead.creado_en).toLocaleDateString('es-ES')}</span>
-                  </div>
-                  {lead.estancias?.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mt-2">
-                      {lead.estancias.map((e: string) => (
-                        <span key={e} className="text-xs bg-[#F7F3EE] border border-[#E8DFD8] px-2 py-0.5 rounded-full">{e}</span>
-                      ))}
-                    </div>
-                  )}
-                  <div className="mt-3 pt-3 border-t border-[#F0EAE4] flex flex-wrap gap-3 items-center text-sm">
-                    <span className="font-semibold">{lead.nombre}</span>
-                    <a href={`tel:${lead.telefono}`} className="text-[#C4531A] hover:underline">{lead.telefono}</a>
-                    {lead.email && <a href={`mailto:${lead.email}`} className="text-[#6B5B4E] hover:underline">{lead.email}</a>}
-                    <a
-                      href={`/panel/presupuesto?lead=${lead.id}`}
-                      className="ml-auto bg-[#1C1208] text-white text-xs px-4 py-2 rounded-full hover:bg-[#C4531A] transition-colors"
-                    >
-                      Enviar presupuesto →
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        <LeadsSection
+          leads={leads ?? []}
+          seguimientos={seguimientos ?? []}
+          ciudad={perfil?.ciudad ?? ''}
+        />
 
       </div>
     </main>
