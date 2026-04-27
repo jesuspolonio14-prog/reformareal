@@ -19,6 +19,9 @@ export default async function Panel() {
     .eq('id', user.id)
     .single()
 
+  // Sin suscripción activa → fuera del panel
+  if (perfil && perfil.suscripcion_activa === false) redirect('/reformistas?estado=sin-suscripcion')
+
   const [{ data: leads, error: leadsError }, { data: seguimientos }] = await Promise.all([
     admin
       .from('leads')
@@ -60,11 +63,19 @@ export default async function Panel() {
             <h1 className="text-3xl font-black">Hola, {perfil?.nombre ?? 'reformista'} 👋</h1>
             <p className="text-[#6B5B4E] mt-1">{perfil?.ciudad} · {perfil?.plan ?? 'Básico'}</p>
           </div>
-            {perfil?.plan_pagado && (
-            <div className="bg-green-50 border border-green-200 text-green-700 text-sm rounded-xl px-4 py-3">
-              ✅ Plan {perfil?.plan} activo
-            </div>
-          )}
+            {perfil?.plan_pagado ? (
+              <div className="bg-green-50 border border-green-200 text-green-700 text-sm rounded-xl px-4 py-3">
+                ✅ Plan {perfil.plan} activo
+              </div>
+            ) : perfil?.suscripcion_activa ? (
+              <div className="bg-amber-50 border border-amber-200 text-amber-700 text-sm rounded-xl px-4 py-3">
+                🎁 Periodo de prueba · 1er mes gratis
+              </div>
+            ) : (
+              <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">
+                ⚠️ Problema con el pago · <a href="/reformistas" className="underline font-semibold">Renovar plan</a>
+              </div>
+            )}
         </div>
 
         {/* STATS */}
