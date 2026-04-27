@@ -5,6 +5,7 @@ import { getSupabase } from '@/lib/supabase'
 import { cerrarSesion } from './actions'
 import LeadsSection from './LeadsSection'
 import PerfilSection from './PerfilSection'
+import PresupuestosSection from './PresupuestosSection'
 
 export default async function Panel() {
   const supabase = await createClient()
@@ -22,7 +23,7 @@ export default async function Panel() {
   // Sin suscripción activa → fuera del panel
   if (perfil && perfil.suscripcion_activa === false) redirect('/reformistas?estado=sin-suscripcion')
 
-  const [{ data: leads, error: leadsError }, { data: seguimientos }] = await Promise.all([
+  const [{ data: leads, error: leadsError }, { data: seguimientos }, { data: presupuestos }] = await Promise.all([
     admin
       .from('leads')
       .select('*')
@@ -33,6 +34,12 @@ export default async function Panel() {
       .from('lead_seguimientos')
       .select('lead_id, estado')
       .eq('reformista_id', user.id),
+    admin
+      .from('presupuestos')
+      .select('id, total, notas, partidas, creado_en, leads(tipo_reforma, ciudad, metros, nombre, telefono)')
+      .eq('reformista_id', user.id)
+      .order('creado_en', { ascending: false })
+      .limit(20),
   ])
 
   if (leadsError) console.error('Leads error:', leadsError)
@@ -101,6 +108,9 @@ export default async function Panel() {
           seguimientos={seguimientos ?? []}
           ciudad={perfil?.ciudad ?? ''}
         />
+
+        {/* PRESUPUESTOS */}
+        <PresupuestosSection presupuestos={presupuestos ?? []} />
 
       </div>
     </main>
