@@ -52,14 +52,11 @@ export default async function Panel() {
           <Image src="/logo-rr.svg" alt="ReformaReal" width={32} height={28} priority />
           <span className="text-lg font-bold">reforma<span className="text-[#C4531A]">real</span></span>
         </a>
-        <div className="flex items-center gap-4">
-          <span className="text-sm text-[#6B5B4E]">{user.email}</span>
-          <form action={cerrarSesion}>
-            <button type="submit" className="text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors">
-              Cerrar sesión
-            </button>
-          </form>
-        </div>
+        <form action={cerrarSesion}>
+          <button type="submit" className="text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors border border-[#E8DFD8] px-3 py-1.5 rounded-full">
+            Cerrar sesión
+          </button>
+        </form>
       </nav>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-5 sm:space-y-8">
@@ -93,15 +90,15 @@ export default async function Panel() {
         </div>
 
         {/* STATS */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-2">
           {[
-            { label: 'Leads en tu zona', valor: leads?.length ?? 0 },
-            { label: 'Plan activo', valor: perfil?.plan ?? 'Básico' },
-            { label: 'Estado', valor: perfil?.verificado ? 'Verificado' : 'Pendiente' },
+            { label: 'Leads', valor: leads?.length ?? 0 },
+            { label: 'Plan', valor: perfil?.plan ?? 'Básico' },
+            { label: 'Estado', valor: perfil?.verificado ? 'OK' : 'Pendiente' },
           ].map((s) => (
-            <div key={s.label} className="bg-white rounded-2xl p-6 border border-[#E8DFD8]">
-              <div className="text-2xl font-black text-[#C4531A]">{s.valor}</div>
-              <div className="text-sm text-[#6B5B4E] mt-1">{s.label}</div>
+            <div key={s.label} className="bg-white rounded-2xl p-3 sm:p-5 border border-[#E8DFD8] text-center">
+              <div className="text-xl sm:text-2xl font-black text-[#C4531A] truncate">{s.valor}</div>
+              <div className="text-xs text-[#6B5B4E] mt-1">{s.label}</div>
             </div>
           ))}
         </div>
