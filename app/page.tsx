@@ -84,7 +84,7 @@ export default function Home() {
         <div className="relative max-w-5xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-white border border-[#E8DFD8] rounded-full px-4 py-1.5 text-sm text-[#6B5B4E] mb-6 shadow-sm">
             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            Gratis · Madrid
+            Gratis
           </div>
 
           <h1 className="text-5xl sm:text-6xl md:text-8xl font-black leading-[1.02] mb-6 tracking-tight">
