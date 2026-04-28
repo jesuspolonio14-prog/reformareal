@@ -7,9 +7,9 @@ export const metadata: Metadata = {
 }
 
 const planes = [
-  { nombre: 'Básico',  precio: '49 €/mes',  desc: 'Ficha verificada + presupuesto PDF' },
-  { nombre: 'Pro',     precio: '99 €/mes',  desc: 'Posición destacada + leads directos', popular: true },
-  { nombre: 'Elite',   precio: '199 €/mes', desc: 'Primero en tu provincia + panel completo' },
+  { nombre: 'Básico',  precio: '19 €/mes',  desc: 'Ficha verificada + presupuesto PDF' },
+  { nombre: 'Pro',     precio: '49 €/mes',  desc: 'Posición destacada + leads directos', popular: true },
+  { nombre: 'Elite',   precio: '99 €/mes',  desc: 'Primero en tu provincia + panel completo' },
 ]
 
 const PROMO_ACTIVA = true
