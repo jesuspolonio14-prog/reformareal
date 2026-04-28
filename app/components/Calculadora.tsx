@@ -136,7 +136,7 @@ export default function Calculadora() {
       ? calcularM2Efectivos(datos.estancias, metrosTotales)
       : metrosTotales
     try {
-      setEstimacion(calcularEstimacion({ metros: metrosEfectivos || 1, ciudad: datos.ciudad || 'Madrid', tipo, calidad }))
+      setEstimacion(calcularEstimacion({ metros: metrosEfectivos || 1, ciudad: datos.ciudad || 'españa', tipo, calidad }))
     } catch { /* sin estimación */ }
   }
 
@@ -306,7 +306,7 @@ export default function Calculadora() {
                     Ciudad o zona <span className="text-[#C4531A]">*</span>
                   </label>
                   <input
-                    type="text" placeholder="Madrid"
+                    type="text" placeholder="Madrid, Barcelona, Valencia..."
                     value={datos.ciudad} onChange={(e) => set('ciudad', e.target.value)}
                     className="w-full border border-[#E8DFD8] rounded-xl px-4 py-3 focus:outline-none focus:border-[#C4531A]"
                   />

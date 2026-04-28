@@ -18,11 +18,11 @@ const schemaOrg = {
     {
       '@type': 'LocalBusiness',
       name: 'ReformaReal',
-      description: 'Plataforma de comparación de presupuestos de reformas en Madrid. Estimación de precio en 2 minutos y hasta 3 presupuestos de reformistas verificados.',
+      description: 'Plataforma de comparación de presupuestos de reformas en España. Estimación de precio en 2 minutos y hasta 3 presupuestos de reformistas verificados.',
       url: 'https://reformareal.com',
       telephone: '',
-      address: { '@type': 'PostalAddress', addressLocality: 'Madrid', addressCountry: 'ES' },
-      areaServed: ['Madrid', 'España'],
+      address: { '@type': 'PostalAddress', addressCountry: 'ES' },
+      areaServed: ['España'],
       priceRange: '€€',
       sameAs: [],
     },
@@ -30,7 +30,7 @@ const schemaOrg = {
       '@type': 'WebSite',
       url: 'https://reformareal.com',
       name: 'ReformaReal',
-      description: 'Presupuesto de reforma online gratis en Madrid',
+      description: 'Presupuesto de reforma online gratis en España',
       potentialAction: { '@type': 'SearchAction', target: 'https://reformareal.com/#calcular' },
     },
   ],
@@ -301,7 +301,7 @@ export default async function Home() {
                 <span className="text-xl font-bold">reforma<span className="text-[#C4531A]">real</span></span>
               </a>
               <p className="text-[#B5A090] text-sm leading-relaxed max-w-xs">
-                Estima el precio de tu reforma en 2 minutos y compara hasta 3 presupuestos de reformistas verificados en Madrid.
+                Estima el precio de tu reforma en 2 minutos y compara hasta 3 presupuestos de reformistas verificados en tu ciudad.
               </p>
             </div>
 
@@ -341,7 +341,7 @@ export default async function Home() {
           </div>
 
           <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-[#6B5B4E]">
-            <p>© 2026 ReformaReal · Madrid</p>
+            <p>© 2026 ReformaReal · España</p>
             <p className="text-xs">Hecho con cuidado para que reformar no sea una pesadilla</p>
           </div>
         </div>

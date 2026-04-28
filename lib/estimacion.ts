@@ -50,27 +50,62 @@ const PRECIO_BASE: Record<TipoReforma, Record<Calidad, [number, number]>> = {
 
 // Índice de coste relativo por ciudad (Madrid = 1.0)
 const MULTIPLICADOR: Record<string, number> = {
+  // Madrid
   madrid:          1.00,
+  // Cataluña
   barcelona:       1.05,
+  tarragona:       0.88,
+  lleida:          0.85,
+  girona:          0.92,
+  // País Vasco
   'san sebastian': 1.08,
   donostia:        1.08,
   bilbao:          1.03,
+  vitoria:         1.00,
+  gasteiz:         1.00,
+  // Navarra / Aragón / La Rioja
   pamplona:        1.00,
   zaragoza:        0.88,
+  logrono:         0.86,
+  // Comunidad Valenciana
   valencia:        0.87,
   alicante:        0.84,
+  castellon:       0.83,
+  elche:           0.83,
+  // Murcia
   murcia:          0.82,
+  // Andalucía
   sevilla:         0.85,
   malaga:          0.86,
   granada:         0.82,
   cordoba:         0.80,
+  cadiz:           0.81,
+  almeria:         0.80,
+  huelva:          0.79,
+  jaen:            0.78,
+  // Castilla y León
   valladolid:      0.86,
+  salamanca:       0.85,
+  burgos:          0.86,
+  leon:            0.84,
+  toledo:          0.84,
+  // Cantabria / Asturias
   santander:       0.90,
   oviedo:          0.88,
   gijon:           0.87,
+  // Galicia
   vigo:            0.86,
   'a coruna':      0.86,
+  santiago:        0.87,
+  pontevedra:      0.85,
+  // Baleares / Canarias
   palma:           0.92,
+  'las palmas':    0.88,
+  tenerife:        0.87,
+  'santa cruz':    0.87,
+  // Extremadura
+  badajoz:         0.78,
+  caceres:         0.79,
 }
 
 export const CAPITULOS_INTEGRAL = [

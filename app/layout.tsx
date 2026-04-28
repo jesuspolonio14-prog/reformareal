@@ -11,11 +11,13 @@ export const metadata: Metadata = {
     template: "%s | ReformaReal",
   },
   description:
-    "Obtén una estimación del precio de tu reforma en 2 minutos. Compara hasta 3 presupuestos de reformistas verificados en Madrid. Gratis y sin registrarte.",
+    "Obtén una estimación del precio de tu reforma en 2 minutos. Compara hasta 3 presupuestos de reformistas verificados en tu ciudad. Gratis y sin registrarte.",
   keywords: [
     "reforma madrid", "presupuesto reforma madrid", "reformas integrales madrid",
     "precio reforma piso madrid", "reformistas madrid", "reformas cocina madrid",
     "reforma baño madrid", "presupuesto obra madrid", "reformistas verificados",
+    "reforma barcelona", "presupuesto reforma españa", "reformistas verificados españa",
+    "reforma integral españa", "precio reforma piso",
   ],
   authors: [{ name: "ReformaReal" }],
   creator: "ReformaReal",
@@ -32,7 +34,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "ReformaReal — Presupuestos de reforma en Madrid",
+        alt: "ReformaReal — Presupuestos de reforma en España",
       },
     ],
   },
