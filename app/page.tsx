@@ -260,9 +260,9 @@ export default async function Home() {
             <FadeIn delay={150}>
               <div className="grid grid-cols-1 gap-4">
                 {[
-                  { plan: "Básico", price: "49€", desc: "Ficha verificada + herramienta de presupuesto PDF" },
-                  { plan: "Pro", price: "99€", desc: "Posición destacada + badge verificado + leads directos", destacado: true },
-                  { plan: "Elite", price: "199€", desc: "Primero en tu provincia + panel de obra + analíticas" },
+                  { plan: "Básico", price: "19€", desc: "Ficha verificada + herramienta de presupuesto PDF" },
+                  { plan: "Pro", price: "49€", desc: "Posición destacada + badge verificado + leads directos", destacado: true },
+                  { plan: "Elite", price: "99€", desc: "Primero en tu provincia + panel de obra + analíticas" },
                 ].map((p) => (
                   <div
                     key={p.plan}

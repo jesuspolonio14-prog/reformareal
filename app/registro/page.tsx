@@ -9,9 +9,9 @@ const initialState: RegistroState = { status: 'idle' }
 const tiposObra = ['Reforma integral','Cocina','Baño','Electricidad','Fontanería','Pintura','Carpintería','Suelos']
 
 const planes = [
-  { key: 'basico', nombre: 'Básico',  precio: '49 €',  periodo: '/mes', desc: 'Ficha verificada + presupuesto PDF' },
-  { key: 'pro',    nombre: 'Pro',     precio: '99 €',  periodo: '/mes', desc: 'Posición destacada + leads directos', popular: true },
-  { key: 'elite',  nombre: 'Elite',   precio: '199 €', periodo: '/mes', desc: 'Primero en tu provincia + panel completo' },
+  { key: 'basico', nombre: 'Básico',  precio: '19 €',  periodo: '/mes', desc: 'Ficha verificada + presupuesto PDF' },
+  { key: 'pro',    nombre: 'Pro',     precio: '49 €',  periodo: '/mes', desc: 'Posición destacada + leads directos', popular: true },
+  { key: 'elite',  nombre: 'Elite',   precio: '99 €',  periodo: '/mes', desc: 'Primero en tu provincia + panel completo' },
 ]
 
 const PROMO_ACTIVA = true
