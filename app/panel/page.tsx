@@ -44,6 +44,10 @@ export default async function Panel() {
 
   if (leadsError) console.error('Leads error:', leadsError)
 
+  // Leads sin tocar = sin entrada en lead_seguimientos
+  const leadsVistos = new Set((seguimientos ?? []).map((s) => s.lead_id))
+  const leadsNuevos = (leads ?? []).filter((l) => !leadsVistos.has(l.id)).length
+
   return (
     <main className="min-h-screen bg-[#F7F3EE] text-[#1C1208]">
       {/* NAV */}
@@ -87,14 +91,33 @@ export default async function Panel() {
             </div>
         </div>
 
+        {/* BANNER leads nuevos */}
+        {leadsNuevos > 0 && (
+          <a href="#leads" className="flex items-center gap-3 bg-[#C4531A] text-white rounded-2xl px-5 py-4 hover:bg-[#A84414] transition-colors">
+            <span className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center font-black text-sm shrink-0">
+              {leadsNuevos}
+            </span>
+            <div>
+              <p className="font-bold text-sm">
+                {leadsNuevos === 1 ? 'Tienes 1 lead nuevo sin revisar' : `Tienes ${leadsNuevos} leads nuevos sin revisar`}
+              </p>
+              <p className="text-white/70 text-xs">Toca para verlos →</p>
+            </div>
+          </a>
+        )}
+
         {/* STATS */}
         <div className="grid grid-cols-3 gap-2">
           {[
-            { label: 'Leads', valor: leads?.length ?? 0 },
-            { label: 'Plan', valor: perfil?.plan ?? 'Básico' },
-            { label: 'Estado', valor: perfil?.verificado ? 'OK' : 'Pendiente' },
+            {
+              label: leadsNuevos > 0 ? `${leadsNuevos} nuevos` : 'Leads',
+              valor: leads?.length ?? 0,
+              highlight: leadsNuevos > 0,
+            },
+            { label: 'Plan', valor: perfil?.plan ?? 'Básico', highlight: false },
+            { label: 'Estado', valor: perfil?.verificado ? 'OK' : 'Pendiente', highlight: false },
           ].map((s) => (
-            <div key={s.label} className="bg-white rounded-2xl p-3 sm:p-5 border border-[#E8DFD8] text-center">
+            <div key={s.label} className={`rounded-2xl p-3 sm:p-5 border text-center ${s.highlight ? 'bg-[#FDF0EB] border-[#C4531A]/30' : 'bg-white border-[#E8DFD8]'}`}>
               <div className="text-xl sm:text-2xl font-black text-[#C4531A] truncate">{s.valor}</div>
               <div className="text-xs text-[#6B5B4E] mt-1">{s.label}</div>
             </div>
@@ -105,11 +128,13 @@ export default async function Panel() {
         <PerfilSection perfil={perfil ?? {}} />
 
         {/* LEADS */}
+        <div id="leads">
         <LeadsSection
           leads={leads ?? []}
           seguimientos={seguimientos ?? []}
           ciudad={perfil?.ciudad ?? ''}
         />
+        </div>
 
         {/* PRESUPUESTOS */}
         <PresupuestosSection presupuestos={(presupuestos ?? []).map((p) => ({
