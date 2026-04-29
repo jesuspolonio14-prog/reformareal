@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { calcularEstimacion, calcularM2Efectivos, formatEur, type ResultadoEstimacion, type TipoReforma, type Calidad } from '@/lib/estimacion'
 
 /* ── Tipos ── */
@@ -112,6 +113,7 @@ function Progreso({ paso }: { paso: Paso }) {
 
 /* ── Componente principal ── */
 export default function Calculadora() {
+  const router = useRouter()
   const [paso, setPaso] = useState<Paso>(1)
   const [datos, setDatos] = useState<Datos>(inicial)
   const [estimacion, setEstimacion] = useState<ResultadoEstimacion | null>(null)
@@ -212,7 +214,7 @@ export default function Calculadora() {
           total_max:    estimacion?.totalMax ?? null,
         }),
       })
-      if (res.ok) setEnviado(true)
+      if (res.ok) router.push('/gracias')
       else setError('Ha habido un error. Inténtalo de nuevo.')
     } catch {
       setError('Ha habido un error. Inténtalo de nuevo.')
