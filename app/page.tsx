@@ -104,7 +104,7 @@ export default async function Home() {
       </nav>
 
       {/* HERO */}
-      <section className="relative overflow-hidden px-5 pt-16 pb-20 text-center">
+      <section className="relative overflow-hidden px-5 pt-10 sm:pt-16 pb-20 text-center">
         {/* Decorative blobs */}
         <div className="absolute -top-20 -right-20 w-80 h-80 bg-[#C4531A]/8 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-[#C4531A]/6 rounded-full blur-3xl pointer-events-none" />
@@ -117,7 +117,7 @@ export default async function Home() {
             Gratis
           </div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-8xl font-black leading-[1.02] mb-6 tracking-tight">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-black leading-[1.02] mb-6 tracking-tight">
             El precio primero,<br />
             <span className="text-[#C4531A]">el reformista después</span>
           </h1>

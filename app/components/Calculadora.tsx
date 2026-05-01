@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { track } from '@vercel/analytics'
 import { calcularEstimacion, calcularM2Efectivos, formatEur, type ResultadoEstimacion, type TipoReforma, type Calidad } from '@/lib/estimacion'
 
 /* ── Tipos ── */
@@ -181,6 +182,8 @@ export default function Calculadora() {
     if (err) { setError(err); return }
     setError('')
     if (paso === 3) calcularEstimacionActual()
+    const siguientePaso = (paso + 1) as Paso
+    track('calculadora_paso', { paso: siguientePaso, tipo_reforma: datos.tipo_reforma || undefined })
     setPaso((p) => (p < 4 ? (p + 1) as Paso : p))
   }
 
@@ -214,8 +217,15 @@ export default function Calculadora() {
           total_max:    estimacion?.totalMax ?? null,
         }),
       })
-      if (res.ok) router.push('/gracias')
-      else setError('Ha habido un error. Inténtalo de nuevo.')
+      if (res.ok) {
+        track('calculadora_enviado', {
+          tipo_reforma: datos.tipo_reforma,
+          calidad: datos.calidad,
+          ciudad: datos.ciudad,
+          cuando: datos.cuando,
+        })
+        router.push('/gracias')
+      } else setError('Ha habido un error. Inténtalo de nuevo.')
     } catch {
       setError('Ha habido un error. Inténtalo de nuevo.')
     }
