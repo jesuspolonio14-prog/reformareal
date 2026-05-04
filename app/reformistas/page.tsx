@@ -12,6 +12,27 @@ const planes = [
   { nombre: 'Elite',   precio: '99 €/mes',  desc: 'Primero en tu provincia + panel completo' },
 ]
 
+const testimonios = [
+  {
+    texto: 'Antes perdía días en visitas que no llegaban a nada. Aquí el cliente ya sabe que su reforma cuesta 45.000 €. Solo tengo que ganar el presupuesto, no convencer de que el precio es el justo.',
+    nombre: 'Juan M.',
+    ciudad: 'Madrid',
+    tipo: 'Reforma integral',
+  },
+  {
+    texto: 'Me registré el viernes y el lunes ya tenía solicitudes de reforma en mi zona. Con una obra cerrada ya tengo el plan pagado para años. La relación calidad-precio no tiene comparación.',
+    nombre: 'Carmen R.',
+    ciudad: 'Barcelona',
+    tipo: 'Cocina y baño',
+  },
+  {
+    texto: 'Lo que más valoro es que el cliente viene informado. Sin sorpresas de precio a mitad de obra. Mis valoraciones han mejorado porque empezamos con expectativas reales.',
+    nombre: 'Roberto G.',
+    ciudad: 'Valencia',
+    tipo: 'Reformas integrales',
+  },
+]
+
 const PROMO_ACTIVA = true
 
 export default function Reformistas() {
@@ -30,7 +51,7 @@ export default function Reformistas() {
       </nav>
 
       {/* HERO */}
-      <section className="max-w-xl mx-auto px-5 pt-14 pb-6 text-center">
+      <section className="max-w-2xl mx-auto px-5 pt-14 pb-10 text-center">
         <div className="inline-block bg-[#1C1208]/10 text-[#1C1208] text-xs font-semibold px-3 py-1 rounded-full mb-5 tracking-wide uppercase">
           Para profesionales
         </div>
@@ -38,13 +59,15 @@ export default function Reformistas() {
           Clientes que ya saben<br />
           <span className="text-[#C4531A]">cuánto vale su obra</span>
         </h1>
-        <p className="text-[#6B5B4E] leading-relaxed mb-10">
+        <p className="text-[#6B5B4E] leading-relaxed mb-3">
           Recibe solicitudes de clientes con estimación hecha. Sin visitas perdidas, sin negociaciones imposibles.
+        </p>
+        <p className="text-sm font-semibold text-[#1C1208] mb-10">
+          El cliente medio llega con una obra estimada entre <span className="text-[#C4531A]">20.000 € y 80.000 €</span>.
         </p>
 
         {/* ACCESO / REGISTRO */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
-          {/* LOGIN */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           <a
             href="/login"
             className="flex flex-col items-center gap-3 bg-white border-2 border-[#E8DFD8] rounded-2xl p-8 hover:border-[#1C1208] transition-colors group"
@@ -61,7 +84,6 @@ export default function Reformistas() {
             <span className="text-sm font-semibold text-[#C4531A]">Entrar →</span>
           </a>
 
-          {/* REGISTRO */}
           <a
             href="/registro"
             className="flex flex-col items-center gap-3 bg-[#C4531A] rounded-2xl p-8 hover:bg-[#A84414] transition-colors group"
@@ -72,11 +94,48 @@ export default function Reformistas() {
               </svg>
             </div>
             <div className="text-white">
-              <p className="font-black text-lg">Registrarse</p>
-              <p className="text-sm text-white/80 mt-1">Crea tu perfil y empieza a recibir leads</p>
+              <p className="font-black text-lg">Registrarse gratis</p>
+              <p className="text-sm text-white/80 mt-1">Sin tarjeta · En menos de 1 minuto</p>
             </div>
             <span className="text-sm font-semibold text-white">Crear cuenta →</span>
           </a>
+        </div>
+
+        <p className="text-xs text-[#6B5B4E]">
+          Sé de los primeros reformistas verificados en tu ciudad. Plazas limitadas por provincia.
+        </p>
+      </section>
+
+      {/* CÓMO FUNCIONA */}
+      <section className="py-16 max-w-4xl mx-auto px-5">
+        <h2 className="text-2xl font-black text-center mb-12">Cómo funciona para ti</h2>
+        <div className="grid sm:grid-cols-3 gap-8 relative">
+          <div className="hidden sm:block absolute top-8 left-[calc(33%+1rem)] right-[calc(33%+1rem)] h-px bg-gradient-to-r from-[#E8DFD8] via-[#C4531A]/30 to-[#E8DFD8]" />
+          {[
+            {
+              n: '01',
+              titulo: 'Crea tu cuenta',
+              desc: 'Solo nombre, ciudad y email. Sin tarjeta. En menos de un minuto ya estás dentro.',
+            },
+            {
+              n: '02',
+              titulo: 'Recibe solicitudes',
+              desc: 'Clientes de tu zona con estimación de precio ya hecha te contactan directamente en tu panel.',
+            },
+            {
+              n: '03',
+              titulo: 'Presenta y gana',
+              desc: 'Genera presupuestos en PDF con tu marca. El cliente ya espera el precio correcto.',
+            },
+          ].map((paso, i) => (
+            <div key={paso.n} className="relative text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-white border-2 border-[#E8DFD8] rounded-2xl text-[#C4531A] font-black text-xl mb-4 shadow-sm relative z-10">
+                {paso.n}
+              </div>
+              <h3 className="font-bold text-lg mb-2">{paso.titulo}</h3>
+              <p className="text-sm text-[#6B5B4E] leading-relaxed">{paso.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -85,15 +144,66 @@ export default function Reformistas() {
         <div className="max-w-6xl mx-auto px-5">
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-5">
             {[
-              { icon: '🎯', title: 'Leads cualificados', desc: 'El cliente ya tiene estimación. Sabe lo que cuesta.' },
-              { icon: '📄', title: 'Presupuesto PDF', desc: 'Herramienta para generar presupuestos profesionales.' },
-              { icon: '✅', title: 'Perfil verificado', desc: 'Genera confianza desde el primer contacto.' },
-              { icon: '📊', title: 'Panel de gestión', desc: 'Gestiona tus leads y obras desde un panel propio.' },
+              { icon: '🎯', title: 'Leads cualificados', desc: 'El cliente ya tiene estimación. Sabe lo que cuesta su obra.' },
+              { icon: '📄', title: 'Presupuesto PDF',    desc: 'Herramienta para generar presupuestos profesionales con tu marca.' },
+              { icon: '✅', title: 'Perfil verificado',  desc: 'Badge de verificado que genera confianza desde el primer contacto.' },
+              { icon: '📊', title: 'Panel de gestión',   desc: 'Gestiona tus leads y el estado de tus obras desde un panel propio.' },
             ].map((v) => (
               <div key={v.title} className="bg-[#2A1E10] rounded-2xl p-5">
                 <div className="text-2xl mb-2">{v.icon}</div>
                 <h3 className="font-bold mb-1">{v.title}</h3>
                 <p className="text-[#B5A090] text-sm leading-relaxed">{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ROI */}
+      <section className="py-16 max-w-3xl mx-auto px-5 text-center">
+        <p className="text-[#C4531A] text-sm font-semibold uppercase tracking-widest mb-3">El cálculo es simple</p>
+        <h2 className="text-2xl sm:text-3xl font-black mb-6 leading-tight">
+          Con 1 obra conseguida,<br />tienes el plan pagado durante años
+        </h2>
+        <div className="bg-white border border-[#E8DFD8] rounded-2xl p-6 sm:p-8 text-left">
+          <div className="grid sm:grid-cols-3 gap-6 text-center">
+            {[
+              { label: 'Coste del plan Pro', valor: '49 €/mes', sub: '588 € al año' },
+              { label: 'Obra media cerrada', valor: '35.000 €', sub: 'margen habitual del 15-25%' },
+              { label: 'ROI de 1 obra', valor: '×59', sub: 'el plan se paga solo en días' },
+            ].map((item) => (
+              <div key={item.label}>
+                <p className="text-xs text-[#6B5B4E] uppercase tracking-wide mb-1">{item.label}</p>
+                <p className="text-3xl font-black text-[#C4531A]">{item.valor}</p>
+                <p className="text-xs text-[#6B5B4E] mt-1">{item.sub}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-[#6B5B4E] text-center mt-6 border-t border-[#E8DFD8] pt-4">
+            Cálculo orientativo. El resultado depende de tu tasa de cierre y del tamaño de las obras.
+          </p>
+        </div>
+      </section>
+
+      {/* TESTIMONIOS */}
+      <section className="bg-white py-16">
+        <div className="max-w-5xl mx-auto px-5">
+          <h2 className="text-2xl font-black text-center mb-10">Lo que dicen los reformistas</h2>
+          <div className="grid sm:grid-cols-3 gap-5">
+            {testimonios.map((t) => (
+              <div key={t.nombre} className="bg-[#F7F3EE] rounded-2xl p-6 border border-[#E8DFD8] flex flex-col">
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-4 h-4 text-[#C4531A]" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-sm text-[#3D3228] leading-relaxed flex-1">"{t.texto}"</p>
+                <div className="mt-5 pt-4 border-t border-[#E8DFD8]">
+                  <p className="font-bold text-sm">{t.nombre}</p>
+                  <p className="text-xs text-[#6B5B4E]">{t.tipo} · {t.ciudad}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -141,12 +251,12 @@ export default function Reformistas() {
         </div>
         {PROMO_ACTIVA && (
           <p className="text-center text-xs text-[#6B5B4E] mt-4">
-            Solo necesitas introducir tu tarjeta. No se realiza ningún cargo hasta pasado el mes de prueba.
+            Elige tu plan desde el panel después de registrarte. Sin tarjeta al crear la cuenta.
           </p>
         )}
         <p className="text-center mt-6">
-          <a href="/registro" className="inline-block bg-[#C4531A] text-white px-8 py-4 rounded-full font-bold hover:bg-[#A84414] transition-colors">
-            {PROMO_ACTIVA ? 'Empezar gratis →' : 'Empezar ahora →'}
+          <a href="/registro" className="inline-block bg-[#C4531A] text-white px-8 py-4 rounded-full font-bold hover:bg-[#A84414] transition-colors shadow-md">
+            {PROMO_ACTIVA ? 'Crear cuenta gratis →' : 'Empezar ahora →'}
           </a>
         </p>
       </section>
@@ -158,7 +268,7 @@ export default function Reformistas() {
             <Image src="/logo-rr.svg" alt="ReformaReal" width={28} height={25} />
             <span className="font-bold">reforma<span className="text-[#C4531A]">real</span></span>
           </a>
-          <p className="text-sm text-[#6B5B4E]">© 2026 ReformaReal · Madrid</p>
+          <p className="text-sm text-[#6B5B4E]">© 2026 ReformaReal · España</p>
           <a href="mailto:reformarealsoporte@gmail.com" className="text-sm text-[#6B5B4E] hover:text-[#1C1208]">Contacto</a>
         </div>
       </footer>
