@@ -51,14 +51,16 @@ export default function Reformistas() {
       </nav>
 
       {/* HERO */}
-      <section className="hero-gradient grain max-w-full px-5 pt-16 pb-12 text-center relative overflow-hidden">
+      <section className="max-w-full px-5 pt-16 pb-12 text-center relative overflow-hidden" style={{ background: 'radial-gradient(ellipse 90% 70% at 60% -5%, #f5d5c0 0%, transparent 55%), radial-gradient(ellipse 60% 50% at -5% 90%, #f0cbb5 0%, transparent 50%), #F7F3EE' }}>
         <div className="max-w-2xl mx-auto relative">
         <div className="inline-block bg-white/80 backdrop-blur-sm border border-[#E8DFD8] text-[#6B5B4E] text-xs font-semibold px-3 py-1 rounded-full mb-5 tracking-wide uppercase shadow-sm">
           Para profesionales
         </div>
         <h1 className="text-4xl sm:text-5xl font-black leading-tight mb-4">
           Clientes que ya saben<br />
-          <span className="stat-number">cuánto vale su obra</span>
+          <span style={{ background: 'linear-gradient(135deg, #C4531A 0%, #E8702A 50%, #C4531A 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            cuánto vale su obra
+          </span>
         </h1>
         <p className="text-[#6B5B4E] leading-relaxed mb-3">
           Recibe solicitudes de clientes con estimación hecha. Sin visitas perdidas, sin negociaciones imposibles.
@@ -142,7 +144,7 @@ export default function Reformistas() {
       </section>
 
       {/* VENTAJAS */}
-      <section className="dark-shimmer text-[#F7F3EE] py-14 relative overflow-hidden">
+      <section className="text-[#F7F3EE] py-14 relative overflow-hidden" style={{ background: 'radial-gradient(ellipse 70% 50% at 80% 20%, rgba(196,83,26,0.18) 0%, transparent 55%), radial-gradient(ellipse 50% 40% at 20% 80%, rgba(196,83,26,0.12) 0%, transparent 50%), #1C1208' }}>
         <div className="max-w-6xl mx-auto px-5">
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-5">
             {[
@@ -257,7 +259,11 @@ export default function Reformistas() {
           </p>
         )}
         <p className="text-center mt-6">
-          <a href="/registro" className="btn-gradient inline-block text-white px-8 py-4 rounded-full font-bold">
+          <a
+            href="/registro"
+            className="inline-block text-white px-8 py-4 rounded-full font-bold transition-all hover:-translate-y-0.5"
+            style={{ background: 'linear-gradient(135deg, #D4631A 0%, #B84515 100%)', boxShadow: '0 4px 24px -4px rgba(196,83,26,0.5)' }}
+          >
             {PROMO_ACTIVA ? 'Crear cuenta gratis →' : 'Empezar ahora →'}
           </a>
         </p>

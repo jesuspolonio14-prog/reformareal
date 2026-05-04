@@ -96,7 +96,11 @@ export default async function Home() {
                 Soy reformista
               </a>
             )}
-            <a href="#calcular" className="btn-gradient text-white text-sm px-5 py-2.5 rounded-full font-semibold">
+            <a
+              href="#calcular"
+              className="text-white text-sm px-5 py-2.5 rounded-full font-semibold transition-all hover:-translate-y-0.5"
+              style={{ background: 'linear-gradient(135deg, #D4631A 0%, #B84515 100%)', boxShadow: '0 4px 16px -4px rgba(196,83,26,0.45)' }}
+            >
               Calcular precio
             </a>
           </div>
@@ -104,37 +108,44 @@ export default async function Home() {
       </nav>
 
       {/* HERO */}
-      <section className="hero-gradient grain relative overflow-hidden px-5 pt-12 sm:pt-20 pb-24 text-center">
-        <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
-        <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#C4531A]/12 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-16 -left-16 w-80 h-80 bg-[#C4531A]/8 rounded-full blur-3xl pointer-events-none" />
+      <section
+        className="relative overflow-hidden px-5 pt-12 sm:pt-20 pb-24 text-center"
+        style={{ background: 'radial-gradient(ellipse 90% 70% at 60% -5%, #f5d5c0 0%, transparent 55%), radial-gradient(ellipse 60% 50% at -5% 90%, #f0cbb5 0%, transparent 50%), #F7F3EE' }}
+      >
+        <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
 
         <div className="relative max-w-5xl mx-auto">
-          <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-[#E8DFD8] rounded-full px-4 py-1.5 text-sm text-[#6B5B4E] mb-8 shadow-sm">
+          <div className="inline-flex items-center gap-2 bg-white border border-[#E8DFD8] rounded-full px-4 py-1.5 text-sm text-[#6B5B4E] mb-8 shadow-md">
             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
             Gratis · Sin registro
           </div>
 
-          <h1 className="text-5xl sm:text-7xl md:text-[5.5rem] font-black leading-[1] mb-6 tracking-tight">
+          <h1 className="text-5xl sm:text-7xl md:text-[5.5rem] font-black leading-[1.02] mb-6 tracking-tight">
             El precio primero,<br />
-            <span className="stat-number">el reformista después</span>
+            <span style={{ background: 'linear-gradient(135deg, #C4531A 0%, #E8702A 50%, #C4531A 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              el reformista después
+            </span>
           </h1>
           <p className="text-base sm:text-xl text-[#6B5B4E] max-w-xl mx-auto mb-10 leading-relaxed">
             Estimación real en 2 minutos. Tres presupuestos comparables. Reformistas verificados en tu ciudad.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="#calcular" className="btn-gradient text-white px-8 py-4 rounded-full text-base font-semibold inline-block">
+            <a
+              href="#calcular"
+              className="text-white px-8 py-4 rounded-full text-base font-semibold inline-block transition-all hover:-translate-y-0.5"
+              style={{ background: 'linear-gradient(135deg, #D4631A 0%, #B84515 100%)', boxShadow: '0 4px 24px -4px rgba(196,83,26,0.5)' }}
+            >
               Calcular precio gratis →
             </a>
             <a
               href="/reformistas"
-              className="sm:hidden bg-white/80 backdrop-blur-sm border border-[#C4B8AE] text-[#6B5B4E] px-8 py-4 rounded-full text-base hover:border-[#1C1208] hover:text-[#1C1208] transition-colors font-medium"
+              className="sm:hidden bg-white border border-[#C4B8AE] text-[#6B5B4E] px-8 py-4 rounded-full text-base hover:border-[#1C1208] hover:text-[#1C1208] transition-colors font-medium"
             >
               Unirme como reformista
             </a>
             <a
               href="#como-funciona"
-              className="hidden sm:block bg-white/80 backdrop-blur-sm border border-[#C4B8AE] text-[#6B5B4E] px-8 py-4 rounded-full text-base hover:border-[#1C1208] hover:text-[#1C1208] transition-colors font-medium"
+              className="hidden sm:block bg-white border border-[#C4B8AE] text-[#6B5B4E] px-8 py-4 rounded-full text-base hover:border-[#1C1208] hover:text-[#1C1208] transition-colors font-medium"
             >
               Cómo funciona
             </a>
@@ -147,8 +158,8 @@ export default async function Home() {
               { n: "3", label: "Presupuestos comparables" },
               { n: "100%", label: "Reformistas verificados" },
             ].map((s) => (
-              <div key={s.label} className="bg-white/70 backdrop-blur-sm border border-[#E8DFD8] rounded-2xl p-4 text-center card-glow">
-                <div className="text-xl sm:text-2xl font-black stat-number">{s.n}</div>
+              <div key={s.label} className="bg-white border border-[#E8DFD8] rounded-2xl p-4 text-center" style={{ boxShadow: '0 4px 20px -4px rgba(196,83,26,0.15)' }}>
+                <div className="text-xl sm:text-2xl font-black" style={{ background: 'linear-gradient(135deg, #C4531A, #E8702A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{s.n}</div>
                 <div className="text-xs text-[#6B5B4E] mt-1 leading-tight">{s.label}</div>
               </div>
             ))}
@@ -157,7 +168,7 @@ export default async function Home() {
       </section>
 
       {/* PROBLEMA */}
-      <section className="dark-shimmer text-[#F7F3EE] py-24 relative overflow-hidden">
+      <section className="text-[#F7F3EE] py-24 relative overflow-hidden" style={{ background: 'radial-gradient(ellipse 70% 50% at 80% 20%, rgba(196,83,26,0.18) 0%, transparent 55%), radial-gradient(ellipse 50% 40% at 20% 80%, rgba(196,83,26,0.12) 0%, transparent 50%), #1C1208' }}>
         <div className="max-w-6xl mx-auto px-6">
           <FadeIn>
             <p className="text-[#C4531A] text-sm font-semibold uppercase tracking-widest mb-4">El problema</p>
@@ -247,7 +258,11 @@ export default async function Home() {
                   </li>
                 ))}
               </ul>
-              <a href="/reformistas" className="btn-gradient inline-flex items-center gap-2 text-white px-7 py-4 rounded-full font-semibold">
+              <a
+                href="/reformistas"
+                className="inline-flex items-center gap-2 text-white px-7 py-4 rounded-full font-semibold transition-all hover:-translate-y-0.5"
+                style={{ background: 'linear-gradient(135deg, #D4631A 0%, #B84515 100%)', boxShadow: '0 4px 24px -4px rgba(196,83,26,0.5)' }}
+              >
                 Unirme como reformista →
               </a>
             </FadeIn>
