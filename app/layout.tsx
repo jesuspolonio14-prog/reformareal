@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     canonical: "https://reformareal.com",
   },
   verification: {
-    google: "gt9certFZY1On9p992xMSAmyjyz_s8sQ6IhsMix8Jo0",
+    google: "IsEOIZKKhJkdCIkfX8dN3PoQw77s8ZbBiq9chWY-DgI",
   },
 };
 
