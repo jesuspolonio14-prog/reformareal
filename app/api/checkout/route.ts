@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     },
     metadata: { userId, plan },
     success_url: `${baseUrl}/panel?pago=ok`,
-    cancel_url:  `${baseUrl}/registro`,
+    cancel_url:  `${baseUrl}/panel`,
   })
 
   return Response.json({ url: session.url })
