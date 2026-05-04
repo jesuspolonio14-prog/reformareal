@@ -94,8 +94,8 @@ export default function Reformistas() {
               </svg>
             </div>
             <div className="text-white">
-              <p className="font-black text-lg">Registrarse gratis</p>
-              <p className="text-sm text-white/80 mt-1">Sin tarjeta · En menos de 1 minuto</p>
+              <p className="font-black text-lg">Registrarse</p>
+              <p className="text-sm text-white/80 mt-1">1er mes gratis · Elige plan desde el panel</p>
             </div>
             <span className="text-sm font-semibold text-white">Crear cuenta →</span>
           </a>
@@ -251,7 +251,7 @@ export default function Reformistas() {
         </div>
         {PROMO_ACTIVA && (
           <p className="text-center text-xs text-[#6B5B4E] mt-4">
-            Elige tu plan desde el panel después de registrarte. Sin tarjeta al crear la cuenta.
+            Crea tu cuenta gratis y elige tu plan desde el panel. Primer mes sin cargo, cancela cuando quieras.
           </p>
         )}
         <p className="text-center mt-6">
