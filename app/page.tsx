@@ -75,11 +75,11 @@ export default async function Home() {
       />
 
       {/* NAV */}
-      <nav className="sticky top-0 z-50 bg-[#F7F3EE]/90 backdrop-blur-md border-b border-[#E8DFD8]/70">
+      <nav className="sticky top-0 z-50 bg-[#F7F3EE]/80 backdrop-blur-xl border-b border-[#E8DFD8]/60">
         <div className="flex justify-between items-center px-4 sm:px-6 py-4 max-w-6xl mx-auto">
           <a href="/" className="flex items-center gap-2">
             <Image src="/logo-rr.svg" alt="ReformaReal" width={32} height={28} priority />
-            <span className="text-lg sm:text-xl font-bold tracking-tight">
+            <span className="text-lg sm:text-xl font-black tracking-tight">
               reforma<span className="text-[#C4531A]">real</span>
             </span>
           </a>
@@ -96,7 +96,7 @@ export default async function Home() {
                 Soy reformista
               </a>
             )}
-            <a href="#calcular" className="bg-[#C4531A] text-white text-sm px-5 py-2.5 rounded-full hover:bg-[#A84414] transition-colors font-semibold shadow-sm shadow-[#C4531A]/20">
+            <a href="#calcular" className="btn-gradient text-white text-sm px-5 py-2.5 rounded-full font-semibold">
               Calcular precio
             </a>
           </div>
@@ -104,56 +104,51 @@ export default async function Home() {
       </nav>
 
       {/* HERO */}
-      <section className="relative overflow-hidden px-5 pt-10 sm:pt-16 pb-20 text-center">
-        {/* Decorative blobs */}
-        <div className="absolute -top-20 -right-20 w-80 h-80 bg-[#C4531A]/8 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-[#C4531A]/6 rounded-full blur-3xl pointer-events-none" />
-        {/* Dot grid */}
-        <div className="absolute inset-0 dot-grid opacity-60 pointer-events-none" />
+      <section className="hero-gradient grain relative overflow-hidden px-5 pt-12 sm:pt-20 pb-24 text-center">
+        <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
+        <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#C4531A]/12 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-16 -left-16 w-80 h-80 bg-[#C4531A]/8 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative max-w-5xl mx-auto">
-          <div className="inline-flex items-center gap-2 bg-white border border-[#E8DFD8] rounded-full px-4 py-1.5 text-sm text-[#6B5B4E] mb-6 shadow-sm">
+          <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-[#E8DFD8] rounded-full px-4 py-1.5 text-sm text-[#6B5B4E] mb-8 shadow-sm">
             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            Gratis
+            Gratis · Sin registro
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-black leading-[1.02] mb-6 tracking-tight">
+          <h1 className="text-5xl sm:text-7xl md:text-[5.5rem] font-black leading-[1] mb-6 tracking-tight">
             El precio primero,<br />
-            <span className="text-[#C4531A]">el reformista después</span>
+            <span className="stat-number">el reformista después</span>
           </h1>
-          <p className="text-base sm:text-xl text-[#6B5B4E] max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-base sm:text-xl text-[#6B5B4E] max-w-xl mx-auto mb-10 leading-relaxed">
             Estimación real en 2 minutos. Tres presupuestos comparables. Reformistas verificados en tu ciudad.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
-              href="#calcular"
-              className="bg-[#C4531A] text-white px-8 py-4 rounded-full text-base font-semibold hover:bg-[#A84414] transition-all shadow-lg shadow-[#C4531A]/25 hover:shadow-[#C4531A]/40 hover:-translate-y-0.5"
-            >
+            <a href="#calcular" className="btn-gradient text-white px-8 py-4 rounded-full text-base font-semibold inline-block">
               Calcular precio gratis →
             </a>
             <a
               href="/reformistas"
-              className="sm:hidden border border-[#C4B8AE] text-[#6B5B4E] px-8 py-4 rounded-full text-base hover:border-[#1C1208] hover:text-[#1C1208] transition-colors font-medium"
+              className="sm:hidden bg-white/80 backdrop-blur-sm border border-[#C4B8AE] text-[#6B5B4E] px-8 py-4 rounded-full text-base hover:border-[#1C1208] hover:text-[#1C1208] transition-colors font-medium"
             >
               Unirme como reformista
             </a>
             <a
               href="#como-funciona"
-              className="hidden sm:block border border-[#C4B8AE] text-[#6B5B4E] px-8 py-4 rounded-full text-base hover:border-[#1C1208] hover:text-[#1C1208] transition-colors font-medium"
+              className="hidden sm:block bg-white/80 backdrop-blur-sm border border-[#C4B8AE] text-[#6B5B4E] px-8 py-4 rounded-full text-base hover:border-[#1C1208] hover:text-[#1C1208] transition-colors font-medium"
             >
               Cómo funciona
             </a>
           </div>
 
           {/* STATS */}
-          <div className="mt-14 grid grid-cols-3 gap-4 max-w-lg mx-auto">
+          <div className="mt-14 grid grid-cols-3 gap-3 max-w-lg mx-auto">
             {[
               { n: "2 min", label: "Estimación de precio" },
               { n: "3", label: "Presupuestos comparables" },
               { n: "100%", label: "Reformistas verificados" },
             ].map((s) => (
-              <div key={s.label} className="bg-white/70 backdrop-blur-sm border border-[#E8DFD8] rounded-2xl p-4 text-center shadow-sm">
-                <div className="text-xl sm:text-2xl font-black text-[#C4531A]">{s.n}</div>
+              <div key={s.label} className="bg-white/70 backdrop-blur-sm border border-[#E8DFD8] rounded-2xl p-4 text-center card-glow">
+                <div className="text-xl sm:text-2xl font-black stat-number">{s.n}</div>
                 <div className="text-xs text-[#6B5B4E] mt-1 leading-tight">{s.label}</div>
               </div>
             ))}
@@ -162,7 +157,7 @@ export default async function Home() {
       </section>
 
       {/* PROBLEMA */}
-      <section className="bg-[#1C1208] text-[#F7F3EE] py-24">
+      <section className="dark-shimmer text-[#F7F3EE] py-24 relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <FadeIn>
             <p className="text-[#C4531A] text-sm font-semibold uppercase tracking-widest mb-4">El problema</p>
@@ -170,7 +165,7 @@ export default async function Home() {
               Pedir presupuestos de reforma<br className="hidden md:block" /> es una tortura
             </h2>
           </FadeIn>
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-2 gap-4">
             {[
               { title: "Presupuestos incomparables", desc: "Cada reformista usa su formato. Imposible saber quién es más barato realmente." },
               { title: "Sin referencias de precio", desc: "No sabes si 45.000€ por tu reforma es caro o barato sin preguntar a todo el mundo." },
@@ -178,8 +173,8 @@ export default async function Home() {
               { title: "Desconfianza total", desc: "Sin verificación real, no sabes si el reformista tiene licencia o seguro de responsabilidad civil." },
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>
-                <div className="group bg-[#2A1E10] hover:bg-[#321F0E] rounded-2xl p-7 border border-white/5 hover:border-[#C4531A]/30 transition-all duration-300 h-full">
-                  <div className="w-11 h-11 bg-[#C4531A]/15 rounded-xl flex items-center justify-center text-[#C4531A] mb-5 group-hover:bg-[#C4531A]/25 transition-colors">
+                <div className="group bg-white/5 hover:bg-white/8 rounded-2xl p-7 border border-white/8 hover:border-[#C4531A]/40 transition-all duration-300 h-full backdrop-blur-sm">
+                  <div className="w-11 h-11 bg-[#C4531A]/20 rounded-xl flex items-center justify-center text-[#C4531A] mb-5 group-hover:bg-[#C4531A]/30 transition-colors">
                     {problemasIcons[i]}
                   </div>
                   <h3 className="font-bold text-lg mb-2">{p.title}</h3>
@@ -200,19 +195,18 @@ export default async function Home() {
           </h2>
         </FadeIn>
         <div className="grid md:grid-cols-3 gap-10 relative">
-          {/* Connecting line (desktop) */}
-          <div className="hidden md:block absolute top-8 left-[calc(33%+1rem)] right-[calc(33%+1rem)] h-px bg-gradient-to-r from-[#E8DFD8] via-[#C4531A]/30 to-[#E8DFD8]" />
+          <div className="hidden md:block absolute top-8 left-[calc(33%+1rem)] right-[calc(33%+1rem)] h-px bg-gradient-to-r from-transparent via-[#C4531A]/40 to-transparent" />
           {[
             { n: "01", title: "Describe tu reforma", desc: "Metros cuadrados, ciudad, tipo de reforma y calidad deseada. Dos minutos." },
             { n: "02", title: "Recibe la estimación", desc: "Rango de precio desglosado por capítulos: albañilería, fontanería, electricidad, carpintería..." },
             { n: "03", title: "Compara presupuestos reales", desc: "Tres reformistas verificados te envían presupuesto en el mismo formato. Comparables en tabla." },
           ].map((s, i) => (
             <FadeIn key={s.n} delay={i * 120}>
-              <div className="relative text-center md:text-left">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-white border-2 border-[#E8DFD8] rounded-2xl text-[#C4531A] mb-6 shadow-sm">
+              <div className="relative text-center md:text-left group">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-white border border-[#E8DFD8] rounded-2xl text-[#C4531A] mb-6 card-glow">
                   {pasosIcons[i]}
                 </div>
-                <div className="absolute -top-2 -left-1 md:-left-2 text-[#E8DFD8] text-5xl font-black leading-none select-none">{s.n}</div>
+                <div className="absolute -top-3 -left-1 md:-left-2 text-[#E8DFD8] text-6xl font-black leading-none select-none">{s.n}</div>
                 <h3 className="font-bold text-xl mb-3 mt-2">{s.title}</h3>
                 <p className="text-[#6B5B4E] leading-relaxed text-sm sm:text-base">{s.desc}</p>
               </div>
@@ -224,8 +218,9 @@ export default async function Home() {
       <Calculadora />
 
       {/* PARA REFORMISTAS */}
-      <section id="reformistas" className="py-28 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
+      <section id="reformistas" className="py-28 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-[#FDF0EB]/40 pointer-events-none" />
+        <div className="max-w-6xl mx-auto px-6 relative">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <FadeIn>
               <p className="text-[#C4531A] text-sm font-semibold uppercase tracking-widest mb-4">Para reformistas</p>
@@ -235,7 +230,7 @@ export default async function Home() {
               <p className="text-[#6B5B4E] text-lg mb-8 leading-relaxed">
                 El cliente ya conoce el rango de precio antes de contactarte. Sin visitas perdidas. Sin negociaciones imposibles. Solo obras reales.
               </p>
-              <ul className="space-y-4 mb-10">
+              <ul className="space-y-3 mb-10">
                 {[
                   "Leads cualificados con expectativa de precio realista",
                   "Herramienta de presupuesto PDF profesional incluida",
@@ -252,13 +247,13 @@ export default async function Home() {
                   </li>
                 ))}
               </ul>
-              <a href="/reformistas" className="inline-flex items-center gap-2 bg-[#1C1208] text-white px-7 py-4 rounded-full font-semibold hover:bg-[#C4531A] transition-colors shadow-md">
+              <a href="/reformistas" className="btn-gradient inline-flex items-center gap-2 text-white px-7 py-4 rounded-full font-semibold">
                 Unirme como reformista →
               </a>
             </FadeIn>
 
             <FadeIn delay={150}>
-              <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 gap-3">
                 {[
                   { plan: "Básico", price: "19€", desc: "Ficha verificada + herramienta de presupuesto PDF" },
                   { plan: "Pro", price: "49€", desc: "Posición destacada + badge verificado + leads directos", destacado: true },
@@ -266,10 +261,10 @@ export default async function Home() {
                 ].map((p) => (
                   <div
                     key={p.plan}
-                    className={`rounded-2xl p-6 border transition-all ${
+                    className={`rounded-2xl p-6 border transition-all duration-200 ${
                       p.destacado
-                        ? "border-[#C4531A] bg-[#FDF0EB] shadow-lg shadow-[#C4531A]/10"
-                        : "border-[#E8DFD8] bg-[#F7F3EE] hover:border-[#C4B8AE]"
+                        ? "border-[#C4531A] bg-gradient-to-br from-[#FDF0EB] to-white shadow-lg shadow-[#C4531A]/12"
+                        : "border-[#E8DFD8] bg-[#F7F3EE] hover:border-[#C4B8AE] hover:shadow-md"
                     }`}
                   >
                     {p.destacado && (

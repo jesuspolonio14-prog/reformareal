@@ -40,10 +40,10 @@ export default function Reformistas() {
     <main className="min-h-screen bg-[#F7F3EE] text-[#1C1208]">
 
       {/* NAV */}
-      <nav className="flex justify-between items-center px-4 sm:px-6 py-4 max-w-6xl mx-auto">
+      <nav className="sticky top-0 z-50 bg-[#F7F3EE]/80 backdrop-blur-xl border-b border-[#E8DFD8]/60 flex justify-between items-center px-4 sm:px-6 py-4 max-w-6xl mx-auto">
         <a href="/" className="flex items-center gap-2">
           <Image src="/logo-rr.svg" alt="ReformaReal" width={36} height={32} priority />
-          <span className="text-xl font-bold">reforma<span className="text-[#C4531A]">real</span></span>
+          <span className="text-xl font-black">reforma<span className="text-[#C4531A]">real</span></span>
         </a>
         <a href="/" className="text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors">
           ← Inicio
@@ -51,13 +51,14 @@ export default function Reformistas() {
       </nav>
 
       {/* HERO */}
-      <section className="max-w-2xl mx-auto px-5 pt-14 pb-10 text-center">
-        <div className="inline-block bg-[#1C1208]/10 text-[#1C1208] text-xs font-semibold px-3 py-1 rounded-full mb-5 tracking-wide uppercase">
+      <section className="hero-gradient grain max-w-full px-5 pt-16 pb-12 text-center relative overflow-hidden">
+        <div className="max-w-2xl mx-auto relative">
+        <div className="inline-block bg-white/80 backdrop-blur-sm border border-[#E8DFD8] text-[#6B5B4E] text-xs font-semibold px-3 py-1 rounded-full mb-5 tracking-wide uppercase shadow-sm">
           Para profesionales
         </div>
-        <h1 className="text-3xl sm:text-4xl font-black leading-tight mb-4">
+        <h1 className="text-4xl sm:text-5xl font-black leading-tight mb-4">
           Clientes que ya saben<br />
-          <span className="text-[#C4531A]">cuánto vale su obra</span>
+          <span className="stat-number">cuánto vale su obra</span>
         </h1>
         <p className="text-[#6B5B4E] leading-relaxed mb-3">
           Recibe solicitudes de clientes con estimación hecha. Sin visitas perdidas, sin negociaciones imposibles.
@@ -104,6 +105,7 @@ export default function Reformistas() {
         <p className="text-xs text-[#6B5B4E]">
           Sé de los primeros reformistas verificados en tu ciudad. Plazas limitadas por provincia.
         </p>
+        </div>
       </section>
 
       {/* CÓMO FUNCIONA */}
@@ -140,7 +142,7 @@ export default function Reformistas() {
       </section>
 
       {/* VENTAJAS */}
-      <section className="bg-[#1C1208] text-[#F7F3EE] py-14">
+      <section className="dark-shimmer text-[#F7F3EE] py-14 relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-5">
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-5">
             {[
@@ -149,7 +151,7 @@ export default function Reformistas() {
               { icon: '✅', title: 'Perfil verificado',  desc: 'Badge de verificado que genera confianza desde el primer contacto.' },
               { icon: '📊', title: 'Panel de gestión',   desc: 'Gestiona tus leads y el estado de tus obras desde un panel propio.' },
             ].map((v) => (
-              <div key={v.title} className="bg-[#2A1E10] rounded-2xl p-5">
+              <div key={v.title} className="bg-white/6 hover:bg-white/10 rounded-2xl p-5 border border-white/8 hover:border-[#C4531A]/30 transition-all duration-200 backdrop-blur-sm">
                 <div className="text-2xl mb-2">{v.icon}</div>
                 <h3 className="font-bold mb-1">{v.title}</h3>
                 <p className="text-[#B5A090] text-sm leading-relaxed">{v.desc}</p>
@@ -255,7 +257,7 @@ export default function Reformistas() {
           </p>
         )}
         <p className="text-center mt-6">
-          <a href="/registro" className="inline-block bg-[#C4531A] text-white px-8 py-4 rounded-full font-bold hover:bg-[#A84414] transition-colors shadow-md">
+          <a href="/registro" className="btn-gradient inline-block text-white px-8 py-4 rounded-full font-bold">
             {PROMO_ACTIVA ? 'Crear cuenta gratis →' : 'Empezar ahora →'}
           </a>
         </p>

@@ -18,7 +18,102 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Dot grid */
 .dot-grid {
   background-image: radial-gradient(circle, #C4531A1A 1.5px, transparent 1.5px);
   background-size: 28px 28px;
+}
+
+/* Grain texture overlay */
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+/* Hero gradient mesh */
+.hero-gradient {
+  background:
+    radial-gradient(ellipse 80% 60% at 70% -10%, #C4531A18 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at -10% 80%, #C4531A10 0%, transparent 55%),
+    #F7F3EE;
+}
+
+/* Gradient button */
+.btn-gradient {
+  background: linear-gradient(135deg, #D4631A 0%, #B84515 100%);
+  box-shadow: 0 4px 24px -4px #C4531A55, 0 1px 2px #C4531A33;
+  transition: all 0.2s ease;
+}
+.btn-gradient:hover {
+  background: linear-gradient(135deg, #C4531A 0%, #A03A10 100%);
+  box-shadow: 0 8px 32px -4px #C4531A66, 0 1px 2px #C4531A44;
+  transform: translateY(-1px);
+}
+
+/* Card glow shadow */
+.card-glow {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px -8px rgba(196, 83, 26, 0.1);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card-glow:hover {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 16px 40px -8px rgba(196, 83, 26, 0.18);
+  transform: translateY(-2px);
+}
+
+/* Gradient border card */
+.card-gradient-border {
+  position: relative;
+  background: white;
+  border-radius: 1rem;
+}
+.card-gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #C4531A22, #E8DFD8, #C4531A11);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Section divider wave */
+.wave-divider {
+  position: relative;
+}
+.wave-divider::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: #F7F3EE;
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+
+/* Shimmer on dark sections */
+.dark-shimmer {
+  background:
+    radial-gradient(ellipse 70% 50% at 80% 20%, #C4531A22 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, #C4531A15 0%, transparent 50%),
+    #1C1208;
+}
+
+/* Number highlight */
+.stat-number {
+  background: linear-gradient(135deg, #C4531A, #E06030);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
