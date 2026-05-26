@@ -36,15 +36,11 @@ const ventajas = [
   { icon: '📊', titulo: 'Panel de gestión de leads', desc: 'Revisa cada solicitud, marca el estado de la obra y gestiona todo desde un sitio.' },
 ]
 
-const planes = [
-  { key: 'basico',  nombre: 'Básico',  precio: '19 €/mes', desc: 'Ficha verificada + herramienta presupuesto PDF' },
-  { key: 'pro',     nombre: 'Pro',     precio: '49 €/mes', desc: 'Posición destacada + leads directos + badge verificado', popular: true },
-  { key: 'elite',   nombre: 'Elite',   precio: '99 €/mes', desc: 'Primero en tu provincia + panel completo + analíticas' },
-]
+const plan = { precio: '19 €/mes', desc: 'Leads de obra en tu zona · Presupuesto PDF · Perfil verificado · Panel de gestión · Sin permanencia' }
 
 const faqs = [
   { q: '¿Qué tipo de obras llegan?', a: 'Reformas integrales, de cocina, baño, electricidad, fontanería, pintura, carpintería y suelos. Principalmente en Madrid, con expansión a otras ciudades.' },
-  { q: '¿Cuántos leads recibiré al mes?', a: 'Depende del plan y de tu ciudad. Los reformistas del plan Pro en Madrid reciben entre 3 y 8 solicitudes mensuales. El volumen crece con el número de clientes activos en la plataforma.' },
+  { q: '¿Cuántos leads recibiré al mes?', a: 'Depende de tu ciudad. Los reformistas en Madrid reciben entre 3 y 8 solicitudes mensuales. El volumen crece con el número de clientes activos en la plataforma.' },
   { q: '¿Hay permanencia o contrato?', a: 'No. Puedes cancelar en cualquier momento. El primer mes es completamente gratis, sin cargos.' },
   { q: '¿Necesito obra de reforma integral o sirve mi oficio específico?', a: 'Sirve cualquier oficio relacionado con la reforma: electricidad, fontanería, pintura, carpintería, albañilería. Los clientes buscan tanto reformas integrales como trabajos específicos.' },
   { q: '¿Cuándo empieza el cobro?', a: 'Solo al terminar el mes de prueba gratuita. Necesitas introducir tarjeta para reservar tu plan, pero no se realiza ningún cargo hasta pasado el primer mes.' },
@@ -96,7 +92,7 @@ export default function Reformistas() {
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center mb-10">
           <a href="/registro" className="bg-[#C4531A] text-white px-8 py-4 rounded-full text-base font-semibold hover:bg-[#A84414] transition-all shadow-lg shadow-[#C4531A]/25 hover:-translate-y-0.5">
-            {PROMO_ACTIVA ? 'Empezar gratis — 1er mes sin cargo →' : 'Registrarme ahora →'}
+            {PROMO_ACTIVA ? 'Empieza gratis →' : 'Registrarme ahora →'}
           </a>
           <a href="/login" className="border border-[#C4B8AE] text-[#6B5B4E] px-8 py-4 rounded-full text-base hover:border-[#1C1208] hover:text-[#1C1208] transition-colors font-medium">
             Ya tengo cuenta
@@ -212,49 +208,37 @@ export default function Reformistas() {
 
       {/* PLANES */}
       <section className="py-16 bg-[#F7F3EE] border-t border-[#E8DFD8]">
-        <div className="max-w-4xl mx-auto px-5">
-          <h2 className="text-2xl font-black text-center mb-2">Elige tu plan</h2>
+        <div className="max-w-lg mx-auto px-5">
+          <h2 className="text-2xl font-black text-center mb-2">Un plan simple</h2>
           <p className="text-center text-[#6B5B4E] mb-8 text-sm">Sin permanencia · Cancela cuando quieras</p>
           {PROMO_ACTIVA && (
             <p className="text-center text-[#C4531A] font-bold mb-6">Primer mes completamente gratis</p>
           )}
-          <div className="grid sm:grid-cols-3 gap-5">
-            {planes.map((p) => (
-              <div
-                key={p.nombre}
-                className={`rounded-2xl p-6 border relative ${p.popular ? 'border-[#C4531A] bg-[#FDF0EB] shadow-lg shadow-[#C4531A]/10' : 'border-[#E8DFD8] bg-white'}`}
-              >
-                {PROMO_ACTIVA && (
-                  <span className="absolute -top-3 right-3 text-xs bg-green-500 text-white px-2 py-0.5 rounded-full font-bold">
-                    1er mes GRATIS
-                  </span>
-                )}
-                {p.popular && (
-                  <span className="text-xs bg-[#C4531A] text-white px-2 py-0.5 rounded-full font-semibold mb-3 inline-block">
-                    Más elegido
-                  </span>
-                )}
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-bold text-lg">{p.nombre}</span>
-                  <div className="text-right">
-                    {PROMO_ACTIVA && <span className="block text-xs text-[#6B5B4E] line-through">{p.precio}</span>}
-                    <span className={`font-black text-xl ${PROMO_ACTIVA ? 'text-green-600' : 'text-[#C4531A]'}`}>
-                      {PROMO_ACTIVA ? '0 €' : p.precio}
-                    </span>
-                  </div>
-                </div>
-                <p className="text-sm text-[#6B5B4E]">{p.desc}</p>
+          <div className="rounded-2xl p-7 border-2 border-[#C4531A] bg-[#FDF0EB] shadow-lg shadow-[#C4531A]/10 relative mb-8">
+            {PROMO_ACTIVA && (
+              <span className="absolute -top-3 right-4 text-xs bg-green-500 text-white px-3 py-1 rounded-full font-bold">
+                1er mes GRATIS
+              </span>
+            )}
+            <div className="flex justify-between items-center mb-3">
+              <span className="font-black text-xl">Plan Reformista</span>
+              <div className="text-right">
+                {PROMO_ACTIVA && <span className="block text-xs text-[#6B5B4E] line-through">{plan.precio}</span>}
+                <span className={`font-black text-2xl ${PROMO_ACTIVA ? 'text-green-600' : 'text-[#C4531A]'}`}>
+                  {PROMO_ACTIVA ? '0 €' : plan.precio}
+                </span>
               </div>
-            ))}
+            </div>
+            <p className="text-sm text-[#6B5B4E]">{plan.desc}</p>
           </div>
-          <p className="text-center mt-8">
-            <a href="/registro" className="inline-block bg-[#C4531A] text-white px-8 py-4 rounded-full font-bold hover:bg-[#A84414] transition-colors shadow-md">
-              {PROMO_ACTIVA ? 'Empezar gratis →' : 'Registrarme ahora →'}
+          <p className="text-center">
+            <a href="/registro" className="inline-block bg-[#C4531A] text-white px-8 py-4 rounded-full font-bold hover:bg-[#A84414] transition-colors shadow-md w-full text-center">
+              {PROMO_ACTIVA ? 'Empieza gratis →' : 'Registrarme ahora →'}
             </a>
           </p>
           {PROMO_ACTIVA && (
             <p className="text-center text-xs text-[#6B5B4E] mt-3">
-              Solo necesitas introducir tu tarjeta. No se realiza ningún cargo hasta pasado el mes de prueba.
+              Sin tarjeta hasta terminar el mes gratis. Cancela cuando quieras.
             </p>
           )}
         </div>

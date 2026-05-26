@@ -268,32 +268,16 @@ export default async function Home() {
             </FadeIn>
 
             <FadeIn delay={150}>
-              <div className="grid grid-cols-1 gap-3">
-                {[
-                  { plan: "Básico", price: "19€", desc: "Ficha verificada + herramienta de presupuesto PDF" },
-                  { plan: "Pro", price: "49€", desc: "Posición destacada + badge verificado + leads directos", destacado: true },
-                  { plan: "Elite", price: "99€", desc: "Primero en tu provincia + panel de obra + analíticas" },
-                ].map((p) => (
-                  <div
-                    key={p.plan}
-                    className={`rounded-2xl p-6 border transition-all duration-200 ${
-                      p.destacado
-                        ? "border-[#C4531A] bg-gradient-to-br from-[#FDF0EB] to-white shadow-lg shadow-[#C4531A]/12"
-                        : "border-[#E8DFD8] bg-[#F7F3EE] hover:border-[#C4B8AE] hover:shadow-md"
-                    }`}
-                  >
-                    {p.destacado && (
-                      <span className="text-xs bg-[#C4531A] text-white px-3 py-1 rounded-full font-semibold mb-3 inline-block">
-                        Más elegido · 1er mes gratis
-                      </span>
-                    )}
-                    <div className="flex justify-between items-center">
-                      <span className="font-bold text-lg">{p.plan}</span>
-                      <span className="text-2xl font-black text-[#C4531A]">{p.price}<span className="text-sm font-normal text-[#6B5B4E]">/mes</span></span>
-                    </div>
-                    <p className="text-sm text-[#6B5B4E] mt-2">{p.desc}</p>
-                  </div>
-                ))}
+              <div className="rounded-2xl p-7 border-2 border-[#C4531A] bg-gradient-to-br from-[#FDF0EB] to-white shadow-lg shadow-[#C4531A]/12 relative">
+                <span className="text-xs bg-green-500 text-white px-3 py-1 rounded-full font-semibold mb-4 inline-block">
+                  1er mes gratis
+                </span>
+                <div className="flex justify-between items-center mb-2">
+                  <span className="font-bold text-xl">Plan Reformista</span>
+                  <span className="text-3xl font-black text-[#C4531A]">19€<span className="text-sm font-normal text-[#6B5B4E]">/mes</span></span>
+                </div>
+                <p className="text-sm text-[#6B5B4E]">Leads en tu zona · Presupuesto PDF · Perfil verificado · Panel de gestión</p>
+                <p className="text-xs text-[#6B5B4E] mt-3">Sin permanencia · Cancela cuando quieras</p>
               </div>
             </FadeIn>
           </div>
