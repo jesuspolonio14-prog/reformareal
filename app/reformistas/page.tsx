@@ -114,6 +114,26 @@ export default function Reformistas() {
         </div>
       </section>
 
+      {/* CONTADOR DEMANDA */}
+      <section className="bg-[#C4531A] py-10 px-5 text-center text-white">
+        <div className="max-w-3xl mx-auto">
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <span className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-60"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+            </span>
+            <p className="text-sm font-semibold uppercase tracking-widest text-white/80">Ahora mismo en ReformaReal</p>
+          </div>
+          <p className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight mb-3">15.736</p>
+          <p className="text-xl sm:text-2xl font-bold text-white/90 mb-4">personas buscando presupuestos para su vivienda</p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {['Electricistas', 'Fontaneros', 'Albañiles', 'Pintores', 'Carpinteros', 'Reformas integrales'].map((o) => (
+              <span key={o} className="bg-white/20 rounded-full px-3 py-1 text-sm font-medium">{o}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* EL PROBLEMA */}
       <section className="bg-[#1C1208] text-[#F7F3EE] py-20">
         <div className="max-w-5xl mx-auto px-5">
