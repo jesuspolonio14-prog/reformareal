@@ -102,7 +102,7 @@ export default function Reformistas() {
         {/* Stats */}
         <div className="flex flex-wrap justify-center gap-8 text-center">
           {[
-            { n: '3–8', label: 'leads/mes en Madrid' },
+            { n: '3–8', label: 'leads/mes' },
             { n: '0€', label: PROMO_ACTIVA ? 'el primer mes' : 'de comisión por obra' },
             { n: '100%', label: 'sin permanencia' },
           ].map((s) => (
