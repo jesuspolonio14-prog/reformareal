@@ -92,16 +92,16 @@ export default async function Home() {
                 <span>{nombrePerfil ?? 'Mi panel'}</span>
               </a>
             ) : (
-              <a href="/reformistas" className="hidden sm:block text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors font-medium">
-                Soy reformista
+              <a href="#calcular" className="hidden sm:block text-sm text-[#6B5B4E] hover:text-[#1C1208] transition-colors font-medium">
+                Calcular precio
               </a>
             )}
             <a
-              href="#calcular"
+              href="/reformistas"
               className="text-white text-sm px-5 py-2.5 rounded-full font-semibold transition-all hover:-translate-y-0.5"
               style={{ background: 'linear-gradient(135deg, #D4631A 0%, #B84515 100%)', boxShadow: '0 4px 16px -4px rgba(196,83,26,0.45)' }}
             >
-              Calcular precio
+              Soy reformista
             </a>
           </div>
         </div>
