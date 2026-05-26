@@ -7,8 +7,12 @@ import LeadsSection from './LeadsSection'
 import PerfilSection from './PerfilSection'
 import PresupuestosSection from './PresupuestosSection'
 import ActivarPlanSection from './ActivarPlanSection'
+import ConversionTracker from '@/app/components/ConversionTracker'
 
-export default async function Panel() {
+const GOOGLE_ADS_CONVERSION_ID = 'AW-18162423272/XXXXXXXXXXX'
+
+export default async function Panel({ searchParams }: { searchParams: Promise<{ pago?: string }> }) {
+  const { pago } = await searchParams
   const supabase = await createClient()
   const admin = getSupabase()
 
@@ -50,6 +54,9 @@ export default async function Panel() {
 
   return (
     <main className="min-h-screen bg-[#F7F3EE] text-[#1C1208]">
+      {pago === 'ok' && (
+        <ConversionTracker conversionId={GOOGLE_ADS_CONVERSION_ID} />
+      )}
       {/* NAV */}
       <nav className="flex justify-between items-center px-4 sm:px-6 py-3 max-w-6xl mx-auto border-b border-[#E8DFD8]">
         <a href="/" className="flex items-center gap-2">

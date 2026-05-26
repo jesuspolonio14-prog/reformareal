@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     canonical: "https://reformareal.com",
   },
   verification: {
-    google: "IsEOIZKKhJkdCIkfX8dN3PoQw77s8ZbBiq9chWY-DgI",
+    google: "gt9certFZY1On9p992xMSAmyjyz_s8sQ6IhsMix8Jo0",
   },
 };
 
@@ -67,18 +67,17 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-sans">
         {children}
         <Analytics />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-18162423272"
-          strategy="afterInteractive"
-        />
-        <Script id="google-ads-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-18162423272');
-          `}
-        </Script>
+        {process.env.NEXT_PUBLIC_GOOGLE_ADS_ID && !process.env.NEXT_PUBLIC_GOOGLE_ADS_ID.includes('XXXX') && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-ads-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${process.env.NEXT_PUBLIC_GOOGLE_ADS_ID}')`}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );
