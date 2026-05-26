@@ -9,7 +9,7 @@ import PresupuestosSection from './PresupuestosSection'
 import ActivarPlanSection from './ActivarPlanSection'
 import ConversionTracker from '@/app/components/ConversionTracker'
 
-const GOOGLE_ADS_CONVERSION_ID = 'AW-18162423272/XXXXXXXXXXX'
+const GOOGLE_ADS_CONVERSION_ID = 'AW-18162423272/LabSCLzx3bMcEOirwtRD'
 
 export default async function Panel({ searchParams }: { searchParams: Promise<{ pago?: string }> }) {
   const { pago } = await searchParams
