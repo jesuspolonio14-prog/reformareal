@@ -30,24 +30,34 @@ export async function registrarReformista(
 
   const supabase = await createClient()
 
-  const { data, error: authError } = await supabase.auth.signUp({ email, password })
-  if (authError) {
-    if (authError.message.includes('already registered')) {
-      return { status: 'error', message: 'Este email ya está registrado. Usa /login.' }
+  let data: Awaited<ReturnType<typeof supabase.auth.signUp>>['data']
+  try {
+    const result = await supabase.auth.signUp({ email, password })
+    if (result.error) {
+      if (result.error.message.includes('already registered')) {
+        return { status: 'error', message: 'Este email ya está registrado. Usa /login.' }
+      }
+      return { status: 'error', message: result.error.message }
     }
-    return { status: 'error', message: authError.message }
+    data = result.data
+  } catch {
+    return { status: 'error', message: 'Error de conexión. Inténtalo de nuevo en unos segundos.' }
   }
 
   if (data.user) {
-    const admin = getSupabase()
-    const { error: insertError } = await admin.from('reformistas_perfiles').insert({
-      id: data.user.id,
-      nombre,
-      email,
-      ciudad,
-      plan_pagado: false,
-    })
-    if (insertError) console.error('Insert perfil error:', insertError)
+    try {
+      const admin = getSupabase()
+      const { error: insertError } = await admin.from('reformistas_perfiles').insert({
+        id: data.user.id,
+        nombre,
+        email,
+        ciudad,
+        plan_pagado: false,
+      })
+      if (insertError) console.error('Insert perfil error:', insertError)
+    } catch (e) {
+      console.error('Insert perfil error:', e)
+    }
   }
 
   await resend.emails.send({
