@@ -67,5 +67,5 @@ export async function registrarReformista(
     html: `<p><strong>${nombre}</strong> (${email}) se ha registrado en ${ciudad}.</p>`,
   }).catch(() => {})
 
-  redirect('/panel')
+  redirect('/registro/gracias')
 }

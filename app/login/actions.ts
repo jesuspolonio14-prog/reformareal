@@ -23,6 +23,9 @@ export async function loginReformista(
   const { error } = await supabase.auth.signInWithPassword({ email, password })
 
   if (error) {
+    if (error.message.toLowerCase().includes('email not confirmed')) {
+      return { status: 'error', message: 'Debes confirmar tu email antes de entrar. Revisa tu bandeja de entrada.' }
+    }
     return { status: 'error', message: 'Email o contraseña incorrectos.' }
   }
 
