@@ -52,7 +52,6 @@ export async function registrarReformista(
         nombre,
         email,
         ciudad,
-        plan_pagado: false,
       })
       if (insertError) console.error('Insert perfil error:', insertError)
     } catch (e) {

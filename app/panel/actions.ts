@@ -30,6 +30,7 @@ export async function actualizarEstadoLead(leadId: string, estado: string) {
 export async function actualizarPerfil(datos: {
   nombre: string
   ciudad: string
+  telefono: string
   oficio: string
 }) {
   const supabase = await createClient()
@@ -40,9 +41,10 @@ export async function actualizarPerfil(datos: {
   const { error } = await admin
     .from('reformistas_perfiles')
     .update({
-      nombre:     datos.nombre,
-      ciudad:     datos.ciudad,
-      tipos_obra: [datos.oficio],
+      nombre:   datos.nombre,
+      ciudad:   datos.ciudad,
+      telefono: datos.telefono || null,
+      oficio:   datos.oficio,
     })
     .eq('id', user.id)
 
