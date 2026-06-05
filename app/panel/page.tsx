@@ -6,13 +6,9 @@ import { cerrarSesion } from './actions'
 import LeadsSection from './LeadsSection'
 import PerfilSection from './PerfilSection'
 import PresupuestosSection from './PresupuestosSection'
-import ActivarPlanSection from './ActivarPlanSection'
-import ConversionTracker from '@/app/components/ConversionTracker'
-
-const GOOGLE_ADS_CONVERSION_ID = 'AW-18162423272/LabSCLzx3bMcEOirwtRD'
 
 export default async function Panel({ searchParams }: { searchParams: Promise<{ pago?: string }> }) {
-  const { pago } = await searchParams
+  await searchParams
   const supabase = await createClient()
   const admin = getSupabase()
 
@@ -24,8 +20,6 @@ export default async function Panel({ searchParams }: { searchParams: Promise<{ 
     .select('*')
     .eq('id', user.id)
     .single()
-
-  const sinSuscripcion = !perfil?.suscripcion_activa
 
   const [{ data: leads, error: leadsError }, { data: seguimientos }, { data: presupuestos }] = await Promise.all([
     admin
@@ -48,15 +42,11 @@ export default async function Panel({ searchParams }: { searchParams: Promise<{ 
 
   if (leadsError) console.error('Leads error:', leadsError)
 
-  // Leads sin tocar = sin entrada en lead_seguimientos
   const leadsVistos = new Set((seguimientos ?? []).map((s) => s.lead_id))
   const leadsNuevos = (leads ?? []).filter((l) => !leadsVistos.has(l.id)).length
 
   return (
     <main className="min-h-screen bg-[#F7F3EE] text-[#1C1208]">
-      {pago === 'ok' && (
-        <ConversionTracker conversionId={GOOGLE_ADS_CONVERSION_ID} />
-      )}
       {/* NAV */}
       <nav className="flex justify-between items-center px-4 sm:px-6 py-3 max-w-6xl mx-auto border-b border-[#E8DFD8]">
         <a href="/" className="flex items-center gap-2">
@@ -73,85 +63,60 @@ export default async function Panel({ searchParams }: { searchParams: Promise<{ 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-5 sm:space-y-8">
 
         {/* BIENVENIDA */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-black">Hola, {perfil?.nombre ?? 'reformista'} 👋</h1>
-            <p className="text-[#6B5B4E] text-sm mt-0.5">{perfil?.ciudad}</p>
-          </div>
-          {!sinSuscripcion && (
-            <div className="flex flex-col items-start sm:items-end gap-2">
-              {perfil?.plan_pagado ? (
-                <div className="bg-green-50 border border-green-200 text-green-700 text-xs sm:text-sm rounded-xl px-3 py-2">
-                  ✅ Plan {perfil.plan} activo
-                </div>
-              ) : (
-                <div className="bg-amber-50 border border-amber-200 text-amber-700 text-xs sm:text-sm rounded-xl px-3 py-2">
-                  🎁 Periodo de prueba · 1er mes gratis
-                </div>
-              )}
-              <a href="mailto:reformarealsoporte@gmail.com?subject=Gestión suscripción" className="text-xs text-[#6B5B4E] hover:text-[#C4531A] transition-colors underline">
-                Gestionar suscripción →
-              </a>
-            </div>
-          )}
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-black">Hola, {perfil?.nombre ?? 'reformista'} 👋</h1>
+          <p className="text-[#6B5B4E] text-sm mt-0.5">{perfil?.ciudad}</p>
         </div>
 
-        {sinSuscripcion ? (
-          <ActivarPlanSection userId={user.id} email={user.email ?? ''} />
-        ) : (
-          <>
-            {/* BANNER leads nuevos */}
-            {leadsNuevos > 0 && (
-              <a href="#leads" className="flex items-center gap-3 bg-[#C4531A] text-white rounded-2xl px-5 py-4 hover:bg-[#A84414] transition-colors">
-                <span className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center font-black text-sm shrink-0">
-                  {leadsNuevos}
-                </span>
-                <div>
-                  <p className="font-bold text-sm">
-                    {leadsNuevos === 1 ? 'Tienes 1 lead nuevo sin revisar' : `Tienes ${leadsNuevos} leads nuevos sin revisar`}
-                  </p>
-                  <p className="text-white/70 text-xs">Toca para verlos →</p>
-                </div>
-              </a>
-            )}
-
-            {/* STATS */}
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                {
-                  label: leadsNuevos > 0 ? `${leadsNuevos} nuevos` : 'Leads',
-                  valor: leads?.length ?? 0,
-                  highlight: leadsNuevos > 0,
-                },
-                { label: 'Plan', valor: perfil?.plan ?? 'Básico', highlight: false },
-                { label: 'Estado', valor: perfil?.verificado ? 'OK' : 'Pendiente', highlight: false },
-              ].map((s) => (
-                <div key={s.label} className={`rounded-2xl p-3 sm:p-5 border text-center ${s.highlight ? 'bg-[#FDF0EB] border-[#C4531A]/30' : 'bg-white border-[#E8DFD8]'}`}>
-                  <div className="text-xl sm:text-2xl font-black text-[#C4531A] truncate">{s.valor}</div>
-                  <div className="text-xs text-[#6B5B4E] mt-1">{s.label}</div>
-                </div>
-              ))}
+        {/* BANNER leads nuevos */}
+        {leadsNuevos > 0 && (
+          <a href="#leads" className="flex items-center gap-3 bg-[#C4531A] text-white rounded-2xl px-5 py-4 hover:bg-[#A84414] transition-colors">
+            <span className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center font-black text-sm shrink-0">
+              {leadsNuevos}
+            </span>
+            <div>
+              <p className="font-bold text-sm">
+                {leadsNuevos === 1 ? 'Tienes 1 lead nuevo sin revisar' : `Tienes ${leadsNuevos} leads nuevos sin revisar`}
+              </p>
+              <p className="text-white/70 text-xs">Toca para verlos →</p>
             </div>
-
-            {/* PERFIL */}
-            <PerfilSection perfil={perfil ?? {}} />
-
-            {/* LEADS */}
-            <div id="leads">
-              <LeadsSection
-                leads={leads ?? []}
-                seguimientos={seguimientos ?? []}
-                ciudad={perfil?.ciudad ?? ''}
-              />
-            </div>
-
-            {/* PRESUPUESTOS */}
-            <PresupuestosSection presupuestos={(presupuestos ?? []).map((p) => ({
-              ...p,
-              leads: Array.isArray(p.leads) ? p.leads[0] : p.leads,
-            }))} />
-          </>
+          </a>
         )}
+
+        {/* STATS */}
+        <div className="grid grid-cols-2 gap-2">
+          {[
+            {
+              label: leadsNuevos > 0 ? `${leadsNuevos} nuevos` : 'Leads',
+              valor: leads?.length ?? 0,
+              highlight: leadsNuevos > 0,
+            },
+            { label: 'Estado', valor: perfil?.verificado ? 'Verificado' : 'Activo', highlight: false },
+          ].map((s) => (
+            <div key={s.label} className={`rounded-2xl p-3 sm:p-5 border text-center ${s.highlight ? 'bg-[#FDF0EB] border-[#C4531A]/30' : 'bg-white border-[#E8DFD8]'}`}>
+              <div className="text-xl sm:text-2xl font-black text-[#C4531A] truncate">{s.valor}</div>
+              <div className="text-xs text-[#6B5B4E] mt-1">{s.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* PERFIL */}
+        <PerfilSection perfil={perfil ?? {}} />
+
+        {/* LEADS */}
+        <div id="leads">
+          <LeadsSection
+            leads={leads ?? []}
+            seguimientos={seguimientos ?? []}
+            ciudad={perfil?.ciudad ?? ''}
+          />
+        </div>
+
+        {/* PRESUPUESTOS */}
+        <PresupuestosSection presupuestos={(presupuestos ?? []).map((p) => ({
+          ...p,
+          leads: Array.isArray(p.leads) ? p.leads[0] : p.leads,
+        }))} />
 
       </div>
     </main>
